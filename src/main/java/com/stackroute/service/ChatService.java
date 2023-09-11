@@ -1,12 +1,19 @@
 package com.stackroute.service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
 import com.stackroute.model.Chat;
 import com.stackroute.model.Message;
 import com.stackroute.repository.ChatRepository;
@@ -15,6 +22,8 @@ import com.stackroute.repository.ChatRepository;
 public class ChatService {
 	@Autowired
 	private ChatRepository chatRepository;
+	@Autowired
+	private Cloudinary cloudinary;
 
 	public Chat AddChat(Chat chat) {
 		try {
@@ -163,6 +172,34 @@ public class ChatService {
 			return false;
 		} catch (Exception e) {
 			throw new RuntimeException("Error while deleting a chat: " + e.getMessage(), e);
+		}
+	}
+
+	public Chat UploadMediaFile(String email, MultipartFile file) throws IOException {
+		
+		Map<String, String> uploadMedia = cloudinary.uploader().upload(file.getBytes(), Map.of());
+		String url = uploadMedia.get("url");
+		Chat existingChat = null;
+		List<Chat> chat = chatRepository.findByChatUserEmail(email);
+		List<String>Links = new ArrayList<>();
+		Links.add(url);
+		Message msg = new Message();
+		msg.setSenderMediaLinks(Links);
+		try {
+			if (!chat.isEmpty()) {
+				existingChat = chat.get(0);
+
+				if (existingChat.getChatMessage().isEmpty()) {
+					existingChat.getChatMessage().add(0, msg);
+				} else {
+					msg.setSenderEmail(existingChat.getChatMessage().get(0).getSenderEmail());
+					existingChat.getChatMessage().add(msg);
+				}
+			}
+
+			return chatRepository.save(existingChat);
+		} catch (Exception e) {
+			throw new RuntimeException("Error while Uploading File"+e.getMessage(),e);
 		}
 	}
 

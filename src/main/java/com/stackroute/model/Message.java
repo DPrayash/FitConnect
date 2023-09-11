@@ -55,10 +55,11 @@ public class Message {
 		super();
 		this.senderEmail = senderEmail;
 		this.senderMessage = senderMessage;
-		SenderMediaLinks = senderMediaLinks;
+		this.SenderMediaLinks = senderMediaLinks;
 		this.timeStamp = timeStamp;
 		this.DateStamp =  dateStamp;
 	}
+
 
 	private String senderEmail;
 	private String senderMessage;

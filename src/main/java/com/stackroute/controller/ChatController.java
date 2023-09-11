@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.stackroute.model.Chat;
 import com.stackroute.model.Message;
@@ -122,6 +124,20 @@ public class ChatController {
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+    @PutMapping("/UploadFile/{Email}")
+	public ResponseEntity<?> UploadMedia(@PathVariable String Email, @RequestParam("file") MultipartFile file) {
+		try {
+			Chat updatedChat = chatService.UploadMediaFile(Email, file);
+			if (updatedChat != null) {
+				return new ResponseEntity<Chat>(updatedChat, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("Uh! msg not Updated", HttpStatus.CONFLICT);
+			}
+
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Error :" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
