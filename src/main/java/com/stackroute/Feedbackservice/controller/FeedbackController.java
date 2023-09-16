@@ -56,7 +56,7 @@ public class FeedbackController {
 		return entity;
 	}
 	
-	@GetMapping("/feedback/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getFeedbackById(@PathVariable("id") Long id) {
 			ResponseEntity<?> entity = null;
 			try {
@@ -70,7 +70,7 @@ public class FeedbackController {
 		return entity;
 	}
 	
-	@DeleteMapping("/feedback/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteFeedback(@PathVariable("id") Long id) {
 		ResponseEntity<?> entity = null;
 		try {
@@ -86,7 +86,7 @@ public class FeedbackController {
 		return entity;
 	}
 	
-	@PutMapping("/feedback/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<?> updateFeedback(@PathVariable("id") Long id, @RequestBody Feedback updatedFeedback){
 		Feedback updatedFeedbackResult = feedbackService.updateFeedback(id, updatedFeedback);
 		if (updatedFeedbackResult != null) {
