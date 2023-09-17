@@ -17,6 +17,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +39,7 @@ import { ChatsComponent } from './components/chats/chats.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
 import { MembershipComponent } from './components/membership/membership.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 @NgModule({
@@ -56,7 +59,8 @@ import { MembershipComponent } from './components/membership/membership.componen
     ChatsComponent,
     UserHomeComponent,
     UserSidebarComponent, 
-    MembershipComponent
+    MembershipComponent, 
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +83,7 @@ import { MembershipComponent } from './components/membership/membership.componen
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [],

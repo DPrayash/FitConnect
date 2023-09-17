@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   galleryInfo: string[] = [];
   plansInfo: string[] = [];
   trainersInfo: string[] = [];
+  isLoading: boolean = false;
 
 
   constructor(private gymService: GymService, private userService: UserService) { }
@@ -42,9 +43,11 @@ export class HomeComponent implements OnInit {
   adminUpdate: boolean = false;
 
   private getGymInfo() {
+    this.isLoading = true;
     this.gymService.getGymInfo().subscribe((data) => {
       console.log('Gym Info:', data);
       this.gymInfo = data;
+      this.isLoading = false;
     })
   }
 
@@ -118,7 +121,7 @@ export class HomeComponent implements OnInit {
           }
         });
 
-      }     
+      }
       this.usersInfo = [];
       this.usersInfo.push("Total Users - " + totalUsers);
       this.usersInfo.push("Subscribed Users - " + subscribedUsers);

@@ -4,10 +4,10 @@
         <div class="items-card" *ngFor="let payment of paymentList" (click)="selectPayment(payment)" [class.selected]="payment === selectedPayment">
             <div class="items-card-title">{{ payment.paymentTitle }}</div>
             <div class="items-card-footer">
-                <p><strong>Amount:</strong> {{ payment.amount | currency }}</p>
+                <p><strong>Amount:</strong> ₹ {{ payment.amount }}</p>
                 <p
-                    [ngClass]="{'red-badge': payment.paymentStatus === 'Fail', 'green-badge': payment.paymentStatus === 'Success'}">
-                    Status:<strong>{{ payment.paymentStatus }}</strong> 
+                    [ngClass]="{'red-badge': payment.paymentStatus === 'Fail', 'green-badge': payment.paymentStatus === 'created'}">
+                    Status:<strong>{{ payment.paymentStatus }}</strong>
                 </p>
             </div>
         </div>
@@ -22,17 +22,17 @@
             <div class="payment-content">
                 <p><strong>Title:</strong> {{ selectedPayment.paymentTitle }}</p>
                 <p><strong>User Email:</strong> {{ selectedPayment.userEmail }}</p>
-                <p><strong>Amount:</strong> {{ selectedPayment.amount | currency }}</p>
+                <p><strong>Amount:</strong> ₹ {{ selectedPayment.amount}}</p>
                 <p [ngClass]="{
                     'red-badge': selectedPayment.paymentStatus === 'Fail',
-                    'green-badge': selectedPayment.paymentStatus === 'Success'
+                    'green-badge': selectedPayment.paymentStatus === 'created'
                 }">
-                    <strong>Status:</strong> {{ selectedPayment.paymentStatus }}
+                    <strong>Status:</strong> {{ selectedPayment.paymentStatus === 'created' ? 'Success' : 'Failed' }}
                 </p>
                 <p><strong>Mode:</strong> {{ selectedPayment.paymentMode }}</p>
                 <p><strong>Timestamp:</strong> {{ selectedPayment.timestamp | date: 'dd MMM, yyyy, hh:mm a' }}</p>
             </div>
         </div>
-        
+
     </div>
 </div>

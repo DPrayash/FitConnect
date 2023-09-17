@@ -22,6 +22,7 @@ export class PaymentsComponent {
     .subscribe((response: any)=>{
       this.paymentList = response;
       console.log("Payment received");
+      this.selectedPayment = this.paymentList[0];
     });
   }
 

@@ -1,5 +1,8 @@
 <div class="home-container">
-  <div class="card">
+  <div class="card" *ngIf="isLoading">
+    <app-loading [bars]="3" [skeletonLoading]="true"></app-loading>
+  </div>
+  <div class="card" *ngIf="!isLoading">
     <span *ngIf="gymUpdate" class="close-form" (click)="closeGymUpdate()"><mat-icon>close</mat-icon></span>
 
     <span *ngIf="!gymUpdate" class="item-actions" [matMenuTriggerFor]="gymCardActionsMenu">
@@ -33,7 +36,10 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" *ngIf="isLoading">
+    <app-loading [bars]="3" [skeletonLoading]="true"></app-loading>
+  </div>
+  <div class="card"  *ngIf="!isLoading">
     <span *ngIf="adminUpdate" class="close-form" (click)="closeAdminUpdate()"><mat-icon>close</mat-icon></span>
 
     <span *ngIf="!adminUpdate" class="item-actions" [matMenuTriggerFor]="adminCardActionsMenu">
@@ -60,8 +66,10 @@
     </div>
   </div>
 
-
-  <div class="card">
+  <div class="card" *ngIf="isLoading">
+    <app-loading [bars]="3" [skeletonLoading]="true"></app-loading>
+  </div>
+  <div class="card"  *ngIf="!isLoading">
     <span class="item-actions" [matMenuTriggerFor]="slotCardActionsMenu">
       <mat-icon>more_vert</mat-icon>
     </span>
@@ -80,7 +88,11 @@
     </div>
   </div>
 
-  <div class="card">
+
+  <div class="card" *ngIf="isLoading">
+    <app-loading [bars]="3" [skeletonLoading]="true"></app-loading>
+  </div>
+  <div class="card"  *ngIf="!isLoading">
     <span class="item-actions" [matMenuTriggerFor]="equipmentCardActionsMenu">
       <mat-icon>more_vert</mat-icon>
     </span>
@@ -100,7 +112,10 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" *ngIf="isLoading">
+    <app-loading [bars]="3" [skeletonLoading]="true"></app-loading>
+  </div>
+  <div class="card"  *ngIf="!isLoading">
     <span class="item-actions" [matMenuTriggerFor]="userCardActionsMenu">
       <mat-icon>more_vert</mat-icon>
     </span>
@@ -118,7 +133,10 @@
 
   </div>
 
-  <div class="card">
+  <div class="card" *ngIf="isLoading">
+    <app-loading [bars]="3" [skeletonLoading]="true"></app-loading>
+  </div>
+  <div class="card"  *ngIf="!isLoading">
     <span class="item-actions" [matMenuTriggerFor]="galleryCardActionsMenu">
       <mat-icon>more_vert</mat-icon>
     </span>
@@ -137,7 +155,10 @@
 
   </div>
 
-  <div class="card">
+  <div class="card" *ngIf="isLoading">
+    <app-loading [bars]="3" [skeletonLoading]="true"></app-loading>
+  </div>
+  <div class="card"  *ngIf="!isLoading">
     <span class="item-actions" [matMenuTriggerFor]="planCardActionsMenu">
       <mat-icon>more_vert</mat-icon>
     </span>
@@ -156,7 +177,10 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" *ngIf="isLoading">
+    <app-loading [bars]="3" [skeletonLoading]="true"></app-loading>
+  </div>
+  <div class="card"  *ngIf="!isLoading">
     <span class="item-actions" [matMenuTriggerFor]="trainerCardActionsMenu">
       <mat-icon>more_vert</mat-icon>
     </span>

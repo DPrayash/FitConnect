@@ -1,0 +1,10 @@
+<!-- Normal Spinning Loader -->
+<div *ngIf="!skeletonLoading" class="normal-loader">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading...</p>
+</div>
+
+<!-- Skeleton Loader -->
+<div *ngIf="skeletonLoading" class="skeleton-loader">
+    <div *ngFor="let i of barsArr" [class]="'bar bar' + (i+1)"></div>
+</div>
