@@ -1,0 +1,211 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+    --white-color: #fff;
+    --white-light-color: #d9d9d9;
+    --black-color: #000;
+    --black-light-color: #3C3636;
+    --green-color: #4CAF50;
+    --green-highlight: #e4f9e4;
+    --black-icon: #545F71;
+    --orange-color: orange;
+    --orange-highlight: rgb(255, 234, 195);
+    --red-color: #ef290b;
+    --red-highlight: #ffeaea;
+    --red-bg: #F2472C;
+    --white-bg: #fff;
+    --white-light-bg: #d9d9d94a;
+
+    --header-height: 80px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.items-container {
+    display: flex; 
+    justify-content: space-between;
+    margin: 0 2px;
+    padding: 0 2px;
+    background-color: #f5f5f5;
+}
+
+.items-list {
+    flex-basis: 40%;
+    padding-right: 20px;
+    width: 30%;
+    height: calc(100vh - 110px);
+    overflow-y: auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+.items-list-title {
+    font-size: 24px !important;
+    font-weight: bold !important;
+    padding-top: 20px;
+}
+
+.items-card {
+    cursor: pointer;
+    padding: 12px;
+    margin-bottom: 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.items-card:hover,
+.items-card.selected {
+    background-color: var(--red-highlight);
+}
+
+.items-card-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.items-card-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.items-card p {
+    margin: 0;
+}
+
+.items-details {
+    flex-basis: 60%;
+    width: 65%;
+    height: calc(100vh - 110px);
+    overflow-y: auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+.items-title {
+    font-size: 24px !important;
+    font-weight: bold !important;
+    margin-top: 20px !important
+
+}
+
+.items-details p {
+    margin: 8px 0;
+}
+
+.items-details p strong {
+    font-weight: bold;
+}
+
+.items-details-card {
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+    position: relative;
+}
+
+.item-actions {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border-radius: 4px;
+    padding: 0 3px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    background-color: var(--white-color);
+    color: var(--black-icon);
+}
+
+.item-actions:hover, .item-actions:focus, .item-actions:active {
+    background-color: var(--black-icon);
+    color: var(--white-color);
+}
+
+.item-status {
+    font-size: large;
+    font-weight: bold;
+    color: var(--black-light-color);
+    padding: 50px 10px;
+    display: flex;
+}
+
+.full-width-button {
+    width: 100%;
+    height: 50px !important;
+    margin-top: 20px !important;
+}
+
+.large-bold-text {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 16px;
+}
+
+.red-badge {
+    color: var(--red-color);
+    border: 1px solid var(--red-highlight);
+    background-color: var(--red-highlight);
+    padding: 3px 10px;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.orange-badge {
+    color: var(--orange-color);
+    border: 1px solid var(--orange-highlight);
+    background-color: var(--orange-highlight);
+    padding: 3px 10px;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.green-badge {
+    color: var(--green-color);
+    border: 1px solid var(--green-highlight);
+    background-color: var(--green-highlight);
+    padding: 3px 10px;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.items-form {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-bg);
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.items-form button {
+    margin-top: 20px;
+    height: 50px !important;
+    color: var(--white-color) !important;
+    background-color: var(--green-color) !important;
+}
+
+.items-form button:hover, .items-form button:focus, .items-form button:active {
+    opacity: 0.8;
+}
+
+.items-form button:disabled {
+    opacity: 0.5;
+}
+
+.close-form {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--red-color);
+    transform: scale(1.2);
+    cursor: pointer;
+}

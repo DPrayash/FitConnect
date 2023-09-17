@@ -1,0 +1,143 @@
+<div class="items-container">
+    <div class="items-list">
+        <span *ngIf="!filterMode" class="item-actions" [matMenuTriggerFor]="slotListActionsMenu">
+            <mat-icon>filter_list</mat-icon>
+        </span>
+
+        <mat-menu #slotListActionsMenu="matMenu" xPosition="before">
+            <span mat-menu-item tabindex="0" (click)="startFilter()">Filter By date</span>
+        </mat-menu>
+
+        <div *ngIf="filterMode" class="filter-container">
+
+            <div class="clear-filter" (click)="clearFilter()">
+                Clear Filter <mat-icon>clear</mat-icon>
+            </div>
+            <form class="filter-form" (submit)="filterSlotsByDate()">
+
+                <mat-form-field>
+                    <mat-label for="filterDate">Date</mat-label>
+                    <input matInput id="filterDate" name="filterDate" required [(ngModel)]="selectedDate"
+                        [matDatepicker]="picker">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <button mat-raised-button color="info" type="submit">Filter</button>
+            </form>
+
+        </div>
+
+        <h2 class="items-list-title">Slot List</h2>
+        <div class="items-card" *ngFor="let slot of slotList" (click)="selectSlot(slot)"
+            [class.selected]="slot === selectedSlot">
+            <div class="items-card-title">{{ slot.startTime }} - {{ slot.endTime }}
+            </div>
+            <div class="items-card-footer">
+                <p><strong>Date:</strong> {{ slot.slotDate | date: 'dd MMM, yyyy' }}</p>
+                <p [class.green-badge]="isSlotActive(slot)" [class.red-badge]="!isSlotActive(slot)"><strong>{{
+                        isSlotActive(slot) ? 'ACTIVE' : 'EXPIRED' }}</strong></p>
+            </div>
+        </div>
+
+        <div *ngIf="slotList == null || slotList.length == 0" class="item-status">
+            <p> <mat-icon>search</mat-icon> No slots available {{ filterMode ? 'for the selected date.' : '' }}</p>
+        </div>
+    </div>
+
+    <div class="items-details" *ngIf="!formMode">
+        <button mat-raised-button color="warn" (click)="addSlotForm()" class="full-width-button">
+            <span class="large-bold-text"> + ADD A NEW SLOT</span>
+        </button>
+
+        <div class="items-details-card" *ngIf="slotList != null && slotList.length != 0 && selectedSlot && !formMode">
+            <span class="item-actions" [matMenuTriggerFor]="slotCardActionsMenu">
+                <mat-icon>more_vert</mat-icon>
+            </span>
+
+            <mat-menu #slotCardActionsMenu="matMenu" xPosition="before">
+                <a mat-menu-item tabindex="0" (click)="updateSlotForm(selectedSlot)">
+                    <mat-icon>edit</mat-icon> Edit
+                </a>
+                <a mat-menu-item tabindex="0" (click)="deleteSlot(selectedSlot.slotId)">
+                    <mat-icon>delete_forever</mat-icon> Delete
+                </a>
+                <a mat-menu-item tabindex="0" (click)="toggleViewActivity(selectedSlot.slotId)">
+                    <mat-icon>
+                        {{
+                        viewActivity ? 'visibility_off' : 'visibility'
+                        }}
+                    </mat-icon>
+                    {{
+                    viewActivity ? 'Hide Bookings' : 'View Bookings'
+                    }}
+                </a>
+            </mat-menu>
+            <h2 class="items-title">Slot Details</h2>
+            <div class="slot-content">
+                <p><strong>Start Time:</strong> {{ selectedSlot.startTime }}</p>
+                <p><strong>End Time:</strong> {{ selectedSlot.endTime }}</p>
+                <p><strong>Available Slots:</strong> {{ selectedSlot.maximumLimit }}</p>
+                <p><strong>Slot Date:</strong> {{ selectedSlot.slotDate | date: 'yyyy-MM-dd' }}</p>
+                <p><strong>Trainers:</strong></p>
+                <div class="trainers-container">
+                    <div class="trainer-card" *ngFor="let trainer of selectedSlot.trainerList">
+                        <div class="trainer-image">
+                            <img [src]="getTrainerImage(trainer)" [alt]="getTrainerName(trainer)">
+                        </div>
+                        <div class="trainer-name">
+                            {{ getTrainerName(trainer) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="viewActivity" class="bookings-container">
+                    <p><strong>{{ activityList.length == 0 ? "No bookings available" : "Bookings:"}}</strong></p>
+                    <div *ngFor="let booking of activityList">
+                        <div *ngIf="booking.slotStatus == 'BOOKED'" class="booking-card">
+                            <p class="user-email">{{ booking.userEmail }}</p>
+                            <p class="booking-date">Booked on {{ booking.bookingDate | date: 'dd MMM, yyyy' }}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="items-details" *ngIf="formMode">
+        <span class="close-form" (click)="closeForm()"><mat-icon>close</mat-icon></span>
+        <h2 class="items-title"> {{ updateMode ? 'Update Slot' : 'Add Slot' }} </h2>
+        <form class="items-form" (submit)="updateMode ? updateSlot() : createSlot()">
+            <mat-form-field>
+                <mat-label for="date">Date</mat-label>
+                <input matInput type="date" id="date" name="date" required min="{{ minDate | date: 'yyyy-MM-dd' }}"
+                    max="{{ maxDate | date: 'yyyy-MM-dd' }}" [(ngModel)]="newSlotDate">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="timePeriod">Time Period</mat-label>
+                <mat-select id="timePeriod" name="timePeriod" required [(ngModel)]="newTimePeriod">
+                    <mat-option *ngFor="let time of timingsList" [value]="time">{{ time }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="trainers">Trainers</mat-label>
+                <mat-select id="trainers" name="trainers" required multiple [(ngModel)]="selectedTrainers">
+                    <mat-option *ngFor="let trainer of trainersList" [value]="trainer.trainerId">{{ trainer.trainerName
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="maxLimit">Maximum Limit</mat-label>
+                <input matInput type="number" id="maxLimit" name="maxLimit" required [(ngModel)]="newMaxLimit" min="1"
+                    max="49">
+            </mat-form-field>
+
+            <button mat-raised-button type="submit">{{ updateMode ? 'Update Slot' : 'Create Slot' }}</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,180 @@
+<div class="home-container">
+  <div class="card">
+    <span *ngIf="gymUpdate" class="close-form" (click)="closeGymUpdate()"><mat-icon>close</mat-icon></span>
+
+    <span *ngIf="!gymUpdate" class="item-actions" [matMenuTriggerFor]="gymCardActionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </span>
+
+    <mat-menu #gymCardActionsMenu="matMenu" xPosition="before">
+      <a mat-menu-item tabindex="0" (click)="gymUpdate = true">
+        <mat-icon>edit</mat-icon> Edit
+      </a>
+    </mat-menu>
+    <h2>Gym Info</h2>
+    <form *ngIf="gymUpdate" (submit)="updateGymInfo()">
+      <p><mat-form-field class="full-width">
+          <mat-label for="gymAddress">Address:</mat-label>
+          <input matInput type="text" id="gymAddress" name="gymAddress" [(ngModel)]="gymInfo.gymAddress" required>
+        </mat-form-field></p>
+      <p><mat-form-field class="full-width">
+          <mat-label for="gymMobileNo">Mobile No:</mat-label>
+          <input matInput type="text" id="gymMobileNo" name="gymMobileNo" [(ngModel)]="gymInfo.mobile" required>
+        </mat-form-field></p>
+
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+
+    <div *ngIf="!gymUpdate">
+
+      <p>Name:<strong>{{ gymInfo.gymName }}</strong> </p>
+      <p>Address:<strong> {{ gymInfo.gymAddress }}</strong></p>
+      <p>Mobile No:<strong>{{ gymInfo.mobile }}</strong> </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span *ngIf="adminUpdate" class="close-form" (click)="closeAdminUpdate()"><mat-icon>close</mat-icon></span>
+
+    <span *ngIf="!adminUpdate" class="item-actions" [matMenuTriggerFor]="adminCardActionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </span>
+
+    <mat-menu #adminCardActionsMenu="matMenu" xPosition="before">
+      <a mat-menu-item tabindex="0" (click)="adminUpdate = true">
+        <mat-icon>edit</mat-icon> Edit
+      </a>
+    </mat-menu>
+    <h2>Admin Info</h2>
+    <form *ngIf="adminUpdate" (submit)="updateAdminInfo()" class="mat-form">
+      <p><mat-form-field class="full-width">
+          <mat-label for="adminName">Address:</mat-label>
+          <input matInput type="text" id="adminName" name="adminName" [(ngModel)]="adminInfo.userName" required>
+        </mat-form-field></p>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+
+    <div *ngIf="!adminUpdate">
+      <p>Name:<strong> {{ adminInfo.userName }}</strong></p>
+      <p>Email:<strong>{{ adminInfo.userEmail }}</strong></p>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <span class="item-actions" [matMenuTriggerFor]="slotCardActionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </span>
+
+    <mat-menu #slotCardActionsMenu="matMenu" xPosition="before">
+      <a mat-menu-item tabindex="0" (click)="redirectToSlots()">
+        <mat-icon> {{ slotsInfo.length == 0 ? 'add_circle_outline' : 'open_in_browser'}}</mat-icon>
+        {{ slotsInfo.length == 0 ? 'Create one' : 'View all' }}
+      </a>
+
+    </mat-menu>
+    <h2>{{ slotsInfo.length == 0 ? 'No slots available today' : 'Today\'s slots'}}</h2>
+
+    <div class="card-info" *ngFor="let slot of slotsInfo">
+      <span>{{slot}}</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="item-actions" [matMenuTriggerFor]="equipmentCardActionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </span>
+
+    <mat-menu #equipmentCardActionsMenu="matMenu" xPosition="before">
+      <a mat-menu-item tabindex="0" (click)="redirectToEquipments()">
+        <mat-icon> {{ equipmentsInfo.length == 0 ? 'add_circle_outline' : 'open_in_browser'}}</mat-icon>
+        {{ equipmentsInfo.length == 0 ? 'Create one' : 'View all' }}
+      </a>
+
+    </mat-menu>
+    <h2>{{ equipmentsInfo.length == 0 ? 'No equipment available' : 'Equipment Info'}}</h2>
+
+    <div class="card-info" *ngFor="let equipment of equipmentsInfo.slice(0, 6); let i = index">
+      <span>{{ equipment }}</span>
+      <span *ngIf="i === 5 && equipmentsInfo.length > 6">And many more</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="item-actions" [matMenuTriggerFor]="userCardActionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </span>
+
+    <mat-menu #userCardActionsMenu="matMenu" xPosition="before">
+      <a mat-menu-item tabindex="0" (click)="redirectToUsers()">
+        <mat-icon> open_in_browser</mat-icon> View all
+      </a>
+
+    </mat-menu>
+    <h2>{{ usersInfo.length == 0 ? 'No User available' : "Users Info" }}</h2>
+    <div class="card-info" *ngFor="let user of usersInfo">
+      <span>{{ user }}</span>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <span class="item-actions" [matMenuTriggerFor]="galleryCardActionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </span>
+
+    <mat-menu #galleryCardActionsMenu="matMenu" xPosition="before">
+      <a mat-menu-item tabindex="0" (click)="redirectToGallery()">
+        <mat-icon> {{ galleryInfo.length == 0 ? 'add_circle_outline' : 'open_in_browser'}}</mat-icon>
+        {{ galleryInfo.length == 0 ? 'Add one' : 'View all' }}
+      </a>
+
+    </mat-menu>
+    <h2>{{ galleryInfo.length == 0 ? 'No media available' : 'Gallery Info'}}</h2>
+    <div class="card-info" *ngFor="let media of galleryInfo">
+      <span>{{ media }}</span>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <span class="item-actions" [matMenuTriggerFor]="planCardActionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </span>
+
+    <mat-menu #planCardActionsMenu="matMenu" xPosition="before">
+      <a mat-menu-item tabindex="0" (click)="redirectToPlans()">
+        <mat-icon> {{ plansInfo.length == 0 ? 'add_circle_outline' : 'open_in_browser'}}</mat-icon>
+        {{ plansInfo.length == 0 ? 'Create one' : 'View all' }}
+      </a>
+
+    </mat-menu>
+    <h2>{{ plansInfo.length == 0 ? 'No Plan available' : 'Plans Info' }}</h2>
+    <div class="card-info" *ngFor="let plan of plansInfo.slice(0, 6); let i = index">
+      <span>{{ plan }}</span>
+      <span *ngIf="i === 5 && plansInfo.length > 6">And many more</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="item-actions" [matMenuTriggerFor]="trainerCardActionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </span>
+
+    <mat-menu #trainerCardActionsMenu="matMenu" xPosition="before">
+      <a mat-menu-item tabindex="0" (click)="redirectToTrainers()">
+        <mat-icon> {{ trainersInfo.length == 0 ? 'add_circle_outline' : 'open_in_browser'}}</mat-icon>
+        {{ trainersInfo.length == 0 ? 'Create one' : 'View all' }}
+      </a>
+
+    </mat-menu>
+    <h2>{{ trainersInfo.length == 0 ? 'No trainer available' : 'Trainers Info'}}</h2>
+
+    <div class="card-info" *ngFor="let trainer of trainersInfo.slice(0, 6); let i = index">
+      <span>{{ trainer }}</span>
+      <span *ngIf="i === 5 && trainersInfo.length > 6">And many more</span>
+    </div>
+  </div>
+
+
+</div>

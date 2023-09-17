@@ -1,0 +1,94 @@
+.slot-content {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.slot-content p {
+    margin: 8px 0;
+}
+
+.trainers-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 16px;
+}
+
+.trainer-card {
+    width: 120px; 
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.trainer-card:hover {
+    background-color: #f5f5f5;
+}
+
+.trainer-image img {
+    width: 120px;
+    height: 120px; 
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.trainer-name {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 16px auto;
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color);
+    padding: 16px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-form button {
+    background-color: var(--green-color);
+    color: var(--white-color)
+}
+
+.clear-filter {
+    color: var(--red-color);
+    cursor: pointer;
+    background-color: var(--red-highlight);
+    border: 1px solid var(--red-color);
+    padding: 5px;
+    border-radius: 4px;
+    display: inline-flex;
+}
+
+.booking-card {
+    width: fit-content;
+    border: 1px solid var(--white-light-color);
+    padding: 0 5px;
+    border-radius: 5px;
+    margin-bottom: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease-in-out;
+}
+
+.booking-card p.booking-date {
+    margin: 0;
+    color: var(--orange-color);
+    font-size: 10px !important;
+}
+
+.booking-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}

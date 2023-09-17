@@ -1,0 +1,88 @@
+<div class="items-container">
+    <div class="items-list">
+        <h2 class="items-list-title">Equipment List</h2>
+        <div class="items-card" *ngFor="let equipment of equipmentList" (click)="selectEquipment(equipment)"
+            [class.selected]="equipment === selectedEquipment">
+            <div class="items-card-title">{{ equipment.equipmentName }}</div>
+            <div class="items-card-footer">
+                <p><strong>Desc:</strong> {{ equipment.equipmentDescription | slice:0:50 }}{{
+                    equipment.equipmentDescription.length > 50 ? '...' : '' }}</p>
+                <p [class.green-badge]="isEquipmentAvailable(equipment)"
+                    [class.red-badge]="!isEquipmentAvailable(equipment)">
+                    <strong>{{ isEquipmentAvailable(equipment) ? 'AVAILABLE' : 'NOT AVAILABLE' }}</strong>
+                </p>
+            </div>
+        </div>
+        <div *ngIf="equipmentList == null || equipmentList.length == 0" class="item-status">
+            <p> <mat-icon>search</mat-icon> No equipments available </p>
+        </div>
+    </div>
+
+    <div class="items-details" *ngIf="!formMode">
+
+        <button mat-raised-button color="warn" (click)="addEquipmentForm()" class="full-width-button">
+            <span class="large-bold-text">+ ADD A NEW EQUIPMENT</span>
+        </button>
+
+        <div class="items-details-card" *ngIf="selectedEquipment && !formMode">
+            <span class="item-actions" [matMenuTriggerFor]="equipmentCardActionsMenu">
+                <mat-icon>more_vert</mat-icon>
+            </span>
+
+            <mat-menu #equipmentCardActionsMenu="matMenu" xPosition="before">
+                <a mat-menu-item tabindex="0" (click)="updateEquipmentForm(selectedEquipment)">
+                    <mat-icon>edit</mat-icon> Edit
+                </a>
+                <a mat-menu-item tabindex="0" (click)="deleteEquipment(selectedEquipment.equipmentId)">
+                    <mat-icon>delete_forever</mat-icon> Delete
+                </a>
+            </mat-menu>
+            <h2 class="items-title">Equipment Details</h2>
+            <div class="equipment-image">
+                <img [src]="selectedEquipment.equipmentImage" alt="{{ selectedEquipment.equipmentName }}">
+            </div>
+            <p><strong>Name:</strong> {{ selectedEquipment.equipmentName }}</p>
+
+            <p><strong>Description:</strong> {{ selectedEquipment.equipmentDescription }}</p>
+            <p><strong>Quantity:</strong> {{ selectedEquipment.quantity }}</p>
+
+        </div>
+
+    </div>
+
+    <div class="items-details" *ngIf="formMode">
+        <span class="close-form" (click)="closeForm()"><mat-icon>close</mat-icon></span>
+        <h2 class="items-title">{{ updateMode ? 'Update Equipment' : 'Add Equipment' }}</h2>
+        <form class="items-form" (submit)="updateMode ? updateEquipment() : createEquipment()">
+            <mat-form-field>
+                <mat-label for="name">Name</mat-label>
+                <input matInput type="text" id="name" name="name" required [(ngModel)]="newEquipmentName">
+            </mat-form-field>
+
+            <div class="mat-form-field image-input">
+                <mat-label for="mediaImage">Image*</mat-label> <br />
+                <mat-hint class="select-file" (click)="selectImage()"><mat-icon>upload</mat-icon> Select File</mat-hint>
+                <mat-hint class="file-name">{{ selectedImageFile ? getSelectedImageName() : "No image is selected"
+                    }}</mat-hint>
+                <input type="file" id="mediaImage" name="mediaImage" hidden accept="image/*"
+                    (change)="onImageSelect($event)">
+                <div class="image-preview">
+                    <img [src]="imagePreview()" *ngIf="imagePreview()" />
+                </div>
+            </div>
+
+            <mat-form-field>
+                <mat-label for="quantity">Quantity</mat-label>
+                <input matInput type="number" id="quantity" name="quantity" required [(ngModel)]="newQuantity">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="equipmentDescription">Description</mat-label>
+                <textarea matInput type="text" id="equipmentDescription" name="equipmentDescription" required
+                    [(ngModel)]="newEquipmentDescription"></textarea>
+            </mat-form-field>
+
+            <button mat-raised-button type="submit">{{ updateMode ? 'Update Equipment' : 'Create Equipment' }}</button>
+        </form>
+    </div>
+</div>

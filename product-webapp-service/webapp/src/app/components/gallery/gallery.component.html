@@ -1,0 +1,64 @@
+<div class="gallery-container">
+    <div class="add-media-card" *ngIf="!formMode">
+        <div class="add-media-btn" (click)="addMediaFileForm()">
+            <span>+ Add a Media File</span>
+        </div>
+    </div>
+    <div class="add-media-card" *ngIf="formMode">
+        
+        <form class="items-form" (submit)="updateMode ? updateMediaFile() :createMediaFile()">
+            <h2>Add MediaFile<span class="close-form" (click)="closeForm()"><mat-icon>close</mat-icon></span></h2>
+            <mat-form-field>
+                <mat-label for="name">Name</mat-label>
+                <input matInput type="text" id="name" name="name" required [(ngModel)]="newMediaName">
+            </mat-form-field>
+
+            <div class="mat-form-field image-input">
+                <mat-label for="mediaImage">Image*</mat-label> <br/>
+                <mat-hint class="select-file" (click)="selectImage()"><mat-icon>upload</mat-icon> Select File</mat-hint>
+                <mat-hint class="file-name">{{ selectedImageFile ? getSelectedImageName() : "No image is selected" }}</mat-hint>
+                <input type="file" id="mediaImage" name="mediaImage" hidden accept="image/*" (change)="onImageSelect($event)">
+                <div class="image-preview">
+                    <img [src]="imagePreview()" *ngIf="imagePreview()" />
+                </div>
+            </div> 
+
+            <mat-form-field>
+                <mat-label for="mediaCategory">Category</mat-label>
+                <input matInput type="text" id="mediaCategory" name="mediaCategory" required
+                    [(ngModel)]="newMediaCategory">
+            </mat-form-field>
+
+            <button mat-raised-button type="submit">{{ updateMode ? 'Update Media' : 'Create Media' }}</button>
+        </form>
+    </div>
+    <div class="media-files">
+        <div class="media-file" *ngFor="let mediaFile of mediaFiles">
+            <div class="media-card" (mouseover)="showDetails(mediaFile)" (mouseout)="hideDetails()">
+                <span class="item-actions"  [matMenuTriggerFor]="mediaCardActionsMenu">
+                    <mat-icon>more_vert</mat-icon>
+                </span>
+            
+                <mat-menu #mediaCardActionsMenu="matMenu" xPosition="before">
+                    <a mat-menu-item tabindex="0" (click)="updateMediaFileForm(mediaFile)">
+                        <mat-icon>edit</mat-icon> Edit
+                    </a>
+                    <a mat-menu-item tabindex="0" (click)="deleteMediaFile(mediaFile.mediaId)">
+                        <mat-icon>delete_forever</mat-icon> Delete
+                    </a>
+                </mat-menu>
+                <img [src]="mediaFile.mediaUrl" alt="{{ mediaFile.mediaName }}" class="media-image" />
+                <div class="media-details">
+                    <p>Name: {{ mediaFile.mediaName }}</p>
+                    <p>Category: {{ mediaFile.mediaCategory }}</p>
+                    <button mat-raised-button color="primary" (click)="updateMediaFileForm(mediaFile)">Update</button>
+                    <button mat-raised-button color="warn" (click)="deleteMediaFile(mediaFile.mediaId)">Delete</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="mediaFiles == null || mediaFiles.length == 0" class="item-status">
+            <p><mat-icon>search</mat-icon> No media available </p>
+        </div>
+    </div>
+
+</div>

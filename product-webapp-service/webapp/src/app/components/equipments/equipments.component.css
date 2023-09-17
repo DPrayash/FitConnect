@@ -1,0 +1,48 @@
+.mat-form-field.image-input {
+    border-bottom: 2px solid var(--black-icon);
+    background-color: #f5f5f5;
+    border-radius: 5px 5px 0 0;
+    padding: 15px 15px;
+    color: #0006;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.image-preview {
+    margin: 10px auto;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #ccc;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.select-file {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--red-color);
+    background-color: var(--red-highlight);
+    width: fit-content;
+    margin: 0 auto;
+    padding: 5px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.select-file:hover {
+    background-color: #ffffff;
+}
+
+.file-name {
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+}
