@@ -22,7 +22,13 @@ public class Trainer {
     private String trainerBio;
     private String trainerImage;
 
-    public String getTrainerId() {
+    @Override
+	public String toString() {
+		return "Trainer [trainerId=" + trainerId + ", trainerName=" + trainerName + ", trainerCategory="
+				+ trainerCategory + ", trainerBio=" + trainerBio + ", trainerImage=" + trainerImage + "]";
+	}
+
+	public String getTrainerId() {
 		return trainerId;
 	}
 

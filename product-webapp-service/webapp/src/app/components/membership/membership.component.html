@@ -12,12 +12,9 @@
                 <p>Includes Gym and Cardio</p>
                 <div class="body1">
                     <ol>
-                        <li>Validate for 30 days</li>
-                        <li>Access to basic requirements</li>
-                        <li>Under Trainer Survilliance</li>
-                        <li>500/- Security deposity (Refundable)</li>
+                        <li *ngFor="let desc of plan.planDescription">{{ desc }}</li>
                     </ol>
-                    <button class="starterPack" mat-raised-button color="warn" (click)="createTransactionAnsPlaceOrder(1500.0)">Get Started Now</button>
+                    <button class="starterPack" mat-raised-button color="warn" (click)="createTransactionAnsPlaceOrder(plan.planPrice)">Get Started Now</button>
                 </div>
             </div>
             <!-- <div class="plan2">

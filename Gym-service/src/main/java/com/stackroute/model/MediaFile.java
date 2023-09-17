@@ -37,6 +37,13 @@ public class MediaFile {
 	}
 
 
+	@Override
+	public String toString() {
+		return "MediaFile [mediaId=" + mediaId + ", mediaName=" + mediaName + ", mediaCategory=" + mediaCategory
+				+ ", mediaUrl=" + mediaUrl + "]";
+	}
+
+
 	public void setMediaName(String mediaName) {
 		this.mediaName = mediaName;
 	}

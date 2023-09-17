@@ -20,10 +20,10 @@
         </button>
 
         <div class="items-details-card" *ngIf="selectedPlan && !formMode">
-            <span class="item-actions"  [matMenuTriggerFor]="planCardActionsMenu">
+            <span class="item-actions" [matMenuTriggerFor]="planCardActionsMenu">
                 <mat-icon>more_vert</mat-icon>
             </span>
-        
+
             <mat-menu #planCardActionsMenu="matMenu" xPosition="before">
                 <a mat-menu-item tabindex="0" (click)="updatePlanForm(selectedPlan)">
                     <mat-icon>edit</mat-icon> Edit
@@ -35,14 +35,19 @@
             <h2 class="items-title">Plan Details</h2>
             <p><strong>Name:</strong> {{ selectedPlan.planName }}</p>
             <p><strong>Price:</strong> ₹{{ selectedPlan.planPrice }}</p>
-            <p><strong>Duration:</strong> {{ selectedPlan.planDuration }}</p>
-            
+            <p><strong>Duration:</strong> {{ selectedPlan.planDuration }}
+            </p>
+            <p><strong>Description:</strong></p>
+            <div class="plan-desc">
+                <p *ngFor="let desc of selectedPlan.planDescription"><mat-icon>star</mat-icon> {{ desc }} </p>
+            </div>
+
         </div>
 
     </div>
 
     <div class="items-details" *ngIf="formMode">
-        <span class="close-form" (click)="closeForm()" ><mat-icon>close</mat-icon></span>
+        <span class="close-form" (click)="closeForm()"><mat-icon>close</mat-icon></span>
         <h2 class="items-title">{{ updateMode ? 'Edit Plan' : 'Add Plan' }}</h2>
         <form class="items-form" (submit)="updateMode ? updatePlan() : createPlan()">
             <mat-form-field>
@@ -53,13 +58,7 @@
             <mat-form-field>
                 <mat-label for="duration">Duration</mat-label>
                 <mat-select id="duration" name="duration" required [(ngModel)]="newDuration">
-                    <mat-option value="1">1 month</mat-option>
-                    <mat-option value="2">2 months</mat-option>
-                    <mat-option value="3">3 months</mat-option>
-                    <mat-option value="6">6 months</mat-option>
-                    <mat-option value="12">12 months</mat-option>
-                    <mat-option value="18">18 months</mat-option>
-                    <mat-option value="24">24 months</mat-option>
+                    <mat-option *ngFor="let duration of durationList" [value]="duration">{{duration}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
@@ -67,6 +66,24 @@
                 <mat-label for="price">Price</mat-label>
                 <input matInput type="number" id="price" name="price" required [(ngModel)]="newPrice">
             </mat-form-field>
+
+            <mat-form-field>
+                <mat-label for="description">Description</mat-label>
+                <input matInput type="text" id="description" name="description" [(ngModel)]="newDescription">
+                <button mat-icon-button type="button" color="primary" (click)="addDescription()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <div class="description-list">
+                <p *ngFor="let desc of newPlanDescription; let i = index">
+                    {{ desc }}
+                    <span class="cancel" (click)="removeDescription(i)">
+                        <mat-icon>cancel</mat-icon>
+                    </span>
+                </p>
+            </div>
+
 
             <button mat-raised-button type="submit">{{ updateMode ? 'Update Plan' : 'Create Plan' }}</button>
         </form>
