@@ -1,11 +1,11 @@
 export interface User {
   userEmail: string;
-  userPassword: string;
+  userPasswordHash: string;
   userName: string;
   userAge: number;
   userMobile: string;
   userProfilePicUrl: string;
-  height: number;
+  height: string;
   weight: number;
   planName: string | null;
   planPrice: number | null;

@@ -1,0 +1,62 @@
+<div class="container mt-5">
+  <h2 class="text-center" style="font-size: 36px; font-weight: bold; color: white;">Register yourself!!</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <img class="img-fluid" src="https://www.kingfisherhealthclub.com/wp-content/uploads/2022/12/Kingfisher-Health-Club-Reddish-Mobile.jpg" alt="Card image cap">
+
+        <div class="card-body">
+          <h5 class="card-title">{{GymInformation}}</h5>
+          <p class="card-text custom-card-text">{{GymBody}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title custom-title">Fill all the details!</div>
+          <hr>
+          <div class="form-container">
+            <form [formGroup]="registrationForm">
+              <div class="form-group">
+                <mat-label class="lable-spacing custom-label">Name</mat-label>
+                <mat-form-field appearance="fill">
+                  <input matInput formControlName="userName" id="userName" placeholder="Enter your Name" required>
+                  <mat-error *ngIf="registrationForm.get('userName').hasError('required')">Name is required</mat-error>
+                  <mat-error *ngIf="registrationForm.get('userName').hasError('invalidName')">Name must start with a capital letter</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <mat-label class="lable-spacing custom-label">Email</mat-label>
+                <mat-form-field appearance="fill">
+                  <input matInput placeholder="abc@example.com" formControlName="userEmail" id="userEmail" required>
+                  <mat-error *ngIf="registrationForm.get('userEmail').hasError('required')">Email is required</mat-error>
+                  <mat-error *ngIf="registrationForm.get('userEmail').hasError('email')">Not a valid email</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <mat-label class="lable-spacing-password  custom-label">Password</mat-label>
+                <mat-form-field appearance="fill">
+                  <input matInput placeholder="Password" formControlName="userPasswordHash" id="userPasswordHash" type="password" required>
+                  <mat-error *ngIf="registrationForm.get('userPasswordHash').hasError('required')">Password is required</mat-error>
+                  <mat-error *ngIf="registrationForm.get('userPasswordHash').hasError('minlength')">Password must be at least 8 characters long</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <mat-label class="lable-spacing-mobile custom-label">Phone number</mat-label>
+                <mat-form-field appearance="fill">
+                  <input matInput placeholder="(+91)123..." formControlName="userMobile" id="userMobile" required>
+                  <mat-icon matSuffix>phone</mat-icon>
+                  <mat-error *ngIf="registrationForm.get('userMobile').hasError('required')">Phone number is required</mat-error>
+                  <mat-error *ngIf="registrationForm.get('userMobile').hasError('maxlength')">Phone number cannot exceed 12 characters</mat-error>
+                </mat-form-field>
+              </div>
+              <button mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid" (click)="onSubmit()">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

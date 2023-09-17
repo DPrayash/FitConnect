@@ -40,7 +40,7 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
 import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
 import { MembershipComponent } from './components/membership/membership.component';
 import { LoadingComponent } from './components/loading/loading.component';
-
+import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     UserHomeComponent,
     UserSidebarComponent, 
     MembershipComponent, 
-    LoadingComponent
+    LoadingComponent,
+    UserRegistrationFormComponent
   ],
   imports: [
     BrowserModule,

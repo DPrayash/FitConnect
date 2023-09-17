@@ -1,33 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from 'src/app/models/user.model';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent {
+  userList: User[] = [
+   
+  ];
+  
 
-  constructor(private userService: UserService) { }
-
-  ngOnInit() {
-    this.getUserList();
-  }
-
-  userList: User[] = [];
   selectedUser: User | null = null;
 
 
-  private getUserList() {
-    this.userService.getUserList().subscribe((data) => {
-      if(data != null && data.length > 0) {
-        this.userList = data;
-        this.selectUser(this.userList[0]);
-      } else {
-        this.userList = [];
-      }
-    });
+  ngOnInit() {
+    if (this.userList.length > 0) {
+      this.selectedUser = this.userList[0];
+    }
   }
 
   selectUser(user: User) {

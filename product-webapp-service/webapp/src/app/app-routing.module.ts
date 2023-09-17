@@ -11,6 +11,7 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { MembershipComponent } from './components/membership/membership.component';
+import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'chats', component: ChatsComponent },
   { path: 'userLogin', component: UserHomeComponent},
-  { path: 'membership', component: MembershipComponent}
+  { path: 'membership', component: MembershipComponent},
+  { path: 'registerUser', component:UserRegistrationFormComponent}
 ];
 
 @NgModule({

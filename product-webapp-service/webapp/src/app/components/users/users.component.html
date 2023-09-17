@@ -1,25 +1,21 @@
-<div class="items-container">
-    <div class="items-list">
-        <h2 class="items-list-title">User List</h2>
-        <div class="items-card" *ngFor="let user of userList" (click)="selectUser(user)"
+<div class="users-container">
+    <div class="user-list">
+        <h2 class="user-list-title">User List</h2>
+        <div class="user-card" *ngFor="let user of userList" (click)="selectUser(user)"
             [class.selected]="user === selectedUser">
-            <div class="items-card-title">{{ user.userName }}</div>
-            <div class="items-card-footer">
+            <div class="user-card-title">{{ user.userName }}</div>
+            <div class="user-card-footer">
                 <p><strong>Email:</strong> {{ user.userEmail }}</p>
-                <p [class.green-badge]="user.planName" [class.red-badge]="!user.planName">
+                <p [class.subscribed]="user.planName" [class.unsubscribed]="!user.planName">
                     <strong>{{ user.planName ? 'Subscribed' : 'Not Subscribed' }}</strong>
                 </p>
             </div>
         </div>
-        <div *ngIf="userList == null || userList.length == 0" class="item-status">
-            <p> <mat-icon>search</mat-icon> No users available </p>
-        </div>
     </div>
 
-    <div class="items-details">
-       
-        <div class="items-details-card" *ngIf="selectedUser"> 
-            <h2 class="items-title">User Details</h2>
+    <div class="user-details">
+        <h2>User Details</h2>
+        <div class="user-details-card" *ngIf="selectedUser">
             <div class="user-details-header">
                 <div class="profile-pic-container">
                     <img class="profile-pic" [src]="selectedUser.userProfilePicUrl" alt="Profile Picture" />
@@ -30,18 +26,18 @@
                 <p class="user-email"><strong>Email:</strong> {{ selectedUser.userEmail }}</p>
                 <p class="user-age"><strong>Age:</strong> {{ selectedUser.userAge }}</p>
                 <p class="user-mobile"><strong>Mobile:</strong> {{ selectedUser.userMobile }}</p>
-                <p class="user-height"><strong>Height:</strong> {{ selectedUser.height }} cm</p>
-                <p class="user-weight"><strong>Weight:</strong> {{ selectedUser.weight }} Kg</p>
-                <p *ngIf="!selectedUser.planName"><strong class="red-badge">Not a Member</strong></p>
+                <p class="user-height"><strong>Height:</strong> {{ selectedUser.height }}</p>
+                <p class="user-weight"><strong>Weight:</strong> {{ selectedUser.weight }}</p>
+                <p *ngIf="!selectedUser.planName"><strong class="unsubscribed">Not a Member</strong></p>
                 <p *ngIf="selectedUser.planName"><strong>Plan Name:</strong> <span
-                        class="orange-badge">{{
+                        class="plan-name user-plan">{{
                          selectedUser.planName }}</span></p>
                 <p *ngIf="selectedUser.planName"><strong>Plan Price:</strong> <span
-                        class="orange-badge">{{
+                        class="plan-price user-plan">{{
                          selectedUser.planPrice | currency }}</span></p>
-                <p *ngIf="selectedUser.planName"><strong>Plan Duration:</strong> <span class="orange-badge">{{ selectedUser.planDuration }}</span>
+                <p *ngIf="selectedUser.planName"><strong>Plan Duration:</strong> <span class="user-plan">{{ selectedUser.planDuration }}</span>
                     </p>
-                <p class="user-expiration"  *ngIf="selectedUser.planName"><strong>Expiration Date:</strong> <span class="red-badge">{{ selectedUser.expirationDate | date: 'MMM dd, yyyy' }}</span></p>
+                <p class="user-expiration"  *ngIf="selectedUser.planName"><strong>Expiration Date:</strong> <span class="expiration-date unsubscribed">{{ selectedUser.expirationDate | date: 'MMM dd, yyyy' }}</span></p>
             </div>
         </div>
 
