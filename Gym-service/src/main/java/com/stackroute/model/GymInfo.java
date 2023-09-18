@@ -56,5 +56,25 @@ public class GymInfo {
             this.setMobile(updatedGymInfo.getMobile());
         }
     }
+
+
+	public GymInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public GymInfo(String gymName, String gymAddress, String mobile) {
+		super();
+		this.gymName = gymName;
+		this.gymAddress = gymAddress;
+		this.mobile = mobile;
+	}
+
+
+	@Override
+	public String toString() {
+		return "GymInfo [gymName=" + gymName + ", gymAddress=" + gymAddress + ", mobile=" + mobile + "]";
+	}
     
 }

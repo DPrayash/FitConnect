@@ -28,7 +28,32 @@ public class Slot {
     private List<String> trainerList;
     
 
-    public String getSlotId() {
+    @Override
+	public String toString() {
+		return "Slot [slotId=" + slotId + ", startTime=" + startTime + ", endTime=" + endTime + ", maximumLimit="
+				+ maximumLimit + ", slotDate=" + slotDate + ", trainerList=" + trainerList + "]";
+	}
+
+
+	public Slot(String slotId, Time startTime, Time endTime, Integer maximumLimit, String slotDate,
+			List<String> trainerList) {
+		super();
+		this.slotId = slotId;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.maximumLimit = maximumLimit;
+		this.slotDate = slotDate;
+		this.trainerList = trainerList;
+	}
+
+
+	public Slot() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public String getSlotId() {
 		return slotId;
 	}
 

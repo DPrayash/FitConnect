@@ -9,7 +9,9 @@ import { GymService } from 'src/app/services/gym.service';
 })
 export class PlansComponent implements OnInit{
 
-  constructor(private gymService: GymService) { }
+  constructor(private gymService: GymService) {
+    this.newPlanDescription = [];
+  }
 
   ngOnInit() {
     this.getPlanList();
@@ -22,7 +24,10 @@ export class PlansComponent implements OnInit{
   newPlanName = '';
   newPrice = 0;
   newDuration = '';
-  durationList: string[] = ['1', '2', '3', '6', '12', '18', '24'];
+  newPlanDescription: string[] = [];
+  newDescription: string = '';
+  durationList: string[] = ['1 month', '2 months', '3 months', '6 months', '12 months', '18 months', '24 months'];
+
 
   selectPlan(plan: Plan) {
     this.selectedPlan = plan;
@@ -47,6 +52,7 @@ export class PlansComponent implements OnInit{
     this.newPlanName = plan.planName;
     this.newPrice = plan.planPrice;
     this.newDuration = plan.planDuration;
+    this.newPlanDescription = plan.planDescription;
   }
 
   addPlanForm() {
@@ -55,15 +61,30 @@ export class PlansComponent implements OnInit{
     this.newPlanName = '';
     this.newPrice = 0;
     this.newDuration = '';
+    this.newPlanDescription = [];
   }
 
   closeForm() {
     this.formMode = false;
   }
 
+  addDescription() {
+    if (this.newDescription) {
+      console.log(this.newDescription);
+      console.log(this.newPlanDescription);
+      this.newPlanDescription.push(this.newDescription);
+      this.newDescription = '';
+    }
+  }
+
+  removeDescription(index: number) {
+    this.newPlanDescription.splice(index, 1);
+  }
+
   createPlan() {
+
     if(this.newPlanName && this.newPrice && this.newDuration) {
-      const plan = new Plan(this.newPlanName, this.newPrice, this.newDuration);
+      const plan = new Plan(this.newPlanName, this.newPrice, this.newDuration, this.newPlanDescription);
       this.gymService.addAPlan(plan).subscribe((data) => {
         console.log("Plan Added:", data);
         this.getPlanList();
@@ -72,13 +93,14 @@ export class PlansComponent implements OnInit{
         this.newPlanName = '';
         this.newPrice = 0;
         this.newDuration = '';
+        this.newPlanDescription = [];
       });
     }
   }
 
   updatePlan() {
     if (this.selectedPlan) {
-      const plan = new Plan(this.newPlanName, this.newPrice, this.newDuration);
+      const plan = new Plan(this.newPlanName, this.newPrice, this.newDuration, this.newPlanDescription);
       this.gymService.updatePlan(this.selectedPlan.planId, plan).subscribe((data) => {
         console.log("Plan Updated:", data);
         this.getPlanList();
@@ -87,6 +109,7 @@ export class PlansComponent implements OnInit{
         this.newPlanName = '';
         this.newPrice = 0;
         this.newDuration = '';
+        this.newPlanDescription = [];
       });
     }
   }
@@ -96,6 +119,7 @@ export class PlansComponent implements OnInit{
       this.gymService.deletePlan(planId).subscribe((data) => {
         console.log("Plan Deleted:", data);
         this.getPlanList();
+        this.formMode = false;
       });
     }
   }

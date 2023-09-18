@@ -1,3 +1,22 @@
-.plan-card-actions button {
-    margin: 10px 5px 0;
+.plan-desc {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.plan-desc p {
+    display: flex;
+}
+
+.plan-desc p mat-icon {
+    font-size: 16px;
 }

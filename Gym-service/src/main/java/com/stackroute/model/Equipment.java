@@ -14,6 +14,12 @@ import lombok.NoArgsConstructor;
 @Document(collection = "EquipmentCollection")
 public class Equipment {
 	
+	@Override
+	public String toString() {
+		return "Equipment [equipmentId=" + equipmentId + ", equipmentName=" + equipmentName + ", equipmentImage="
+				+ equipmentImage + ", equipmentDescription=" + equipmentDescription + ", quantity=" + quantity + "]";
+	}
+
 	@Id
 	@Field("equipmentId") 
     private String equipmentId;
