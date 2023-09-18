@@ -16,6 +16,7 @@ import { UserRegistrationFormComponent } from './components/user-registration-fo
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'userHome', component: UserHomeComponent },
   { path: 'users', component: UsersComponent },
   { path: 'payments', component: PaymentsComponent },
   { path: 'slots', component: SlotsComponent },

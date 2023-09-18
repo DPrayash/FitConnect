@@ -4,6 +4,18 @@
 </head>
 <body>
     <div class = "container">
+        <div class="myPlan">
+            <h1>My Plan Details</h1>
+            <mat-card>
+                <mat-list>
+                    <mat-list-item>Plan Name: </mat-list-item>
+                    <mat-list-item>Booked On: </mat-list-item>
+                    <mat-list-item>Duration: </mat-list-item>
+                    <mat-list-item>Price: </mat-list-item>
+                    <mat-list-item>Expiry Date: </mat-list-item>
+                </mat-list>
+            </mat-card>
+        </div>
         <h1>Available Plans</h1>
         <div class = "plans" *ngFor="let plan of planList">
             <div class="plan1">

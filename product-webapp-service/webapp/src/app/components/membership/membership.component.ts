@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Plan } from 'src/app/models/plan.model';
 //import razorpay from 'razorpay';
 import { GymService } from 'src/app/services/gym.service';
@@ -10,41 +10,31 @@ declare var Razorpay: any;
   templateUrl: './membership.component.html',
   styleUrls: ['./membership.component.css']
 })
-export class MembershipComponent {
+export class MembershipComponent implements OnInit {
   constructor(
     private ps: PaymentServiceService, 
     private gs: GymService
     ) {}
 
-  planList: Plan[] = [
-  //   {
-  //     "planId": "3d868e85-9ef1-4604-bf7e-de7c5db21333",
-  //     "planName": "starter",
-  //     "planPrice": 1500.0,
-  //     "planDuration": "month"
-  // },
-  // {
-  //     "planId": "11d23c70-3a93-4f70-b7f7-23208ef307f7",
-  //     "planName": "pro",
-  //     "planPrice": 5000.0,
-  //     "planDuration": "6 month"
-  // },
-  // {
-  //     "planId": "faa0b61e-b639-43ec-a832-6ab71d1fe0d8",
-  //     "planName": "premium",
-  //     "planPrice": 7500.0,
-  //     "planDuration": "12 month"
-  // }
-  ];
-  
-  getPlanPrice(){
-
-  }
+  planList: Plan[] = [];
+  plansInfo: string[] = [];
   
   ngOnInit(){
+    this.getPlanInfo();
+  }
 
+  private getPlanInfo(){
     this.gs.getPlanList().subscribe((data: any)=>{
-      this.planList = data
+      console.log('Plans Info:', data);
+      if (data != null && data.length > 0) {
+        data.map((plan) => {
+          let planStr = plan.planName + " ( " + plan.planPrice + " / " + plan.planDuration + " )";
+          this.plansInfo.push(planStr);
+        }
+        );
+      } else {
+        this.plansInfo = [];
+      }
     });
   }
 

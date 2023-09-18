@@ -15,4 +15,8 @@ export class PaymentServiceService {
     public getAllTransactions() {
       return this.httpClient.get("http://localhost:8012/payment/all");
     }
+
+    public getTransactionByUser(userEmail: any) {
+      return this.httpClient.get("http://localhost:8012/payment/transactions/"+userEmail);
+    }
 }

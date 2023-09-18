@@ -41,6 +41,7 @@ import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.com
 import { MembershipComponent } from './components/membership/membership.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -84,8 +85,8 @@ import { UserRegistrationFormComponent } from './components/user-registration-fo
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatProgressSpinnerModule
-
+    MatProgressSpinnerModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
