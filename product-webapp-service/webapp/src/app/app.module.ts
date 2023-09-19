@@ -42,6 +42,7 @@ import { MembershipComponent } from './components/membership/membership.componen
 import { LoadingComponent } from './components/loading/loading.component';
 import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     UserSidebarComponent, 
     MembershipComponent, 
     LoadingComponent,
-    UserRegistrationFormComponent
+    UserRegistrationFormComponent,
+    UpdateProfileComponent
   ],
   imports: [
     BrowserModule,
