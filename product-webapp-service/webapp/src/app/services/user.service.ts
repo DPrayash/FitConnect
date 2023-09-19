@@ -15,7 +15,7 @@ export class UserService {
     return this.http.post<User>(`${this.apiUrl}/registerUser`, user);
 }
 getUserList(): Observable<User[]> {
-  return this.http.get<User[]>(`${this.apiUrl}/users`);
+  return this.http.get<User[]>(`${this.apiUrl}`);
 }
 
 getActivityListBySlotId(slotId: string): Observable<Activity[]> {
