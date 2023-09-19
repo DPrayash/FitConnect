@@ -1,4 +1,4 @@
-export interface Payment {
+export class Payment {
     paymentId: number;
     userEmail: string;
     paymentTitle: string;

@@ -6,6 +6,10 @@ h1, h2 {
     margin-top: 35px;
 }
 
+.horizontal {
+    display: flex;
+    justify-content: space-between;
+}
 
 .plans {
     display: flex;
@@ -14,6 +18,11 @@ h1, h2 {
     box-sizing: border-box;
     align-content: space-between;
     margin-top: 30px;
+    border: 1px solid black;
+    height: 100%;
+    width: 27%;
+    padding: 5px;
+    margin-right: 20px;
 }
 
 .plan1, .plan2, .plan3 {

@@ -113,6 +113,7 @@ public class UserServiceController {
 		ResponseEntity<?> entity;
 		
 		try {
+			System.out.println(user);
 			UserDTO updatedPlan= userService.updatePlan(user, userEmail);
 			
 			if(updatedPlan!=null) {

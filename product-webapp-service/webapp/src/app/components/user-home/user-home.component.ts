@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GymService } from 'src/app/services/gym.service';
 
 @Component({
   selector: 'app-user-home',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-home.component.css']
 })
 export class UserHomeComponent {
+  constructor(private gs: GymService) {}
 
+  
 }

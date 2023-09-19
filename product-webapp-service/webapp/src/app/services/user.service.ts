@@ -15,11 +15,15 @@ export class UserService {
     return this.http.post<User>(`${this.apiUrl}/registerUser`, user);
 }
 getUserList(): Observable<User[]> {
-  return this.http.get<User[]>(`${this.apiUrl}/users`);
+  return this.http.get<User[]>(`${this.apiUrl}`);
 }
 
 getActivityListBySlotId(slotId: string): Observable<Activity[]> {
   return this.http.get<Activity[]>(`${this.apiUrl}/slots/slotByNumber/${slotId}`);
+}
+
+getUpdatePlan(userEmail: string, user: User): Observable<User> {
+  return this.http.put<User>(`${this.apiUrl}/updatePlan/${userEmail}`, user);
 }
 
 }
