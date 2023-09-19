@@ -12,6 +12,7 @@ import { ChatsComponent } from './components/chats/chats.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { MembershipComponent } from './components/membership/membership.component';
 import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'chats', component: ChatsComponent },
   { path: 'userLogin', component: UserHomeComponent},
   { path: 'membership', component: MembershipComponent},
-  { path: 'registerUser', component:UserRegistrationFormComponent}
+  { path: 'registerUser', component:UserRegistrationFormComponent},
+  { path: 'updateUser', component:UpdateProfileComponent}
 ];
 
 @NgModule({

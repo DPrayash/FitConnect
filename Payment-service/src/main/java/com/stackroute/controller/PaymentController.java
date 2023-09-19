@@ -25,6 +25,12 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
 	
+	
+	@GetMapping("/message")
+	public  String  welcome() {
+		return "Message from   Service";
+	}
+	
 	@PostMapping("/created")
 	public ResponseEntity<?> createTransaction(@RequestParam double amount) {
 		ResponseEntity<?> entity = null;

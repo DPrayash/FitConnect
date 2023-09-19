@@ -37,11 +37,11 @@ import { TrainersComponent } from './components/trainers/trainers.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
-import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
 import { MembershipComponent } from './components/membership/membership.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 
 @NgModule({
   declarations: [
@@ -59,10 +59,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     GalleryComponent,
     ChatsComponent,
     UserHomeComponent,
-    UserSidebarComponent, 
     MembershipComponent, 
     LoadingComponent,
-    UserRegistrationFormComponent
+    UserRegistrationFormComponent,
+    UpdateProfileComponent
   ],
   imports: [
     BrowserModule,

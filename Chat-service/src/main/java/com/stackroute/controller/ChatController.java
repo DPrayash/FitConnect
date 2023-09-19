@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.stackroute.service.ChatService;
 
 @RestController
 @RequestMapping("/Chat")
+@CrossOrigin("*")
 public class ChatController {
 	@Autowired
 	ChatService chatService;
@@ -126,10 +128,10 @@ public class ChatController {
 			return new ResponseEntity<String>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-    @PutMapping("/UploadFile/{Email}")
-	public ResponseEntity<?> UploadMedia(@PathVariable String Email, @RequestParam("file") MultipartFile file) {
+    @PutMapping("/UploadFile/{Email}/{senderMail}/{filename}")
+	public ResponseEntity<?> UploadMedia(@PathVariable String Email, @PathVariable String senderMail  ,@RequestParam("file") MultipartFile file, @PathVariable String filename) {
 		try {
-			Chat updatedChat = chatService.UploadMediaFile(Email, file);
+			Chat updatedChat = chatService.UploadMediaFile(Email, senderMail , file, filename);
 			if (updatedChat != null) {
 				return new ResponseEntity<Chat>(updatedChat, HttpStatus.OK);
 			} else {

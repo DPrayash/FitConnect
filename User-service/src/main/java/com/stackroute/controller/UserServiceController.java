@@ -148,13 +148,13 @@ public class UserServiceController {
 	}
 	
 	
-	@PostMapping("/updateProfilePic/{userEmail}")
-	public ResponseEntity<String> uploadProfilePic(@PathVariable String userEmail ,@RequestParam("file") MultipartFile file){
+	@PutMapping("/updateProfilePic/{userEmail}")
+	public ResponseEntity<?> uploadProfilePic(@PathVariable String userEmail ,@RequestParam("file") MultipartFile file){
 		ResponseEntity<?> entity;
 		
 		try {
-			String url=userService.uploadProfilepic(userEmail, file);
-			return new ResponseEntity<>(url, HttpStatus.OK);
+			UserDTO updatedUser = userService.uploadProfilepic(userEmail, file);
+			return new ResponseEntity<>(updatedUser, HttpStatus.OK);
 		}catch (ImageUploadException e) {
 			return new ResponseEntity<String>("Error loading image",HttpStatus.CONFLICT);
 		}

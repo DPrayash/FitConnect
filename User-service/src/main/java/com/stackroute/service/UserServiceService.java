@@ -14,7 +14,7 @@ public interface UserServiceService {
 	List<UserDTO> getAllUsers();
 	UserDTO getUserByEmail(String email);
 	UserDTO updateUser(UserService user, String userEmail);
-	String uploadProfilepic(String userEmail, MultipartFile file);
+	UserDTO uploadProfilepic(String userEmail, MultipartFile file);
 	UserDTO updatePlan(UserService user, String userEmail);
 	
 	
