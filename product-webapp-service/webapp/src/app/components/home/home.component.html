@@ -33,6 +33,10 @@
       <p>Name:<strong>{{ gymInfo.gymName }}</strong> </p>
       <p>Address:<strong> {{ gymInfo.gymAddress }}</strong></p>
       <p>Mobile No:<strong>{{ gymInfo.mobile }}</strong> </p>
+      <div style="width: 100%;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.896)"><iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2473.6886236833498!2d5.06565567614727!3d51.68384237185394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c693ae441781cb%3A0x18bdea329933e0f2!2sFitconnect!5e0!3m2!1sen!2sus!4v1695127535360!5m2!1sen!2sus"
+        height="300" style="border:0; width: 100%;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe></div>
     </div>
   </div>
 
@@ -54,15 +58,24 @@
     <h2>Admin Info</h2>
     <form *ngIf="adminUpdate" (submit)="updateAdminInfo()" class="mat-form">
       <p><mat-form-field class="full-width">
-          <mat-label for="adminName">Address:</mat-label>
-          <input matInput type="text" id="adminName" name="adminName" [(ngModel)]="adminInfo.userName" required>
+          <mat-label for="adminName">Admin Name</mat-label>
+          <input matInput type="text" id="adminName" name="adminName" [(ngModel)]="adminInfo.adminName" required>
+        </mat-form-field></p>
+        <p><mat-form-field class="full-width">
+          <mat-label for="gymMobileNo">Mobile No:</mat-label>
+          <input matInput type="text" id="adminMobile" name="adminMobile" [(ngModel)]="adminInfo.adminMobile" required>
         </mat-form-field></p>
       <button mat-raised-button color="primary" type="submit">Save</button>
     </form>
 
     <div *ngIf="!adminUpdate">
-      <p>Name:<strong> {{ adminInfo.userName }}</strong></p>
-      <p>Email:<strong>{{ adminInfo.userEmail }}</strong></p>
+      <p>Name:<strong> {{ adminInfo.adminName }}</strong></p>
+      <p>Email:<strong>{{ adminInfo.adminMail }}</strong></p>
+      <p>Moilie No:<strong>{{ adminInfo.adminMobile }}</strong></p>
+      <div >
+        <strong *ngIf="adminInfo.adminProfilePic==null">Profile picture not found.</strong>
+        <img *ngIf="adminInfo.adminProfilePic!=null" [src]="adminInfo.adminProfilePic" [alt]="adminInfo.adminName" style="height: 300px;" />
+      </div>
     </div>
   </div>
 

@@ -84,9 +84,6 @@ public class Admin {
     	if(admin.getAdminMobile() != null) {
     		setAdminMobile(admin.getAdminMobile());
     	}
-    	if(admin.getAdminProfilePic() != null) {
-    		setAdminProfilePic(admin.getAdminProfilePic());
-    	}
     }
 }
 

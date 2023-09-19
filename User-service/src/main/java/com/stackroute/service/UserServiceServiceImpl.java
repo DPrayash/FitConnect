@@ -85,23 +85,22 @@ public class UserServiceServiceImpl implements UserServiceService {
 	}
 
 	@Override
-	public String uploadProfilepic(String userEmail, MultipartFile file) {
-		// TODO Auto-generated method stub
+	public UserDTO uploadProfilepic(String userEmail, MultipartFile file) {
 		try {
 			Map<String, String> uploadPic = cloudinary.uploader().upload(file.getBytes(), Map.of());
 
 			String url = uploadPic.get("url");
 
 			UserService uploadedImage = userRepository.findById(userEmail).orElse(null);
-
+			UserDTO updatedUser = new UserDTO();
 			if (uploadedImage != null) {
 				uploadedImage.setUserProfilePicUrl(url);
-				userRepository.save(uploadedImage);
+				updatedUser.addUser(userRepository.save(uploadedImage));
 			} else {
 				return null;
 			}
 
-			return url;
+			return updatedUser;
 		} catch (IOException e) {
 			throw new RuntimeException("Image updloading failed", e);
 

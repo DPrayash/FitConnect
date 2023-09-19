@@ -1,12 +1,14 @@
 export class Admin {
-    userEmail!: string;
-    userName!: string;
-    userProfilePicUrl!: string;
+    adminMail!: string;
+    adminName!: string;
+    adminProfilePic!: string;
+    adminMobile!: string;
 
-    Admin(userEmail: string, userName: string, userProfilePicUrl: string) { 
-        this.userEmail = userEmail;
-        this.userName = userName;
-        this.userProfilePicUrl = userProfilePicUrl;
+    Admin(adminMail: string, adminName: string, adminProfilePic: string, adminMobile: string) { 
+        this.adminMail = adminMail;
+        this.adminName = adminName;
+        this.adminProfilePic = adminProfilePic;
+        this.adminMobile = adminMobile;
     }
 
 }
