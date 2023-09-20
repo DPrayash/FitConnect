@@ -1,14 +1,31 @@
 .slotInfo {
     margin: auto 10%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    width: 50%;
+    background-color: #f1f1f1;
+    margin-left: 40px;
+    display: block;
 }
 
 .slotMetric {
     margin: auto 10%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    width: 50%;
+    background-color: #f1f1f1;
+    margin-left: 40px;
+    display: block;
+}
+
+.slotdetails {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 30px;
 }
 
 h1 {
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin: 5% auto;
     text-align: center;
     font-size: 40px;
 }
@@ -18,5 +35,5 @@ h3 {
 }
 
 .mat-list-item {
-    font-size: 26px;
+    font-size: 32px;
 }

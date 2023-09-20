@@ -6,6 +6,10 @@ h1, h2 {
     margin-top: 35px;
 }
 
+.planName {
+    text-align: center;
+}
+
 .horizontal {
     display: flex;
     justify-content: space-between;
@@ -18,15 +22,22 @@ h1, h2 {
     box-sizing: border-box;
     align-content: space-between;
     margin-top: 30px;
-    border: 1px solid black;
     height: 100%;
     width: 27%;
     padding: 5px;
-    margin-right: 20px;
+    /* margin-right: 20px; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    background-color: #f1f1f1;
+}
+
+.starterPack {
+    margin-left: 60px;
 }
 
 .plan1, .plan2, .plan3 {
-    border: 1px solid black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    display: block;
     height: 100%;
     width: 27%;
     padding: 5px;
@@ -45,9 +56,28 @@ p {
 .price {
     font-size: 36px;
     font-weight: bolder;
-    margin: auto 15%;
+    margin: 5% auto;
 }
 
 li {
     margin-bottom: 10px;
+}
+
+.plandetails {
+    margin: 2% auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    width: 50%;
+    background-color: #f1f1f1;
+    margin-left: 40px;
+    display: block;
+}
+
+.myPlan {
+    margin: 5% auto;
+}
+
+.mat-card-title {
+    text-align: center;
+    font-size: 32px;
 }

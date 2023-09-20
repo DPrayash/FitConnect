@@ -37,4 +37,8 @@ getUpdatePlan(userEmail: string, user: User): Observable<User> {
   return this.http.put<User>(`${this.apiUrl}/updatePlan/${userEmail}`, user);
 }
 
+getUserActivityListByUserEmail(userEmail: string): Observable<Activity[]> {
+  return this.http.get<Activity[]>(`${this.apiUrl}/slots/user-email/${userEmail}`);
+}
+
 }

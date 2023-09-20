@@ -6,13 +6,13 @@
     <div class = "container">
         <div class="myPlan">
             <mat-card-title>My Plan Details</mat-card-title>
-            <mat-card>
+            <mat-card class="plandetails">
                 <mat-list>
                     <mat-list-item>Plan Name:<span>{{planPaid.planName}}</span> </mat-list-item>
-                    <mat-list-item>Booked On:<span></span> </mat-list-item>
-                    <mat-list-item>Duration: </mat-list-item>
-                    <mat-list-item>Price: </mat-list-item>
-                    <mat-list-item>Expiry Date: </mat-list-item>
+                    <!-- <mat-list-item>Booked On:<span>{{planPaid.timestamp}}</span> </mat-list-item> -->
+                    <mat-list-item>Duration: <span>{{planPaid.planDuration}}</span></mat-list-item>
+                    <mat-list-item>Price: <span>{{planPaid.planPrice}}</span></mat-list-item>
+                    <!-- <mat-list-item>Expiry Date: <span></span></mat-list-item> -->
                 </mat-list>
             </mat-card>
         </div>
@@ -21,8 +21,8 @@
         <div class="horizontal" fxLayout="row">
         <div class = "plans" *ngFor="let plan of planList">
             <!-- <div class="plan1"> -->
-                <h2>{{plan.planName}}</h2>
-                <p class="price"><span>{{plan.planPrice}}</span> per month</p>
+                <h2 class="planName">{{plan.planName | uppercase }}</h2>
+                <p class="price"><span> ₹ {{plan.planPrice}}</span> per {{plan.planDuration}}</p>
                 <p>Includes Gym and Cardio</p>
                 <div class="body1">
                     <ol>
