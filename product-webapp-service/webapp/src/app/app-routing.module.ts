@@ -8,12 +8,12 @@ import { PlansComponent } from './components/plans/plans.component';
 import { EquipmentsComponent } from './components/equipments/equipments.component';
 import { TrainersComponent } from './components/trainers/trainers.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
-import { ChatsComponent } from './components/chats/chats.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { MembershipComponent } from './components/membership/membership.component';
 import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
-
+import { AdminchatsectionComponent } from './components/adminchatsection/adminchatsection.component';
+import { UserchatsectionComponent } from './components/userchatsection/userchatsection.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
@@ -25,7 +25,8 @@ const routes: Routes = [
   { path: 'equipments', component: EquipmentsComponent },
   { path: 'trainers', component: TrainersComponent },
   { path: 'gallery', component: GalleryComponent },
-  { path: 'chats', component: ChatsComponent },
+  {path:'UserChat', component:UserchatsectionComponent},
+  {path:'AdminChat',component:AdminchatsectionComponent},
   { path: 'userLogin', component: UserHomeComponent},
   { path: 'membership', component: MembershipComponent},
   { path: 'registerUser', component:UserRegistrationFormComponent},

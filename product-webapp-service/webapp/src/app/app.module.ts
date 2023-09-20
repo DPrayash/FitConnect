@@ -35,13 +35,15 @@ import { PlansComponent } from './components/plans/plans.component';
 import { EquipmentsComponent } from './components/equipments/equipments.component';
 import { TrainersComponent } from './components/trainers/trainers.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
-import { ChatsComponent } from './components/chats/chats.component';
+
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { MembershipComponent } from './components/membership/membership.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { AdminchatsectionComponent } from './components/adminchatsection/adminchatsection.component';
+import { UserchatsectionComponent } from './components/userchatsection/userchatsection.component';
 
 @NgModule({
   declarations: [
@@ -57,12 +59,13 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
     EquipmentsComponent,
     TrainersComponent,
     GalleryComponent,
-    ChatsComponent,
     UserHomeComponent,
     MembershipComponent, 
     LoadingComponent,
     UserRegistrationFormComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    AdminchatsectionComponent,
+    UserchatsectionComponent,
   ],
   imports: [
     BrowserModule,

@@ -26,6 +26,12 @@ import com.stackroute.service.ChatService;
 public class ChatController {
 	@Autowired
 	ChatService chatService;
+	
+	
+	@GetMapping("/message")
+	public  String  welcome() {
+		return "Message from   Service";
+	}
 
 	// exception added methods
 	@PostMapping("/Add")

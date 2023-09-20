@@ -1,6 +1,7 @@
 export interface Message {
-    senderEmail: string;
-    senderMessage: string;
-    senderMediaLinks: string[];
-    timeStamp: Date;
+  senderEmail :string|any;
+  senderMessage:string|any;
+  senderMediaLinks:string[]|any;
+  timeStamp:string|any
+  dateStamp:string|any
 }
