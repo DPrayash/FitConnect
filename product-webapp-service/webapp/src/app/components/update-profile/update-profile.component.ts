@@ -23,7 +23,7 @@ export class UpdateProfileComponent implements OnInit {
   }
   getUserDetails() {
     this.isLoading = true;
-    this.userService.getUserByEmail("abd@yahoo.com").subscribe(
+    this.userService.getUserByEmail("jpg@gmail.com").subscribe(
       (data) => {
         console.log(data);
         this.user = data; // Update the user object with retrieved data
@@ -55,7 +55,7 @@ export class UpdateProfileComponent implements OnInit {
     };
     console.log(user);
 
-    this.userService.updateUserDetails("abd@yahoo.com",user).subscribe(                 //this.user.userEmail
+    this.userService.updateUserDetails("jpg@gmail.com",user).subscribe(                 //this.user.userEmail
       (updatedUser) => {
         console.log('User updated:', updatedUser);
         this.isLoading = false;
