@@ -101,12 +101,8 @@ export class GymService {
     return this.http.delete<any>(`${this.apiUrl}/trainers/${trainerId}`);
   }
 
-  getTrainerById(trainerId: string): Observable<Trainer> {
-    return this.http.get<Trainer>(`${this.apiUrl}/trainers/${trainerId}`);
-  }
-
-  getTrainerBySlotId(slotId: string): Observable<Trainer> {
-    return this.http.get<Trainer>(`${this.apiUrl}/trainers/slot/${slotId}`);
+  getTrainersBySlotId(slotId: string): Observable<Trainer[]> {
+    return this.http.get<Trainer[]>(`${this.apiUrl}/trainers/${slotId}`);
   }
 
 

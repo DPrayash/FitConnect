@@ -18,7 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +44,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { AdminchatsectionComponent } from './components/adminchatsection/adminchatsection.component';
 import { UserchatsectionComponent } from './components/userchatsection/userchatsection.component';
+import { BookedComponent } from './components/booked/booked.component';
+import { BookComponent } from './components/book/book.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,9 @@ import { UserchatsectionComponent } from './components/userchatsection/userchats
     UpdateProfileComponent,
     AdminchatsectionComponent,
     UserchatsectionComponent,
+    BookedComponent,
+    BookComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,7 +95,8 @@ import { UserchatsectionComponent } from './components/userchatsection/userchats
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

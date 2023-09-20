@@ -14,10 +14,20 @@ import { UserRegistrationFormComponent } from './components/user-registration-fo
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { AdminchatsectionComponent } from './components/adminchatsection/adminchatsection.component';
 import { UserchatsectionComponent } from './components/userchatsection/userchatsection.component';
+import { BookComponent } from './components/book/book.component';
+import { BookedComponent } from './components/booked/booked.component';
+
+
 const routes: Routes = [
+
+  // DEFAULT
+  { path: 'userLogin', component: UserHomeComponent },
+  { path: 'registerUser', component: UserRegistrationFormComponent },
+
+
+  // ADMIN
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'userHome', component: UserHomeComponent },
   { path: 'users', component: UsersComponent },
   { path: 'payments', component: PaymentsComponent },
   { path: 'slots', component: SlotsComponent },
@@ -25,12 +35,15 @@ const routes: Routes = [
   { path: 'equipments', component: EquipmentsComponent },
   { path: 'trainers', component: TrainersComponent },
   { path: 'gallery', component: GalleryComponent },
-  {path:'UserChat', component:UserchatsectionComponent},
-  {path:'AdminChat',component:AdminchatsectionComponent},
-  { path: 'userLogin', component: UserHomeComponent},
-  { path: 'membership', component: MembershipComponent},
-  { path: 'registerUser', component:UserRegistrationFormComponent},
-  { path: 'updateUser', component:UpdateProfileComponent}
+  { path: 'chats', component: AdminchatsectionComponent },
+
+  // USER
+  { path: 'userHome', component: UserHomeComponent },
+  { path: 'chat', component: UserchatsectionComponent },
+  { path: 'membership', component: MembershipComponent },
+  { path: 'updateUser', component: UpdateProfileComponent },
+  { path: 'book', component: BookComponent },
+  { path: 'bookings', component: BookedComponent }
 ];
 
 @NgModule({

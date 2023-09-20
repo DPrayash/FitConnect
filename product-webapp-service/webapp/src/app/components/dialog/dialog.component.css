@@ -1,0 +1,21 @@
+.slot-booking {
+    position: relative;
+    padding: 10px 20px;
+}
+
+.slot-info {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.slot-info-item {
+    font-size: large;
+    font-weight: bold;
+
+}
+
+.slot-info-item mat-icon {
+    margin: 0 10px;
+}
