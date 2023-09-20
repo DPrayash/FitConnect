@@ -5,6 +5,14 @@
     background-color: var(--red-highlight);
 }
 
+.display-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: var(--red-highlight);
+    width: calc(45% - 10px);
+}
+
 .card {
     position: relative;
     width: calc(45% - 30px);
@@ -49,19 +57,21 @@ button {
     margin: 0 auto;
     display: block;
 }
-
-.card-info {
-    color: var(--green-color);
-    background-color: var(--green-highlight);
+.card.card-info {
+    background-color: var(--white-color); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    color: black; 
     width: fit-content;
-    padding: 5px 10px;
-    margin: 5px 0;
+    padding: 20px 30px; 
+    margin: 10px; 
     border: 1px solid var(--white-light-color);
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 70vh; /* Set a maximum height for the card */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the maximum height */
+    transition: max-height 0.3s ease-in-out;
 }
 
-.card-info:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.card.card-info:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
     font-weight: 500;
 }

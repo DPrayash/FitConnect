@@ -60,7 +60,7 @@ public class UserServiceController {
 				login.setUserEmail(user.getUserEmail());
 				login.setUserPasswordHash(user.getUserPasswordHash());
 				
-				String otherServiceUrl="http://localhost:8002/auth/addNewUser";
+				String otherServiceUrl="http://localhost:8002/auth/registerNewUser";
 				entity=new ResponseEntity<UserDTO>(createdUser, HttpStatus.OK);
 			}else {
 				entity=new ResponseEntity<String>("Cant be added", HttpStatus.CONFLICT);

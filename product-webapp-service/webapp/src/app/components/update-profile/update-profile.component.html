@@ -54,12 +54,26 @@
       </mat-form-field></p>
 
       <!-- Add other input fields for remaining user details as needed -->
-
+      
       <button mat-raised-button color="primary" type="submit">Save</button>
+      <hr>
       <button mat-button type="button" (click)="cancelUpdate()">Cancel</button>
     </form>
+    <div *ngIf="!userUpdate">     
+      <p>User Name: <strong>{{ user.userName }}</strong></p>
+      <p>Age: <strong>{{ user.userAge }}</strong></p>
+      <p>Height: <strong>{{ user.height }}</strong></p>
+      <p>Weight: <strong>{{ user.weight }}</strong></p>
+      <p>Contact: <strong>{{ user.userMobile }}</strong></p>
+      
+      
+    </div>
+    
+  </div>  
+  <div *ngIf="userUpdate" class="display-container">
 
-    <div *ngIf="!userUpdate">
+    <div class="card card-info" *ngIf="user">  
+      <h2>Your Previous Details</h2>    
       <p>User Name: <strong>{{ user.userName }}</strong></p>
       <p>Age: <strong>{{ user.userAge }}</strong></p>
       <p>Height: <strong>{{ user.height }}</strong></p>
@@ -69,4 +83,5 @@
       
     </div>
   </div>
+
 </div>
