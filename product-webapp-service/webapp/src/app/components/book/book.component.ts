@@ -32,12 +32,16 @@ export class BookComponent implements OnInit {
     if(this.selectedDate) {
       this.gymService.getSlotsByDate(this.formatDate(this.selectedDate)).subscribe((slots: Slot[]) => {
 
-        this.availableSlots = slots.map((slot: Slot) => {
-          slot.startTime = this.convertTo12HourFormat(slot.startTime);
-          slot.endTime = this.convertTo12HourFormat(slot.endTime);
-          return slot;
+        if(slots != null && slots.length > 0) {
+          this.availableSlots = slots.map((slot: Slot) => {
+            slot.startTime = this.convertTo12HourFormat(slot.startTime);
+            slot.endTime = this.convertTo12HourFormat(slot.endTime);
+            return slot;
+          });          
+        } else {
+          this.availableSlots = [];
         }
-        );
+
       })
     }
   }

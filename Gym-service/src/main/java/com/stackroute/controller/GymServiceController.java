@@ -143,6 +143,37 @@ public class GymServiceController {
 			throw new RuntimeException(ex);
 		}
 	}
+	
+	
+	@GetMapping("slot/{slotId}")
+	@ApiOperation(value = "Get Slot by slotId", notes = "Retrieve the slot by slotId")
+	public ResponseEntity<?> getSlotBySlotId(@PathVariable String slotId) {
+		try {
+			Slot slot = gymService.getSlotById(slotId);
+			if(slot != null) {
+				return ResponseEntity.ok(slot);
+			} else {
+				throw new NotFoundException();
+			}
+		}  catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
+	
+	@PostMapping("slots/byIdList")
+	@ApiOperation(value = "Get Slots of by list of slotIds", notes = "Retrieve the List of a slot by slotId list")
+	public ResponseEntity<?> getSlotListWithGivenIds(@RequestBody List<String> slotIds) {
+		try {
+			List<Slot> slotList = gymService.getSlotsWithSlotIds(slotIds);
+			if(slotList != null) {
+				return ResponseEntity.ok(slotList);
+			} else {
+				throw new NotFoundException();
+			}
+		}  catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 
 	@GetMapping("slots/available/{slotId}")
 	@ApiOperation(value = "Get maximumLimit of by slotId", notes = "Retrieve the maximumLimit of a slot by slotId")

@@ -45,4 +45,8 @@ export class UserService {
     return this.http.post<Activity>(`${this.apiUrl}/slots/bookslot`, activity);
   }
 
+  cancelASlot(activityId: number): Observable<Activity> {
+    return this.http.put<Activity>(`${this.apiUrl}/slots/cancel`, activityId);
+  }
+
 }

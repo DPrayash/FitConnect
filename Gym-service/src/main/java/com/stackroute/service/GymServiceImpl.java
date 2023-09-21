@@ -106,6 +106,15 @@ public class GymServiceImpl implements GymService {
 	}
 
 	@Override
+	public List<Slot> getSlotsWithSlotIds(List<String> slotIds) {
+	    List<Slot> slotList = new ArrayList<>();
+	    for(String slotId: slotIds) {
+	        slotList.add(getSlotById(slotId));
+	    }
+	    return slotList;
+	}
+	
+	@Override
 	public List<Slot> getSlotsBySlotDate(String slotDate) {
 		return slotRepository.findBySlotDate(slotDate);
 	}
@@ -423,6 +432,8 @@ public class GymServiceImpl implements GymService {
 			throw new RuntimeException("Invalid media URL: " + mediaUrl);
 		}
 	}
+
+
 
 
 
