@@ -33,12 +33,16 @@ export class UserService {
     return this.http.put<User>(`${this.apiUrl}/users/updateProfilePic/${userEmail}`, file);
   }
 
-getUpdatePlan(userEmail: string, user: User): Observable<User> {
-  return this.http.put<User>(`${this.apiUrl}/updatePlan/${userEmail}`, user);
-}
+  getUpdatePlan(userEmail: string, user: User): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/updatePlan/${userEmail}`, user);
+  }
 
-getUserActivityListByUserEmail(userEmail: string): Observable<Activity[]> {
-  return this.http.get<Activity[]>(`${this.apiUrl}/slots/user-email/${userEmail}`);
-}
+  getUserActivityListByUserEmail(userEmail: string): Observable<Activity[]> {
+    return this.http.get<Activity[]>(`${this.apiUrl}/slots/user-email/${userEmail}`);
+  }
+
+  bookASlot(activity: Activity): Observable<Activity> {
+    return this.http.post<Activity>(`${this.apiUrl}/slots/bookslot`, activity);
+  }
 
 }
