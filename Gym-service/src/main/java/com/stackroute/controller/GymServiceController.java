@@ -22,7 +22,7 @@ import com.stackroute.exception.DuplicateEntityException;
 import com.stackroute.exception.NotFoundException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 @RequestMapping("/api/v1/gym-service")
 @Api(value = "Gym Service API", description = "Operations related to the Gym Service")
 public class GymServiceController {
@@ -241,7 +241,7 @@ public class GymServiceController {
 			throw new RuntimeException(ex);
 		}
 	}
-
+	
 	@GetMapping("/trainers/{slotId}")
 	@ApiOperation(value = "Get trainers by slot ID", notes = "Retrieve a list of trainers for a specific slot.")
 	@ApiResponses({ @ApiResponse(code = 200, message = "List of trainers retrieved successfully"),
