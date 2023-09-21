@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Plan } from 'src/app/models/plan.model';
 import { GymService } from 'src/app/services/gym.service';
 
@@ -9,9 +10,7 @@ import { GymService } from 'src/app/services/gym.service';
 })
 export class PlansComponent implements OnInit{
 
-  constructor(private gymService: GymService) {
-    this.newPlanDescription = [];
-  }
+  constructor(private gymService: GymService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getPlanList();
@@ -85,42 +84,68 @@ export class PlansComponent implements OnInit{
 
     if(this.newPlanName && this.newPrice && this.newDuration) {
       const plan = new Plan(this.newPlanName, this.newPrice, this.newDuration, this.newPlanDescription);
-      this.gymService.addAPlan(plan).subscribe((data) => {
-        console.log("Plan Added:", data);
-        this.getPlanList();
-        this.formMode = false;
-        this.updateMode = false;
-        this.newPlanName = '';
-        this.newPrice = 0;
-        this.newDuration = '';
-        this.newPlanDescription = [];
-      });
+      this.gymService.addAPlan(plan).subscribe(
+        (data) => {
+          console.log("Plan Added:", data);
+          this.openSnackBar("Plan Added Successfully", 'Close');
+          this.getPlanList();
+          this.formMode = false;
+          this.updateMode = false;
+          this.newPlanName = '';
+          this.newPrice = 0;
+          this.newDuration = '';
+          this.newPlanDescription = [];
+        }, (error) => {
+          console.log(error);
+          this.openSnackBar(error.error.message, 'Close');
+        }
+      );
     }
   }
 
   updatePlan() {
     if (this.selectedPlan) {
       const plan = new Plan(this.newPlanName, this.newPrice, this.newDuration, this.newPlanDescription);
-      this.gymService.updatePlan(this.selectedPlan.planId, plan).subscribe((data) => {
-        console.log("Plan Updated:", data);
-        this.getPlanList();
-        this.formMode = false;
-        this.updateMode = false;
-        this.newPlanName = '';
-        this.newPrice = 0;
-        this.newDuration = '';
-        this.newPlanDescription = [];
-      });
+      this.gymService.updatePlan(this.selectedPlan.planId, plan).subscribe(
+        (data) => {
+          console.log("Plan Updated:", data);
+          this.openSnackBar("Plan Updated Successfully", 'Close');
+          this.getPlanList();
+          this.formMode = false;
+          this.updateMode = false;
+          this.newPlanName = '';
+          this.newPrice = 0;
+          this.newDuration = '';
+          this.newPlanDescription = [];
+        }, (error) => {
+          console.log(error);
+          this.openSnackBar(error.error.message, 'Close');
+        }
+      );
     }
   }
 
   deletePlan(planId: string) {
-    if (this.selectedPlan && confirm("Are you sure you want to delete this plan?")) {
-      this.gymService.deletePlan(planId).subscribe((data) => {
-        console.log("Plan Deleted:", data);
-        this.getPlanList();
-        this.formMode = false;
-      });
+    if (this.selectedPlan) {
+      this.gymService.deletePlan(planId).subscribe(
+        (data) => {
+          console.log("Plan Deleted:", data);
+          this.openSnackBar("Plan Deleted Successfully", 'Close');
+          this.getPlanList();
+          this.formMode = false;
+        }, (error) => {
+          console.log(error);
+          this.openSnackBar(error.error.message, 'Close');
+        }
+      );
     }
+  }
+
+  openSnackBar(msg: string, action: string) {
+    const snackBarRef = this._snackBar.open(msg, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2000,
+    });
   }
 }

@@ -68,8 +68,8 @@ public class UserActivityController {
 	        }
 		}
 
-	@PutMapping("/cancel/{activityId}")
-	public ResponseEntity<?> cancelSlot(@PathVariable int activityId){
+	@PutMapping("/cancel")
+	public ResponseEntity<?> cancelSlot(@RequestBody int activityId){
 		 try {
 		        UserActivity userActivity = activityService.cancelSlot(activityId);
 
@@ -92,7 +92,7 @@ public class UserActivityController {
 	        
 	}
 	
-	@PutMapping("/rescheduleSlot/{activityId}")
+	@PutMapping("/reschedule/{activityId}")
 	public ResponseEntity<?> rescheduleSlot(@PathVariable int activityId, @RequestBody UserActivity userActivity){
 		try {
 			UserActivity reschedule= activityService.rescheduleSlot( activityId,userActivity);

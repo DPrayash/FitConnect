@@ -1,6 +1,6 @@
 <div class="items-container">
     <div class="items-list">
-        <h2 class="items-list-title">Book Slot</h2>
+        <h2 class="items-list-title"> {{ rescheduleMode ? 'Reschedule Slot' : 'Book Slot' }}</h2>
 
         <form class="activity-form" (submit)="getAvailableSlotsAtDate()">
             <mat-form-field>
@@ -35,10 +35,12 @@
                 </mat-card-header>
                 <mat-card-content>
                     <strong>From {{ slot.startTime }} to {{ slot.endTime }} </strong>
-                    <p class="available" *ngIf="isSlotActive(slot)">*only {{ slot.maximumLimit }} slots are available </p>
+                    <p class="available" *ngIf="isSlotActive(slot)">
+                        {{ slot.maximumLimit==0 ? 'No slots available' : slot.maximumLimit==1 ? '*only 1 slot available' : '*only ' + slot.maximumLimit + ' slots available' }}
+                    </p>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button [disabled]="!isSlotActive(slot)" mat-raised-button color="warn" (click)="openDialog(slot)"> {{ isSlotActive(slot) ? 'Select Slot' : 'Expired' }}</button>
+                    <button [disabled]="!isSlotActive(slot)||slot.maximumLimit==0" mat-raised-button color="warn" (click)="openDialog(slot)"> {{ isSlotActive(slot) ? 'Select Slot' : 'Expired' }}</button>
                 </mat-card-actions>
             </mat-card>
         </div>

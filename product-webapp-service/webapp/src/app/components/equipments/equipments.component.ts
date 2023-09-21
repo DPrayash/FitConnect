@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Equipment } from 'src/app/models/equipment.model';
 import { GymService } from 'src/app/services/gym.service';
 
@@ -9,7 +10,7 @@ import { GymService } from 'src/app/services/gym.service';
 })
 export class EquipmentsComponent implements OnInit {
 
-  constructor(private gymService: GymService) { }
+  constructor(private gymService: GymService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getEquipmentList();
@@ -74,16 +75,21 @@ export class EquipmentsComponent implements OnInit {
       equipment.append('quantity', this.newQuantity.toString());
       equipment.append('equipmentImage', this.selectedImageFile);
 
-      this.gymService.addAnEquipment(equipment).subscribe((data) => {
-        console.log("Equipment Added:", data);
-        this.getEquipmentList();
-        this.formMode = false;
-        this.updateMode = false;
-        this.newEquipmentName = '';
-        this.newEquipmentDescription = '';
-        this.newQuantity = 0;
-        this.selectedImageFile = null;
-      }
+      this.gymService.addAnEquipment(equipment).subscribe(
+        (data) => {
+          console.log("Equipment Added:", data);
+          this.openSnackBar("Equipment added successfully!", "OK");
+          this.getEquipmentList();
+          this.formMode = false;
+          this.updateMode = false;
+          this.newEquipmentName = '';
+          this.newEquipmentDescription = '';
+          this.newQuantity = 0;
+          this.selectedImageFile = null;
+        } , (error) => {
+          console.log("Error in adding equipment", error);
+          this.openSnackBar("Error in adding equipment. Please try again later.", "OK");
+        }
       );
     }
   }
@@ -98,33 +104,42 @@ export class EquipmentsComponent implements OnInit {
         equipment.append('equipmentImage', this.selectedImageFile);
       }
 
-      this.gymService.updateEquipment(this.selectedEquipment.equipmentId, equipment).subscribe((data) => {
-        console.log("Equipment Updated:", data);
-        this.getEquipmentList();
-        this.formMode = false;
-        this.updateMode = false;
-        this.newEquipmentName = '';
-        this.newEquipmentDescription = '';
-        this.newQuantity = 0;
-        this.selectedImageFile = null;
-      }
+      this.gymService.updateEquipment(this.selectedEquipment.equipmentId, equipment).subscribe(
+        (data) => {
+          console.log("Equipment Updated:", data);
+          this.openSnackBar("Equipment updated successfully!", "OK");
+          this.getEquipmentList();
+          this.formMode = false;
+          this.updateMode = false;
+          this.newEquipmentName = '';
+          this.newEquipmentDescription = '';
+          this.newQuantity = 0;
+          this.selectedImageFile = null;
+        } , (error) => {
+          console.log("Error in updating equipment", error);
+          this.openSnackBar("Error in updating equipment. Please try again later.", "OK");
+        }
       );
     }
   }
 
   deleteEquipment(equipmentId: string) {
-    if (this.selectedEquipment && this.selectedEquipment.equipmentId == equipmentId && confirm("Are you sure you want to delete this equipment?")) {
+    if (this.selectedEquipment && this.selectedEquipment.equipmentId == equipmentId) {
 
       this.gymService.deleteEquipment(equipmentId).subscribe(
         (data) => {
           console.log("Equipment is successfully deleted");
+          this.openSnackBar("Equipment deleted successfully!", "OK");
           this.getEquipmentList();
           this.closeForm();
         }
         , (error) => {
           console.log("Error in deleting equipment", error);
+          this.openSnackBar("Error in deleting equipment. Please try again later.", "OK");
         });
     }
+
+
 
   }
 
@@ -158,5 +173,13 @@ export class EquipmentsComponent implements OnInit {
       return URL.createObjectURL(this.selectedImageFile);
     }
     return null;
+  }
+
+  openSnackBar(msg: string, action: string) {
+    const snackBarRef = this._snackBar.open(msg, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2000,
+    });
   }
 }

@@ -45,4 +45,12 @@ export class UserService {
     return this.http.post<Activity>(`${this.apiUrl}/slots/bookslot`, activity);
   }
 
+  cancelASlot(activityId: number): Observable<Activity> {
+    return this.http.put<Activity>(`${this.apiUrl}/slots/cancel`, activityId);
+  }
+
+  rescheduleASlot(activityId: number, activity: Activity): Observable<Activity> {
+    return this.http.put<Activity>(`${this.apiUrl}/slots/reschedule/${activityId}`, activity);
+  }
+
 }

@@ -1,1 +1,47 @@
-<p>booked works!</p>
+<app-book *ngIf="rescheduleMode" [rescheduleMode]="true" [rescheduleId]="rescheduleId" (closeReschedule)="closeReschedule()"></app-book>
+
+<div *ngIf="!rescheduleMode" class="items-container">
+    <div class="items-list" *ngIf="myActivityList.length==0" >
+        <h2 class="items-list-title">Booked Slots</h2>
+    </div>
+
+    <div class="items-list" *ngIf="myActivityList.length>0"  >
+        <h2 class="items-list-title">Booked Slots</h2>
+        <div class="items-card" *ngFor="let activity of myActivityList; let i = index"
+            (click)="selectActivity(activity, activitySlotInfo[i])" [class.selected]="activity === selectedActivity">
+            <div class="items-card-title">
+                {{ activitySlotInfo[i]?.slotDate | date: 'dd MMM, yyyy'}}
+            </div>
+            <div class="items-card-footer">
+                <p><strong>{{ activitySlotInfo[i]?.startTime + ' - ' + activitySlotInfo[i]?.endTime }}</strong></p>
+                <p [class.green-badge]="isSlotActive(activitySlotInfo[i])"
+                    [class.red-badge]="!isSlotActive(activitySlotInfo[i])"><strong>{{
+                        isSlotActive(activitySlotInfo[i]) ? 'ACTIVE' : 'EXPIRED' }}</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="items-details">
+        <div class="items-details-card">
+            <span class="item-actions" [matMenuTriggerFor]="slotCardActionsMenu">
+                <mat-icon>more_vert</mat-icon>
+            </span>
+
+            <mat-menu #slotCardActionsMenu="matMenu" xPosition="before">
+                <a mat-menu-item tabindex="0" (click)="cancelSlot(selectedActivity.activityId)">
+                    <mat-icon>event_busy</mat-icon> Cancel slot
+                </a>
+                <a mat-menu-item tabindex="0" (click)="rescheduleSlot(selectedActivity.activityId)">
+                    <mat-icon>event_note</mat-icon> Reschedule slot
+                </a>
+            </mat-menu>
+            <h2 class="items-title">Selected Slot</h2>
+            <div class="slot-content">
+                <p>Slot Date: <strong>{{ selectedSlotInfo?.slotDate | date: 'MMMM dd, yyyy' }}</strong></p>
+                <p>Timings: <strong>{{ getTimings(selectedSlotInfo) }}</strong></p>
+                <p>Booking status: <strong>{{ selectedActivity.slotStatus }}</strong></p>
+                <p>Booked on:<strong>{{ selectedActivity.bookingDate | date: 'MMMM d, y, hh:mm a' }}</strong> </p>
+            </div>
+        </div>
+    </div>
+    <div class="items-details"></div>
+</div>

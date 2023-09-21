@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Slot } from 'src/app/models/slot.model';
 import { GymService } from 'src/app/services/gym.service';
 import { UserService } from 'src/app/services/user.service';
@@ -16,6 +16,10 @@ export class BookComponent implements OnInit {
   availableSlots: Slot[] = [];
   minDate: Date;
   maxDate: Date;
+  @Input() rescheduleMode: boolean;
+  @Input() rescheduleId: number;
+  @Output() closeReschedule: EventEmitter<void> = new EventEmitter<void>();
+
 
   constructor(private gymService: GymService, private dialog: MatDialog) {
     this.minDate = new Date();
@@ -28,26 +32,36 @@ export class BookComponent implements OnInit {
     this.getAvailableSlotsAtDate();
   }
 
+
+  exitReschedule() {
+    this.closeReschedule.emit();
+  }
+
   getAvailableSlotsAtDate() {
     if(this.selectedDate) {
       this.gymService.getSlotsByDate(this.formatDate(this.selectedDate)).subscribe((slots: Slot[]) => {
 
-        this.availableSlots = slots.map((slot: Slot) => {
-          slot.startTime = this.convertTo12HourFormat(slot.startTime);
-          slot.endTime = this.convertTo12HourFormat(slot.endTime);
-          return slot;
+        if(slots != null && slots.length > 0) {
+          this.availableSlots = slots.map((slot: Slot) => {
+            slot.startTime = this.convertTo12HourFormat(slot.startTime);
+            slot.endTime = this.convertTo12HourFormat(slot.endTime);
+            return slot;
+          });          
+        } else {
+          this.availableSlots = [];
         }
-        );
+
       })
     }
   }
 
   openDialog(slot: Slot) {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '400px', data: { slot: slot }
+      width: '400px', data: { slot: slot, rescheduleMode: this.rescheduleMode, rescheduleId: this.rescheduleId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.exitReschedule();
     });
   }
 
