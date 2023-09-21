@@ -1,0 +1,91 @@
+.login-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.image-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.col-md-6 {
+    max-width: 400px; /* Adjust the maximum width of the login box */
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.5);
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.card-header h4 {
+    color: #fff;
+    margin: 0;
+    padding: 15px 0;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.form-label {
+    color: #fff;
+}
+
+.form-control {
+    border-radius: 5px;
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn {
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn-danger {
+    background-color: #28a745; /* Change to green */
+    border-color: #28a745; /* Change to green */
+}
+
+.btn-danger:hover {
+    background-color: #218838; /* Change to darker green */
+    border-color: #1e7e34; /* Change to darker green */
+}
+
+.btn-success {
+    background-color: #ccc; /* Change to grey */
+    border-color: #ccc; /* Change to grey */
+    color: #000; /* Change text color to black */
+}
+
+.btn-success:hover {
+    background-color: #999; /* Change to darker grey */
+    border-color: #999; /* Change to darker grey */
+    color: #000; /* Change text color to black */
+}
