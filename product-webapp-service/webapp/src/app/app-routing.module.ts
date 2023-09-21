@@ -26,6 +26,7 @@ const routes: Routes = [
   // DEFAULT
   { path: 'userLogin', component: UserHomeComponent },
   { path: 'registerUser', component: UserRegistrationFormComponent },
+  { path: 'login', component: LoginComponent},
 
 
   // ADMIN
