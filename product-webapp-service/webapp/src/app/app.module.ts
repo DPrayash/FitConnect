@@ -50,6 +50,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { BookedComponent } from './components/booked/booked.component';
 import { BookComponent } from './components/book/book.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { UserPaymentComponent } from './components/user-payment/user-payment.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     BookedComponent,
     BookComponent,
     DialogComponent,
+    UserPaymentComponent
   ],
   imports: [
     BrowserModule,

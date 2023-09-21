@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Activity } from 'src/app/models/activity.model';
 import { User } from 'src/app/models/user.model';
 import { GymService } from 'src/app/services/gym.service';
 import { UserService } from 'src/app/services/user.service';
@@ -15,6 +16,7 @@ export class UserHomeComponent implements OnInit {
     ) {}
     isLoggedIn = true;
     user: User = new User()
+    activity: Activity[]=[];
 
     ngOnInit(){
       this.getUserName();
@@ -30,7 +32,10 @@ export class UserHomeComponent implements OnInit {
     }
 
 getSlotInfo(){
-  
+  this.us.getUserActivityListByUserEmail('username1@email.com').subscribe((data)=>{
+    this.activity = data;
+    console.log(data);
+  })
 }
   
 }

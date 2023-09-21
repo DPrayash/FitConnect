@@ -14,8 +14,6 @@ export class LoginComponent {
   constructor(private authenticationService : AuthenticationService, 
     private userAuthService: UserAuthService,private router:Router) {}
 
-  
-
 
   login(loginForm:NgForm) {
     this.authenticationService.login(loginForm.value).subscribe(
