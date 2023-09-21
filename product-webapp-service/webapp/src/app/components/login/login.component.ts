@@ -29,7 +29,7 @@ export class LoginComponent {
         const role = Response.user.role[0].roleName;
         if(role === 'Admin')
         {
-          this.router.navigate(['/Home']);
+          this.router.navigate(['/home']);
 
         }else {
           this.router.navigate(['/userHome']);
@@ -41,6 +41,10 @@ export class LoginComponent {
       }
     );
   
+  }
+
+  registerUser(){
+    this.router.navigate(['/registerUser']);
   }
 
 }
