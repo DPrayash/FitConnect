@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.stackroute.exception.ImageUploadException;
 import com.stackroute.exception.UserAlreadyExistsException;
+import com.stackroute.model.AuthDTO;
 import com.stackroute.model.UserDTO;
 import com.stackroute.model.UserLoginData;
 import com.stackroute.model.UserService;
@@ -61,6 +62,8 @@ public class UserServiceController {
 				login.setUserPasswordHash(user.getUserPasswordHash());
 				
 				String otherServiceUrl="http://localhost:8002/auth/registerNewUser";
+				AuthDTO authData = new AuthDTO(user.getUserEmail(), user.getUserPasswordHash());
+				restTemplate.postForEntity(otherServiceUrl, authData, null);
 				entity=new ResponseEntity<UserDTO>(createdUser, HttpStatus.OK);
 			}else {
 				entity=new ResponseEntity<String>("Cant be added", HttpStatus.CONFLICT);
