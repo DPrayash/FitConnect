@@ -1,0 +1,43 @@
+.data-block {
+    width: 900px;
+    padding: 20px;
+    border: 3px solid rgb(221, 105, 76);
+    border-radius: 20px;
+    background-color: #f7dede;
+    margin: 20px auto; 
+    text-align: left; 
+  }
+
+  /* Styling for the individual data elements */
+  .data-element {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .rating {
+    direction: rtl; /* Set the direction to right-to-left */
+  }
+  
+  .rating {
+    display: inline-block;
+  }
+
+
+
+  .rating input {
+    display: none;
+  }
+
+  .rating label {
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .rating label:before {
+    content: '★';
+    margin-right: 5px;
+  }
+
+  .rating input:checked ~ label:before {
+    color: orange;
+  }

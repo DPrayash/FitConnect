@@ -53,6 +53,7 @@ import { AuthGuard } from './_auth/auth.guard';
 import { AdminchatsectionComponent } from './components/adminchatsection/adminchatsection.component';
 import { UserchatsectionComponent } from './components/userchatsection/userchatsection.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
     UserPaymentComponent,
     LoginComponent,
     LandingComponent,
+    FeedbackFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,19 +18,21 @@ import { BookComponent } from './components/book/book.component';
 import { BookedComponent } from './components/booked/booked.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserPaymentComponent } from './components/user-payment/user-payment.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 
 const routes: Routes = [
   
     // { path: '', component: LoginComponent },
   // DEFAULT
+  { path: '', component: LandingComponent},
   { path: 'userLogin', component: UserHomeComponent },
   { path: 'registerUser', component: UserRegistrationFormComponent },
   { path: 'login', component: LoginComponent},
 
 
   // ADMIN
-  { path: '', component: HomeComponent },
+  { path: 'admin', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'users', component: UsersComponent },
   { path: 'payments', component: PaymentsComponent },

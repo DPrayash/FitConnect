@@ -5,6 +5,7 @@ import { Plan } from 'src/app/models/plan.model';
 import { GymService } from 'src/app/services/gym.service';
 import { Feedback } from 'src/app/models/feedback.model';
 import { FeedbackService } from 'src/app/services/feedback.service';
+import { Router } from '@angular/router';
 // import Swiper from 'swiper';
 
 @Component({
@@ -14,12 +15,21 @@ import { FeedbackService } from 'src/app/services/feedback.service';
 })
 export class LandingComponent implements OnInit  {
 
-  constructor(private gymService: GymService, private feedbackService: FeedbackService) {};
+  constructor(private gymService: GymService, private feedbackService: FeedbackService,
+    private router: Router) {};
   ngOnInit() {
     this.getTrainerList();
     this.getPlanList();
     this.getFeedbackList();
   }  
+
+  OnLogin() {
+    this.router.navigate(['login']);
+  }
+
+  OnRegister() {
+    this.router.navigate(['registerUser']);
+  }
 
   trainerList: Trainer[] = [];
   planList: Plan[] = [];
