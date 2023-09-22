@@ -4,6 +4,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { CommonModule } from '@angular/common';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -42,6 +44,7 @@ import { MembershipComponent } from './components/membership/membership.componen
 import { LoadingComponent } from './components/loading/loading.component';
 import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     UserSidebarComponent, 
     MembershipComponent, 
     LoadingComponent,
-    UserRegistrationFormComponent
+    UserRegistrationFormComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +90,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
-    MatGridListModule
+    MatGridListModule,
+    CommonModule,
+    SlickCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
