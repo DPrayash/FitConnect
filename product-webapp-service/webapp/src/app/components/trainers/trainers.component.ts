@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Trainer } from 'src/app/models/trainer.model';
 import { GymService } from 'src/app/services/gym.service';
 
@@ -7,12 +8,12 @@ import { GymService } from 'src/app/services/gym.service';
   templateUrl: './trainers.component.html',
   styleUrls: ['./trainers.component.css']
 })
-export class TrainersComponent implements OnInit{
+export class TrainersComponent implements OnInit {
 
-  constructor(private gymService: GymService) { }
+  constructor(private gymService: GymService, private _snackBar: MatSnackBar) { }
   ngOnInit() {
     this.getTrainerList();
-  }  
+  }
   trainerList: Trainer[] = [];
 
   selectedTrainer: Trainer | null = null;
@@ -72,45 +73,78 @@ export class TrainersComponent implements OnInit{
   }
 
   createTrainer() {
-    if(this.selectedImageFile && this.newTrainerName && this.newTrainerCategory && this.newTrainerBio) {
+    if (this.selectedImageFile && this.newTrainerName && this.newTrainerCategory && this.newTrainerBio) {
       const trainer = new FormData();
       trainer.append('trainerName', this.newTrainerName);
       trainer.append('trainerCategory', this.newTrainerCategory);
       trainer.append('trainerBio', this.newTrainerBio);
       trainer.append('trainerImage', this.selectedImageFile);
-      this.gymService.addATrainer(trainer).subscribe((data) => {
-        console.log("Trainer Added:", data);
-        this.getTrainerList();
-        this.closeForm();
-      }
+      this.gymService.addATrainer(trainer).subscribe(
+        (data) => {
+          console.log("Trainer Added:", data);
+          this.openSnackBar("Trainer added successfully", "Close");
+          this.getTrainerList();
+          this.closeForm();
+        }, (error) => {
+          console.log("Error:", error);
+          this.openSnackBar("Error adding trainer", "Close");
+        }
       );
-    } 
+    }
 
   }
 
   updateTrainer() {
-    if(this.selectedTrainer) {
+    if (this.selectedTrainer) {
       const trainer = new FormData();
       trainer.append('trainerName', this.newTrainerName);
       trainer.append('trainerCategory', this.newTrainerCategory);
       trainer.append('trainerBio', this.newTrainerBio);
-      if(this.selectedImageFile) {
+      if (this.selectedImageFile) {
         trainer.append('trainerImage', this.selectedImageFile);
       }
-      this.gymService.updateTrainer(this.selectedTrainer.trainerId, trainer).subscribe((data) => {
-        console.log("Trainer Updated:", data);
-        this.getTrainerList();
-        this.closeForm();
-      }
+      this.gymService.updateTrainer(this.selectedTrainer.trainerId, trainer).subscribe(
+        (data) => {
+          console.log("Trainer Updated:", data);
+          this.openSnackBar("Trainer updated successfully", "Close");
+          this.getTrainerList();
+          this.closeForm();
+        }, (error) => {
+          console.log("Error:", error);
+          this.openSnackBar("Error updating trainer", "Close");
+        }
       );
     }
   }
 
   deleteTrainer(trainerId: string) {
-    if(this.selectedTrainer && confirm("Are you sure you want to delete this trainer?")) {
-      this.gymService.deleteTrainer(trainerId).subscribe((data) => {
-        console.log("Trainer Deleted:", data);
-        this.getTrainerList();
+    if (this.selectedTrainer) {
+
+      const snackBarRef = this._snackBar.open('Are you sure you want to delete this trainer?', 'Yes', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 5000,
+      });
+
+      snackBarRef.onAction().subscribe(() => {
+        this.gymService.deleteTrainer(trainerId).subscribe(
+          (data) => {
+            console.log("Trainer Deleted:", data);
+            this.openSnackBar("Trainer deleted successfully", "Close");
+            this.getTrainerList();
+          }, (error) => {
+            console.log("Error:", error);
+            this.openSnackBar("Error deleting trainer", "Close");
+          }
+        );
+      });
+
+      snackBarRef.afterDismissed().subscribe((dismissedAction) => {
+        if (dismissedAction.dismissedByAction) {
+          console.log('Deleted successfully.');
+        } else {
+          console.log('Delete failed.');
+        }
       });
     }
   }
@@ -141,6 +175,14 @@ export class TrainersComponent implements OnInit{
       return URL.createObjectURL(this.selectedImageFile);
     }
     return null;
+  }
+
+  openSnackBar(msg: string, action: string) {
+    const snackBarRef = this._snackBar.open(msg, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2000,
+    });
   }
 }
 

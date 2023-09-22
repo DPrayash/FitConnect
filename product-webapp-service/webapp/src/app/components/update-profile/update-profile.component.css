@@ -1,0 +1,77 @@
+.home-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: var(--red-highlight);
+}
+
+.display-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: var(--red-highlight);
+    width: calc(45% - 10px);
+}
+
+.card {
+    position: relative;
+    width: calc(45% - 30px);
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: var(--white-color);
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.close-form {
+    position: absolute;
+    right: 20px;
+    color: var(--red-color);
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+}
+
+button {
+    margin: 0 auto;
+    display: block;
+}
+.card.card-info {
+    background-color: var(--white-color); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    color: black; 
+    width: fit-content;
+    padding: 20px 30px; 
+    margin: 10px; 
+    border: 1px solid var(--white-light-color);
+    border-radius: 4px;
+    max-height: 70vh; /* Set a maximum height for the card */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the maximum height */
+    transition: max-height 0.3s ease-in-out;
+}
+
+.card.card-info:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+    font-weight: 500;
+}

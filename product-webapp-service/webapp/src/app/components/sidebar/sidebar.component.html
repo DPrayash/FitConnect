@@ -1,11 +1,32 @@
 <div class="side-nav-container">
 
-    <div class="profile-picture">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU"
-            alt="Profile Picture">
+    <div *ngIf="!updateForm" class="profile-picture">
+        <img [src]="profilePic!=null&&profilePic!=''?profilePic:dummyProfilePic" class="avatar" alt="Profile Picture"
+            mat-button [matMenuTriggerFor]="beforeMenu" />
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <a mat-menu-item tabindex="0" (click)="updateProfilePicForm()"><mat-icon>edit</mat-icon>Update profile
+                picture</a>
+        </mat-menu>
     </div>
 
-    <div class="side-nav-links">
+    <div *ngIf="updateForm" class="profile-picture">
+        <span class="close-form" (click)="closeForm()"><mat-icon>close</mat-icon></span>
+        <form (submit)="updateProfilePic()">
+
+            <div class="mat-form-field image-input">
+                <mat-label for="mediaImage">Image*</mat-label> <br />
+                <mat-hint class="select-file" (click)="selectImage()"> <mat-icon>upload</mat-icon> Select File</mat-hint>
+                <mat-hint class="file-name">{{ selectedImageFile ? getSelectedImageName() : "No image is selected"
+                    }}</mat-hint>
+                <input type="file" id="mediaImage" name="mediaImage" hidden accept="image/*"
+                    (change)="onImageSelect($event)">
+            </div>
+
+            <button mat-raised-button type="submit">Update Profile Picture</button>
+        </form>
+    </div>
+
+    <div *ngIf="ROLE=='ADMIN'" class="side-nav-links">
         <a class="side-nav-tab" routerLink="/home">
             <mat-icon>home</mat-icon>
             <span>Home</span>
@@ -44,4 +65,37 @@
         </a>
 
     </div>
+
+    <div *ngIf="ROLE=='USER'" class="side-nav-links">
+        <a class="side-nav-tab" routerLink="/userHome">
+            <mat-icon>home</mat-icon>
+            <span>Home</span>
+        </a>
+        <a class="side-nav-tab" routerLink="/updateUser">
+            <mat-icon>group</mat-icon>
+            <span>Profile</span>
+        </a>
+        <a class="side-nav-tab" routerLink="/UserPayment">
+            <mat-icon>payment</mat-icon>
+            <span>Payment History</span>
+        </a>
+        <a class="side-nav-tab" routerLink="/bookings">
+            <mat-icon>calendar_today</mat-icon>
+            <span>Booked Slots</span>
+        </a>
+        <a class="side-nav-tab" routerLink="/book">
+            <mat-icon>stars</mat-icon>
+            <span>Book a Slot</span>
+        </a>
+        <a class="side-nav-tab" routerLink="/membership">
+            <mat-icon>fitness_center</mat-icon>
+            <span>MyPlan</span>
+        </a>
+        <a class="side-nav-tab" routerLink="/chat">
+            <mat-icon>chat</mat-icon>
+            <span>Chat with Admin</span>
+        </a>
+
+    </div>
+
 </div>

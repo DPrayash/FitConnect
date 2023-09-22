@@ -21,6 +21,7 @@ public interface GymService {
     public List<Trainer> getAllTrainersBySlotId(String slotId);
     public Trainer getTrainerById(String trainerId);
     public List<Slot> getAllSlots();
+    public List<Slot> getSlotsWithSlotIds(List<String> slotIds);
     public List<Slot> getSlotsBySlotDate(String slotDate);
     public Slot getSlotById(String slotId);
     public List<Equipment> getAllEquipments();

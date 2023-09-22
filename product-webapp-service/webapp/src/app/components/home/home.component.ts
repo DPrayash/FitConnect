@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Admin } from 'src/app/models/admin.model';
 import { Gym } from 'src/app/models/gym.model';
-import { Slot } from 'src/app/models/slot.model';
 
 import { GymService } from 'src/app/services/gym.service';
+import { AdminService } from 'src/app/services/admin.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 export class HomeComponent implements OnInit {
 
   gymInfo: Gym = new Gym();
-  adminInfo: Admin = new Admin();
+    adminInfo: Admin = new Admin();
   slotsInfo: string[] = [];
   equipmentsInfo: string[] = [];
   usersInfo: string[] = [];
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   isLoading: boolean = false;
 
 
-  constructor(private gymService: GymService, private userService: UserService) { }
+  constructor(private gymService: GymService, private userService: UserService, private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.getGymInfo();
@@ -62,12 +62,21 @@ export class HomeComponent implements OnInit {
   }
 
   private getAdminInfo() {
-    this.adminInfo.userEmail = "admin@example.com";
-    this.adminInfo.userName = "Admin";
-    this.adminInfo.userProfilePicUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU";
+    this.isLoading = true;
+    this.adminService.getAdminInfo().subscribe((data) => {
+      console.log('Admin Info:', data);
+      this.adminInfo = data;
+      this.isLoading = false;
+    })
   }
 
   updateAdminInfo() {
+    if (true) {
+      this.adminService.updateAdminInfo(this.adminInfo).subscribe((data) => {
+        console.log("Updated Admin Info:", data);
+        this.adminInfo = data;
+      })
+    }
     this.adminUpdate = false;
   }
 

@@ -1,0 +1,72 @@
+<div class="chat-container">
+    <!-- Chat Messages -->
+   <div class="chat-messages">
+       <!-- Chat Window -->
+       <div class="chat-window" *ngIf="selectedChat">
+           <!-- Chat Window Header -->
+           <div class="chat-window-header">
+               <img class="chat-avatar" mat-list-avatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU' alt="User Image">
+           
+               <div class="header-info">
+                   <h3 mat-line class="user-name">Chat With Admin</h3>
+               </div>
+           </div>
+
+           <!-- Chat Window Body (Messages) -->
+           <div class="chat-window-body">
+               <div class="message-item" *ngFor="let message of messages"
+                   [class.admin-message]="message.senderEmail === selectedChat.chatUserEmail">
+                   <div class="message-options" *ngIf="message.senderEmail===selectedChat.chatUserEmail">
+                       <button mat-icon-button [matMenuTriggerFor]="messageMenu">
+                           <mat-icon>more_vert</mat-icon>
+                       </button>
+                       <mat-menu #messageMenu="matMenu">
+                           <button mat-menu-item class="delete-button" (click)="deleteMessage(message)">Delete</button>
+
+                       </mat-menu>
+                   </div>
+                   <div *ngIf="message.senderMessage !== null; else elseBlock">
+                       <!-- Content to display when condition is true -->
+                       <p class="message" [class.admin-message-text]="message.senderEmail === selectedChat.chatUserEmail">
+                           {{ message.senderMessage }}
+                       </p>
+
+                       <p class="timestamp">{{ message.timeStamp }} </p>
+                   </div>
+
+                   <ng-template #elseBlock>
+                       <!-- Content to display when condition is false -->
+                       <p class="message" [class.admin-message-text]="message.senderEmail === selectedChat.chatUserEmail">
+                            {{message.senderMediaLinks[1]}}
+                       </p>
+                       <button (click)="downloadImageOrPDF(message.senderMediaLinks[0])" mat-fab color="primary" aria-label="Example icon button with a download icon">
+                           <span class="material-icons"> download </span>
+                       </button>
+                       <p class="timestamp">{{ message.timeStamp }} </p>
+                   </ng-template>
+
+
+               </div>
+
+           </div>
+
+           <!-- Chat Window Footer (Message Input and Send Button) -->
+           <div class="chat-window-footer">
+               <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
+                   <label for="attachmentInput" class="attachment-icon">
+                       <mat-icon>attach_file</mat-icon>
+                   </label>
+                   <input class="attachment-file" type="file" id="attachmentInput" name="attachment"
+                       accept="image/*, .pdf" (change)="onAttachmentSelect($event)" />
+
+                   <input class="message-input" matInput [(ngModel)]="newMessage" name="message"
+                       placeholder="Type a message" required autocomplete="off" />
+
+                   <button class="message-submit" type="submit" mat-icon-button [disabled]="!chatForm.form.valid">
+                       <mat-icon>send</mat-icon>
+                   </button>
+               </form>
+           </div>
+       </div>
+   </div>
+</div>

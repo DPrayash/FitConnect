@@ -1,0 +1,35 @@
+<div class="slot-booking">
+    <span class="close-form" (click)="closeForm()"><mat-icon>close</mat-icon></span>
+
+    <h1>Book Slot</h1>
+
+    <div class="slot-info">
+
+        <div class="slot-info-item">
+            <mat-icon>date_range</mat-icon> <strong>{{ selectedSlot.slotDate | date: 'dd-MM-yyyy' }}</strong>
+        </div>
+        <div class="slot-info-item">
+            <mat-icon>access_time</mat-icon> <strong> {{ selectedSlot.startTime + ' - ' + selectedSlot.endTime }} </strong>
+        </div>
+
+
+        <form class="slot-form" (submit)="confirmAndBook()">
+            <div class="slot-info-item">
+                <mat-icon>person</mat-icon>
+                <mat-form-field>
+                    <mat-label for="trainer">Trainer</mat-label>
+                    <mat-select id="trainer" name="trainer" required [(ngModel)]="selectedTrainer">
+                        <mat-option *ngFor="let trainer of trainerList" [value]="trainer.trainerName">{{
+                            trainer.trainerName + ' ( ' + trainer.trainerCategory + ' )' }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <button mat-raised-button color="warn" type="submit">Confirm Slot</button>
+
+
+        </form>
+    </div>
+
+
+</div>

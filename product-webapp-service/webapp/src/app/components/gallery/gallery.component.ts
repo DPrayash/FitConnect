@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MediaFile } from 'src/app/models/mediafile.model';
 import { GymService } from 'src/app/services/gym.service';
 
@@ -9,7 +10,7 @@ import { GymService } from 'src/app/services/gym.service';
 })
 export class GalleryComponent implements OnInit {
 
-  constructor(private gymService: GymService) { }
+  constructor(private gymService: GymService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getMediaFileList();
@@ -75,11 +76,17 @@ export class GalleryComponent implements OnInit {
       mediaFile.append('mediaCategory', this.newMediaCategory);
       mediaFile.append('media', this.selectedImageFile);
 
-      this.gymService.addAMedia(mediaFile).subscribe((data) => {
-        console.log('Media File Added:', data);
-        this.getMediaFileList();
-        this.closeForm();
-      });
+      this.gymService.addAMedia(mediaFile).subscribe(
+        (data) => {
+          console.log('Media File Added:', data);
+          this.openSnackBar('Media File Added', 'Close');
+          this.getMediaFileList();
+          this.closeForm();
+        } , (error) => {
+          console.log('Error', error);
+          this.openSnackBar('Error in adding media file', 'Close');
+        }
+      );
     }
   }
 
@@ -91,25 +98,48 @@ export class GalleryComponent implements OnInit {
       mediaFile.append('media', this.selectedImageFile);
     }
 
-    this.gymService.updateMedia(this.updateMediaId, mediaFile).subscribe((data) => {
-      console.log('Media File Updated:', data);
-      this.getMediaFileList();
-      this.closeForm();
-    });
+    this.gymService.updateMedia(this.updateMediaId, mediaFile).subscribe(
+      (data) => {
+        console.log('Media File Updated:', data);
+        this.openSnackBar('Media File Updated', 'Close');
+        this.getMediaFileList();
+        this.closeForm();
+      }, (error) => {
+        console.log('Error', error);
+        this.openSnackBar('Error in updating media file', 'Close');
+      }
+    );
   }
 
   deleteMediaFile(mediaId: string) {
-    if (confirm("Are you sure?")) {
+
+    const snackBarRef = this._snackBar.open('Are you sure?', 'Yes', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 5000,
+    });
+  
+    snackBarRef.onAction().subscribe(() => {
       this.gymService.deleteMedia(mediaId).subscribe(
         (data) => {
           console.log('Media File is Deleted successfully');
+          this.openSnackBar('Media File Deleted', 'Close');
           this.getMediaFileList();
         },
         (error) => {
           console.log('Error', error);
+          this.openSnackBar('Error in deleting media file', 'Close');
         }
       );
-    }
+    });
+  
+    snackBarRef.afterDismissed().subscribe((dismissedAction) => {
+      if (dismissedAction.dismissedByAction) {
+        console.log('Deleted successfully.');
+      } else {
+        console.log('Delete failed.');
+      }
+    });
   }
 
   selectImage() {
@@ -139,5 +169,13 @@ export class GalleryComponent implements OnInit {
       return URL.createObjectURL(this.selectedImageFile);
     }
     return null;
+  }
+
+  openSnackBar(msg: string, action: string) {
+    const snackBarRef = this._snackBar.open(msg, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2000,
+    });
   }
 }

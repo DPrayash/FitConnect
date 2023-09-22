@@ -1,0 +1,50 @@
+<div class="items-container">
+    <div class="items-list">
+        <h2 class="items-list-title"> {{ rescheduleMode ? 'Reschedule Slot' : 'Book Slot' }}</h2>
+
+        <form class="activity-form" (submit)="getAvailableSlotsAtDate()">
+            <mat-form-field>
+                <mat-label for="activityDate">Date</mat-label>
+                <input matInput id="activityDate" name="activityDate" required [(ngModel)]="selectedDate"
+                    [matDatepicker]="picker" min="{{ minDate | date: 'yyyy-MM-dd' }}"
+                    max="{{ maxDate | date: 'yyyy-MM-dd' }}">
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-hint>Slots can be booked in the 7 days window, starting from today</mat-hint>
+            </mat-form-field>
+
+            <mat-card class="inline-calender-card">
+                <mat-calendar [(selected)]="selectedDate" minDate="{{ minDate | date: 'yyyy-MM-dd' }}"
+                    maxDate="{{ maxDate | date: 'yyyy-MM-dd' }}"></mat-calendar>
+            </mat-card>
+
+            <button mat-raised-button color="warn" type="submit">Select Date</button>
+        </form>
+    </div>
+
+    <div class="items-details" *ngIf="availableSlots==null||availableSlots.length==0">
+        <h2 class="items-title"> No slots available for the selected date</h2>
+    </div>
+
+    <div class="items-details" *ngIf="availableSlots!=null&&availableSlots.length>0">
+        <h2 class="items-title"> Available Slots</h2>
+        <div class="slots">
+            <mat-card class="slot-card" *ngFor="let slot of availableSlots; let i = index" >
+                <mat-card-header>
+                    <mat-card-title>Slot {{ (i+1) }}</mat-card-title>
+                    <mat-card-subtitle>{{ slot.slotDate }} </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <strong>From {{ slot.startTime }} to {{ slot.endTime }} </strong>
+                    <p class="available" *ngIf="isSlotActive(slot)">
+                        {{ slot.maximumLimit==0 ? 'No slots available' : slot.maximumLimit==1 ? '*only 1 slot available' : '*only ' + slot.maximumLimit + ' slots available' }}
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button [disabled]="!isSlotActive(slot)||slot.maximumLimit==0" mat-raised-button color="warn" (click)="openDialog(slot)"> {{ isSlotActive(slot) ? 'Select Slot' : 'Expired' }}</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+
+    </div>
+</div>

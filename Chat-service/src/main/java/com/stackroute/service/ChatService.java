@@ -59,8 +59,10 @@ public class ChatService {
 			if (!chat.isEmpty()) {
 				existingChat = chat.get(0);
 
-				if (existingChat.getChatMessage().isEmpty()) {
-					existingChat.getChatMessage().add(0, msg);
+				if (existingChat.getChatMessage()== null) {
+					List<Message> messages =  new ArrayList<Message>();
+					messages.add(msg);
+					existingChat.setChatMessage(messages);
 				} else {
 					existingChat.getChatMessage().add(msg);
 				}
@@ -175,7 +177,7 @@ public class ChatService {
 		}
 	}
 
-	public Chat UploadMediaFile(String email, MultipartFile file) throws IOException {
+	public Chat UploadMediaFile(String email, String senderMail,  MultipartFile file , String filename) throws IOException {
 		
 		Map<String, String> uploadMedia = cloudinary.uploader().upload(file.getBytes(), Map.of());
 		String url = uploadMedia.get("url");
@@ -183,16 +185,20 @@ public class ChatService {
 		List<Chat> chat = chatRepository.findByChatUserEmail(email);
 		List<String>Links = new ArrayList<>();
 		Links.add(url);
+		Links.add(filename);
 		Message msg = new Message();
-		msg.setSenderMediaLinks(Links);
+        msg.setSenderMediaLinks(Links);
+	    msg.setSenderEmail(senderMail);
 		try {
 			if (!chat.isEmpty()) {
 				existingChat = chat.get(0);
 
-				if (existingChat.getChatMessage().isEmpty()) {
-					existingChat.getChatMessage().add(0, msg);
+				if (existingChat.getChatMessage() == null) {
+					List<Message> msgs = new ArrayList<Message>();
+					msgs.add(msg);
+					existingChat.setChatMessage(msgs);
 				} else {
-					msg.setSenderEmail(existingChat.getChatMessage().get(0).getSenderEmail());
+					
 					existingChat.getChatMessage().add(msg);
 				}
 			}

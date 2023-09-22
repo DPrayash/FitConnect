@@ -22,7 +22,7 @@ import com.stackroute.exception.DuplicateEntityException;
 import com.stackroute.exception.NotFoundException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 @RequestMapping("/api/v1/gym-service")
 @Api(value = "Gym Service API", description = "Operations related to the Gym Service")
 public class GymServiceController {
@@ -143,6 +143,37 @@ public class GymServiceController {
 			throw new RuntimeException(ex);
 		}
 	}
+	
+	
+	@GetMapping("slot/{slotId}")
+	@ApiOperation(value = "Get Slot by slotId", notes = "Retrieve the slot by slotId")
+	public ResponseEntity<?> getSlotBySlotId(@PathVariable String slotId) {
+		try {
+			Slot slot = gymService.getSlotById(slotId);
+			if(slot != null) {
+				return ResponseEntity.ok(slot);
+			} else {
+				throw new NotFoundException();
+			}
+		}  catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
+	
+	@PostMapping("slots/byIdList")
+	@ApiOperation(value = "Get Slots of by list of slotIds", notes = "Retrieve the List of a slot by slotId list")
+	public ResponseEntity<?> getSlotListWithGivenIds(@RequestBody List<String> slotIds) {
+		try {
+			List<Slot> slotList = gymService.getSlotsWithSlotIds(slotIds);
+			if(slotList != null) {
+				return ResponseEntity.ok(slotList);
+			} else {
+				throw new NotFoundException();
+			}
+		}  catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 
 	@GetMapping("slots/available/{slotId}")
 	@ApiOperation(value = "Get maximumLimit of by slotId", notes = "Retrieve the maximumLimit of a slot by slotId")
@@ -241,7 +272,7 @@ public class GymServiceController {
 			throw new RuntimeException(ex);
 		}
 	}
-
+	
 	@GetMapping("/trainers/{slotId}")
 	@ApiOperation(value = "Get trainers by slot ID", notes = "Retrieve a list of trainers for a specific slot.")
 	@ApiResponses({ @ApiResponse(code = 200, message = "List of trainers retrieved successfully"),

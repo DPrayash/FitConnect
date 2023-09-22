@@ -1,5 +1,5 @@
-import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Activity } from 'src/app/models/activity.model';
 
 import { Slot } from 'src/app/models/slot.model';
@@ -14,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SlotsComponent implements OnInit {
 
-  constructor(private gymService: GymService, private userService: UserService) {
+  constructor(private gymService: GymService, private userService: UserService, private _snackBar: MatSnackBar) {
     this.minDate = new Date();
     this.maxDate = new Date();
     this.maxDate.setDate(this.minDate.getDate() + 7);
@@ -108,11 +108,17 @@ export class SlotsComponent implements OnInit {
         trainerList: this.selectedTrainers,
       };
 
-      this.gymService.addASlot(newSlot).subscribe((data) => {
-        console.log("Slot Added:", data);
-        this.getSlotList();
-        this.formMode = false;
-      });
+      this.gymService.addASlot(newSlot).subscribe(
+        (data) => {
+          console.log("Slot Added:", data);
+          this.openSnackBar("Slot Added Successfully", "Close");
+          this.getSlotList();
+          this.formMode = false;
+        }, (error) => {
+          console.error("Error adding Slot:", error);
+          this.openSnackBar("Error adding Slot", "Close");
+        }
+      );
     }
 
   }
@@ -154,27 +160,49 @@ export class SlotsComponent implements OnInit {
       trainerList: this.selectedTrainers,
     };
 
-    this.gymService.updateSlot(this.updateSlotId, updatedSlot).subscribe((data) => {
-      console.log("Slot Updated:", data);
-      this.getSlotList();
-      this.formMode = false;
-    });
+    this.gymService.updateSlot(this.updateSlotId, updatedSlot).subscribe(
+      (data) => {
+        console.log("Slot Updated:", data);
+        this.openSnackBar("Slot Updated Successfully", "Close");
+        this.getSlotList();
+        this.formMode = false;
+      }, (error) => {
+        console.error("Error updating Slot:", error);
+        this.openSnackBar("Error updating Slot", "Close");
+      }
+    );
 
   }
 
   deleteSlot(slotId: string) {
     if (this.selectedSlot) {
-      if (confirm(`Are you sure you want to delete the slot ${this.selectedSlot.slotDate} ${this.selectedSlot.startTime} - ${this.selectedSlot.endTime}?`)) {
+      const snackBarRef = this._snackBar.open(`Are you sure you want to delete the slot ${this.selectedSlot.slotDate} ${this.selectedSlot.startTime} - ${this.selectedSlot.endTime}?`, 'Yes', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 5000,
+      });
+
+      snackBarRef.onAction().subscribe(() => {
         this.gymService.deleteSlot(slotId).subscribe(
           (response) => {
             console.log("Slot is Deleted successfully");
+            this.openSnackBar("Slot Deleted Successfully", "Close");
             this.getSlotList();
           },
           (error) => {
             console.error("Error deleting Slot:", error);
+            this.openSnackBar("Error deleting Slot", "Close");
           }
         );
-      }
+      });
+
+      snackBarRef.afterDismissed().subscribe((dismissedAction) => {
+        if (dismissedAction.dismissedByAction) {
+          console.log('Deleted successfully.');
+        } else {
+          console.log('Delete failed.');
+        }
+      });
     }
 
   }
@@ -279,5 +307,13 @@ export class SlotsComponent implements OnInit {
     const isPM = period.toLowerCase() === 'pm';
     const convertedHours = isPM ? hours + 12 : hours % 12;
     return `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+  }
+
+  openSnackBar(msg: string, action: string) {
+    const snackBarRef = this._snackBar.open(msg, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2000,
+    });
   }
 }

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { resetFakeAsyncZone } from '@angular/core/testing';
+import { timestamp } from 'rxjs';
+import { Payment } from 'src/app/models/payment.model';
 import { Plan } from 'src/app/models/plan.model';
+import { User } from 'src/app/models/user.model';
 //import razorpay from 'razorpay';
 import { GymService } from 'src/app/services/gym.service';
 import { PaymentServiceService } from 'src/app/services/payment-service.service';
+import { UserService } from 'src/app/services/user.service';
 
 declare var Razorpay: any;
 @Component({
@@ -13,11 +18,14 @@ declare var Razorpay: any;
 export class MembershipComponent implements OnInit {
   constructor(
     private ps: PaymentServiceService, 
-    private gs: GymService
+    private gs: GymService,
+    private us: UserService
     ) {}
 
   planList: Plan[] = [];
   plansInfo: string[] = [];
+  planPaid: User = new User();
+  payment: Payment = new Payment();
   
   ngOnInit(){
     this.getPlanInfo();
@@ -25,16 +33,7 @@ export class MembershipComponent implements OnInit {
 
   private getPlanInfo(){
     this.gs.getPlanList().subscribe((data: any)=>{
-      console.log('Plans Info:', data);
-      if (data != null && data.length > 0) {
-        data.map((plan) => {
-          let planStr = plan.planName + " ( " + plan.planPrice + " / " + plan.planDuration + " )";
-          this.plansInfo.push(planStr);
-        }
-        );
-      } else {
-        this.plansInfo = [];
-      }
+      this.planList = data;
     });
   }
 
@@ -43,6 +42,13 @@ export class MembershipComponent implements OnInit {
       (response: any)=> {
         console.log(response);
         this.openTransactionModel(response);
+       this.us.getUpdatePlan('username1@email.com', this.planPaid).subscribe((data)=>{
+        console.log(data);
+
+        this.planPaid.planName = data.planName;
+        this.planPaid.planPrice = data.planPrice;
+        this.planPaid.planDuration = data.planDuration;
+       });
       },
       (error: any) => {
         console.log(error);
@@ -57,7 +63,7 @@ export class MembershipComponent implements OnInit {
       amount: response.amount,
       currency: response.currency,
       name: response.userEmail,
-      description: response.paymentTitle,
+      description: response.planName,
       paymentStatus: response.paymentStatus,
       image: '',
       
@@ -66,7 +72,7 @@ export class MembershipComponent implements OnInit {
       },
       prefill: {
         'name': '',
-        'email': '',
+        'email': response.userEmail,
         'contact': ''
       },
       notes: {
@@ -84,5 +90,14 @@ export class MembershipComponent implements OnInit {
   processResponse(res: any){
     console.log(res);
   }
+
   
+  convertToDate() {
+    var date = new Date(this.payment.timestamp).toLocaleDateString("en-us");
+    console.log(date);
+  }
+
+  getPaidPlanInfo(){
+    // this.ps.getTransactionByUser()
+  }
 }

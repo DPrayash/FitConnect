@@ -1,22 +1,20 @@
 <div>
-    <h1>Hi, </h1>
+    <h1>Hello! {{user.userName}} </h1>
     <div class="slotdetails">
         <mat-card class="slotInfo">
-            <h3>Your latest slot details</h3>
+            <mat-card-title>Your latest slot details</mat-card-title>
             <mat-list>
-                <mat-list-item>Slot Date: </mat-list-item>
+                <mat-list-item>Slot Date: <span></span></mat-list-item>
                 <mat-list-item>Trainer Name: </mat-list-item>
                 <mat-list-item>Slot Period: </mat-list-item>
                 <mat-list-item>Slot Status: </mat-list-item>
             </mat-list>
         </mat-card>
         <mat-card class="slotMetric">
-            <h3>Slot Metrics</h3>
+            <mat-card-title>Slot Metrics</mat-card-title>
             <mat-list>
                 <mat-list-item>Total slots booked: </mat-list-item>
                 <mat-list-item>Canceled slots: </mat-list-item>
-                <mat-list-item>Rescheduled slots: </mat-list-item>
-                <mat-list-item>Attended slots: </mat-list-item>
             </mat-list>
         </mat-card>
     </div>

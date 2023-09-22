@@ -35,6 +35,14 @@ export class GymService {
     return this.http.get<Slot[]>(`${this.apiUrl}/slots/by-date/${date}`);
   }
 
+  getSlotBySlotId(slotId: string): Observable<Slot> {
+    return this.http.get<Slot>(`${this.apiUrl}/slot/${slotId}`);
+  }
+
+  getSlotsBySlotIds(slotIds: string[]): Observable<Slot[]> {
+    return this.http.post<Slot[]>(`${this.apiUrl}/slots/byIdList`, slotIds);
+  }
+
   addASlot(slot: Slot): Observable<Slot> {
     return this.http.post<Slot>(`${this.apiUrl}/slots`, slot);
   }
@@ -101,12 +109,8 @@ export class GymService {
     return this.http.delete<any>(`${this.apiUrl}/trainers/${trainerId}`);
   }
 
-  getTrainerById(trainerId: string): Observable<Trainer> {
-    return this.http.get<Trainer>(`${this.apiUrl}/trainers/${trainerId}`);
-  }
-
-  getTrainerBySlotId(slotId: string): Observable<Trainer> {
-    return this.http.get<Trainer>(`${this.apiUrl}/trainers/slot/${slotId}`);
+  getTrainersBySlotId(slotId: string): Observable<Trainer[]> {
+    return this.http.get<Trainer[]>(`${this.apiUrl}/trainers/${slotId}`);
   }
 
 

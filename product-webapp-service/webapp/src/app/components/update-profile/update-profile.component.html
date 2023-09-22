@@ -1,0 +1,87 @@
+<div class="home-container">
+  <div class="card" *ngIf="isLoading">
+    <app-loading [bars]="3" [skeletonLoading]="true"></app-loading>
+  </div>
+
+  <div class="card" *ngIf="!isLoading">
+    <span *ngIf="!userUpdate" class="item-actions" [matMenuTriggerFor]="adminCardActionsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </span>
+
+    <mat-menu #adminCardActionsMenu="matMenu" xPosition="before">
+      <a mat-menu-item tabindex="0" (click)="userUpdate = true">
+        <mat-icon>edit</mat-icon> Edit
+      </a>
+    </mat-menu>
+
+    <h2>{{ user.userName }} Info</h2>
+
+    <form *ngIf="userUpdate" (submit)="updateUserDetails()" class="mat-form">
+      <!-- Input field for user name -->
+      <p><mat-form-field class="full-width">
+        <mat-label for="userName">User Name:</mat-label>
+        <input matInput type="text" id="userName" name="userName" [(ngModel)]="user.userName" required>
+      </mat-form-field></p>
+
+      <!-- Input field for user age (as a number) -->
+      <p><mat-form-field class="full-width">
+        <mat-label for="userAge">Age:</mat-label>
+        <input matInput type="number" id="userAge" name="userAge" [(ngModel)]="user.userAge" required>
+      </mat-form-field></p>
+
+      <!-- Input field for user height (as a number) -->
+      <p><mat-form-field class="full-width">
+        <mat-label for="userHeight">Height (in CM):</mat-label>
+        <input matInput type="number" id="userHeight" name="userHeight" [(ngModel)]="user.height" required>
+      </mat-form-field></p>
+
+      <!-- Input field for user weight (as a number) -->
+      <p><mat-form-field class="full-width">
+        <mat-label for="userWeight">Weight (in KG):</mat-label>
+        <input matInput type="number" id="userWeight" name="userWeight" [(ngModel)]="user.weight" required>
+      </mat-form-field></p>
+
+      <!-- Input field for userMobile -->
+      <p><mat-form-field class="full-width">
+        <mat-label for="userName">User Contact:</mat-label>
+        <input matInput type="text" id="userMobile" name="userMobile" [(ngModel)]="user.userMobile" required>
+      </mat-form-field></p>
+
+      <!-- Input field for userPassowrd -->
+      <p><mat-form-field class="full-width">
+        <mat-label for="userPasswordHash">Password:</mat-label>
+        <input matInput type="text" id="userPasswordHash" name="userPasswordHash" [(ngModel)]="user.userPasswordHash" required>
+      </mat-form-field></p>
+
+      <!-- Add other input fields for remaining user details as needed -->
+      
+      <button mat-raised-button color="primary" type="submit">Save</button>
+      <hr>
+      <button mat-button type="button" (click)="cancelUpdate()">Cancel</button>
+    </form>
+    <div *ngIf="!userUpdate">     
+      <p>Name: <strong>{{ user.userName }}</strong></p>
+      <p>Age: <strong>{{ user.userAge }}</strong></p>
+      <p>Height (in Centimeters): <strong>{{ user.height }}</strong></p>
+      <p>Weight (in Kilograms): <strong>{{ user.weight }}</strong></p>
+      <p>Contact: <strong>{{ user.userMobile }}</strong></p>
+      
+      
+    </div>
+    
+  </div>  
+  <div *ngIf="userUpdate" class="display-container">
+
+    <div class="card card-info" *ngIf="user">  
+      <h2>Your Previous Details</h2>    
+      <p>User Name: <strong>{{ user.userName }}</strong></p>
+      <p>Age: <strong>{{ user.userAge }}</strong></p>
+      <p>Height: <strong>{{ user.height }}</strong></p>
+      <p>Weight: <strong>{{ user.weight }}</strong></p>
+      <p>Contact: <strong>{{ user.userMobile }}</strong></p>
+      
+      
+    </div>
+  </div>
+
+</div>

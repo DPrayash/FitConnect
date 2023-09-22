@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.stackroute.exception.ImageUploadException;
 import com.stackroute.exception.UserAlreadyExistsException;
+import com.stackroute.model.AuthDTO;
 import com.stackroute.model.UserDTO;
 import com.stackroute.model.UserLoginData;
 import com.stackroute.model.UserService;
@@ -60,7 +61,9 @@ public class UserServiceController {
 				login.setUserEmail(user.getUserEmail());
 				login.setUserPasswordHash(user.getUserPasswordHash());
 				
-				String otherServiceUrl="http://localhost:8002/auth/addNewUser";
+				String otherServiceUrl="http://localhost:8002/auth/registerNewUser";
+				AuthDTO authData = new AuthDTO(user.getUserEmail(), user.getUserPasswordHash());
+				restTemplate.postForEntity(otherServiceUrl, authData, null);
 				entity=new ResponseEntity<UserDTO>(createdUser, HttpStatus.OK);
 			}else {
 				entity=new ResponseEntity<String>("Cant be added", HttpStatus.CONFLICT);
@@ -113,6 +116,7 @@ public class UserServiceController {
 		ResponseEntity<?> entity;
 		
 		try {
+			System.out.println(user);
 			UserDTO updatedPlan= userService.updatePlan(user, userEmail);
 			
 			if(updatedPlan!=null) {
@@ -147,13 +151,13 @@ public class UserServiceController {
 	}
 	
 	
-	@PostMapping("/updateProfilePic/{userEmail}")
-	public ResponseEntity<String> uploadProfilePic(@PathVariable String userEmail ,@RequestParam("file") MultipartFile file){
+	@PutMapping("/updateProfilePic/{userEmail}")
+	public ResponseEntity<?> uploadProfilePic(@PathVariable String userEmail ,@RequestParam("file") MultipartFile file){
 		ResponseEntity<?> entity;
 		
 		try {
-			String url=userService.uploadProfilepic(userEmail, file);
-			return new ResponseEntity<>(url, HttpStatus.OK);
+			UserDTO updatedUser = userService.uploadProfilepic(userEmail, file);
+			return new ResponseEntity<>(updatedUser, HttpStatus.OK);
 		}catch (ImageUploadException e) {
 			return new ResponseEntity<String>("Error loading image",HttpStatus.CONFLICT);
 		}

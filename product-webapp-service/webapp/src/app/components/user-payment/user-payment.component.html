@@ -1,0 +1,38 @@
+<div class="items-container">
+    <div class="items-list">
+        <h2 class="items-list-title">Payment List</h2>
+        <div class="items-card" *ngFor="let payment of paymentList" (click)="selectPayment(payment)" [class.selected]="payment === selectedPayment">
+            <div class="items-card-title">{{ payment.paymentTitle }}</div>
+            <div class="items-card-footer">
+                <p><strong>Amount:</strong> ₹ {{ payment.amount }}</p>
+                <p
+                    [ngClass]="{'red-badge': payment.paymentStatus === 'Fail', 'green-badge': payment.paymentStatus === 'created'}">
+                    Status:<strong>{{ payment.paymentStatus }}</strong>
+                </p>
+            </div>
+        </div>
+        <div *ngIf="paymentList == null || paymentList.length == 0" class="item-status">
+            <p> <mat-icon>search</mat-icon> No payments available </p>
+        </div>
+    </div>
+
+    <div class="items-details" *ngIf="selectedPayment">
+        <div class="items-details-card" *ngIf="selectedPayment">
+            <h2 class="items-title">Payment Details</h2>
+            <div class="payment-content">
+                <p><strong>Title:</strong> {{ selectedPayment.paymentTitle }}</p>
+                <p><strong>User Email:</strong> {{ selectedPayment.userEmail }}</p>
+                <p><strong>Amount:</strong> ₹ {{ selectedPayment.amount}}</p>
+                <p [ngClass]="{
+                    'red-badge': selectedPayment.paymentStatus === 'Fail',
+                    'green-badge': selectedPayment.paymentStatus === 'created'
+                }">
+                    <strong>Status:</strong> {{ selectedPayment.paymentStatus === 'created' ? 'Success' : 'Failed' }}
+                </p>
+                <p><strong>Mode:</strong> {{ selectedPayment.paymentMode }}</p>
+                <p><strong>Timestamp:</strong> {{ selectedPayment.timestamp | date: 'dd MMM, yyyy, hh:mm a' }}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
