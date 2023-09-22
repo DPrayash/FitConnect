@@ -3,13 +3,14 @@ package com.stackroute.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
+<<<<<<< HEAD
+=======
 //@AllArgsConstructor
 //@NoArgsConstructor
+>>>>>>> e9d87e3f3932e5891ee136b1aee0e98247663b4f
 @Document(collection = "GymInfoCollection")
 public class GymInfo {
 

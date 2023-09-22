@@ -209,7 +209,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     transform: scale(1.2);
     cursor: pointer;
 }
-
 .slick-prev:before, .slick-next:before{
     color: black !important;
     }

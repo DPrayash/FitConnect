@@ -4,6 +4,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
+// import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,7 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatGridListModule } from '@angular/material/grid-list';
+// import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,11 +39,7 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
 import { MembershipComponent } from './components/membership/membership.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { UserRegistrationFormComponent } from './components/user-registration-form/user-registration-form.component';
-import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
-import { AdminchatsectionComponent } from './components/adminchatsection/adminchatsection.component';
-import { UserchatsectionComponent } from './components/userchatsection/userchatsection.component';
-import { AuthGuard } from './_auth/auth.guard';
-import { AuthInterceptor } from './_auth/auth.interceptor';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { AuthenticationService } from './services/authentication.service';
 import { BookedComponent } from './components/booked/booked.component';
 import { BookComponent } from './components/book/book.component';
@@ -51,6 +48,11 @@ import { UserPaymentComponent } from './components/user-payment/user-payment.com
 import { LoginComponent } from './components/login/login.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
+import { AuthInterceptor } from './_auth/auth.interceptor';
+import { AuthGuard } from './_auth/auth.guard';
+import { AdminchatsectionComponent } from './components/adminchatsection/adminchatsection.component';
+import { UserchatsectionComponent } from './components/userchatsection/userchatsection.component';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 
 @NgModule({
   declarations: [
