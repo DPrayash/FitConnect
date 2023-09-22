@@ -49,6 +49,8 @@ import { BookComponent } from './components/book/book.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { UserPaymentComponent } from './components/user-payment/user-payment.component';
 import { LoginComponent } from './components/login/login.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,8 @@ import { LoginComponent } from './components/login/login.component';
     BookComponent,
     DialogComponent,
     UserPaymentComponent,
-    LoginComponent
+    LoginComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,7 +103,7 @@ import { LoginComponent } from './components/login/login.component';
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
   ],
   providers: [
     AuthGuard,
