@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Activity } from 'src/app/models/activity.model';
 import { Slot } from 'src/app/models/slot.model';
 import { GymService } from 'src/app/services/gym.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,17 +14,32 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class BookedComponent implements OnInit {
 
-  constructor(private userService: UserService, private gymService: GymService, private _snackBar: MatSnackBar) { }
+  constructor(
+    private userService: UserService, 
+    private gymService: GymService, 
+    private _snackBar: MatSnackBar,
+    private userAuthService: UserAuthService,
+    private router: Router
+    ) { }
   myActivityList: Activity[] = [];
   activitySlotInfo: Slot[] = [];
   selectedActivity: Activity | null = null;
   selectedSlotInfo: Slot | null = null;
-  userEmail = 'username1@email.com';
+  isLoggedin: boolean;
+  userEmail: string;
   rescheduleMode = false;
   rescheduleId: number | null = null;
 
   ngOnInit(): void {
-    this.getMyBookedSlots();
+    this.isLoggedin = this.userAuthService.isLoggedIn() !== null && this.userAuthService.isLoggedIn() !== '';
+    if (this.isLoggedin) {
+      this.userEmail = this.userAuthService.getUID();
+      if (this.userEmail) {
+        this.getMyBookedSlots();
+      }
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   getMyBookedSlots() {
@@ -98,16 +115,16 @@ export class BookedComponent implements OnInit {
 
   isSlotActive(slot: Slot): boolean {
     const currentDate = new Date();
-    const startTime = new Date(`${slot.slotDate} ${slot.startTime}`);
+    const startTime = new Date(`${slot?.slotDate} ${slot?.startTime}`);
     return currentDate < startTime;
   }
 
   getTimings(slot: Slot) {
-    return this.convertTo12HourFormat(slot.startTime) + " - " + this.convertTo12HourFormat(slot.endTime);
+    return this.convertTo12HourFormat(slot?.startTime) + " - " + this.convertTo12HourFormat(slot?.endTime);
   }
 
   private convertTo12HourFormat(time24: string): string {
-    const [hours, minutes] = time24.split(':').map(Number);
+    const [hours, minutes] = time24?.split(':').map(Number);
     const period = hours >= 12 ? 'PM' : 'AM';
     const convertedHours = hours % 12 === 0 ? 12 : hours % 12;
     return `${convertedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`;

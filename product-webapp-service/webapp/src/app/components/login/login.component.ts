@@ -18,8 +18,10 @@ export class LoginComponent {
 
 
   login(loginForm:NgForm) {
+    console.log(loginForm.value);
     this.authenticationService.login(loginForm.value).subscribe(
       (Response:any) => {
+        console.log(Response);
         console.log(Response .jwtToken);
         console.log(Response.user.role);
 
@@ -32,19 +34,8 @@ export class LoginComponent {
 
 
         const role = Response.user.role[0].roleName;
-        if(role === 'Admin')
-        {
-          this.adminService.getAdminInfo().subscribe((data)=>{
-            this.userAuthService.setName(data.adminName);
-          })
+        if(role === 'Admin' || role === 'User'){
           this.router.navigate(['/home']);
-
-        }else {
-          this.userService.getUserByEmail(this.userAuthService.getUID()).subscribe((data)=>{
-            this.userAuthService.setName(data.userName);
-          })
-          this.router.navigate(['/userHome']);
-
         }
       },
       (error) => {

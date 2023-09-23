@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 function nameValidator(control: AbstractControl): { [key: string]: boolean } | null {
   const name = control.value;
@@ -19,7 +20,7 @@ function nameValidator(control: AbstractControl): { [key: string]: boolean } | n
   styleUrls: ['./user-registration-form.component.css']
 })
 export class UserRegistrationFormComponent implements OnInit {
- 
+
   GymInformation = "Join us";
   GymBody = "We are ready to welcome you ";
 
@@ -30,8 +31,9 @@ export class UserRegistrationFormComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
@@ -66,21 +68,32 @@ export class UserRegistrationFormComponent implements OnInit {
         expirationDate: undefined
       };
       console.log(user);
-      this.userService.registerUser(user).subscribe((data) => {
-        console.log("User Registered!!");
-        console.log(data);
-        this.registrationForm.reset(); // Reset the form
-        this.router.navigate(['/login']);
-      });
+      this.userService.registerUser(user).subscribe(
+        (data) => {
+          console.log("User Registered!!");
+          console.log(data);
+          this.registrationForm.reset();
+          this.openSnackBar("User Registered Successfully!", "Close");
+          this.router.navigate(['/login']);
+        }, (error) => {
+          console.log(error);
+          this.openSnackBar("User Registration Failed!", "Close");
+        }
+      );
     }
   }
 
   onSubmit() {
-    
-      this.registerUser();
-      alert("You are registered");
-      // this.router.navigate(['/loginUser']); // Change the path to the login user page here 
-    
+    this.registerUser();
+  }
+
+
+  openSnackBar(msg: string, action: string) {
+    const snackBarRef = this._snackBar.open(msg, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2000,
+    });
   }
 }
 

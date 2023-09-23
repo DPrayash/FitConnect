@@ -1,10 +1,12 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Activity } from 'src/app/models/activity.model';
 import { Slot } from 'src/app/models/slot.model';
 import { Trainer } from 'src/app/models/trainer.model';
 import { GymService } from 'src/app/services/gym.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,21 +14,43 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css']
 })
-export class DialogComponent {
+export class DialogComponent implements OnInit{
   @Input() data: any;
   selectedSlot: Slot;
   trainerList: Trainer[] = [];
   selectedTrainer!: string;
-  userEmail = 'username1@email.com';
+  userEmail: string;
   rescheduleMode = false;
+  isLoggedin: boolean;
   rescheduleId: number | null = null;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public dialogData: any, private dialogRef: MatDialogRef<DialogComponent>, private gymService: GymService, private userService: UserService, private _snackBar: MatSnackBar) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private dialogRef: MatDialogRef<DialogComponent>,
+    private gymService: GymService, 
+    private userService: UserService, 
+    private _snackBar: MatSnackBar,
+    private userAuthService: UserAuthService,
+    private router: Router
+
+    ) {
     this.data = dialogData;
     this.selectedSlot = this.data.slot;
     this.rescheduleMode = this.data.rescheduleMode;
     this.rescheduleId = this.data.rescheduleId;
     this.getTrainerDetailsById(this.selectedSlot.slotId);
+  }
+
+  ngOnInit(): void {
+    this.isLoggedin = this.userAuthService.isLoggedIn() !== null && this.userAuthService.isLoggedIn() !== '';
+    if (this.isLoggedin) {
+      this.userEmail = this.userAuthService.getUID();
+      if(this.userEmail){
+        console.log(this.userEmail);
+      }
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   closeForm() {

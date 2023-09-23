@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,17 +13,24 @@ export class SidebarComponent implements OnInit {
   dummyProfilePic = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU";
   profilePic: String = null;
   updateForm: boolean = false;
+  @Input() isLoggedIn:boolean;
   @Input() userRole:string;
   @Input() userId:string;
   isAdmin:boolean;
   selectedImageFile: File | null = null;
 
-  constructor(private userService: UserService, private adminService: AdminService) { }
+  constructor(
+    private userService: UserService, 
+    private adminService: AdminService, 
+    private userAuthService: UserAuthService
+  ) {
+    
+  }
 
   ngOnInit(): void {
     console.log("UserRole: ", this.userRole);
     console.log("UserId: ", this.userId);
-
+    this.isLoggedIn = this.userAuthService.isLoggedIn() !== null && this.userAuthService.isLoggedIn() !== '';
     if (this.userRole == "Admin") {
       this.getAdminProfilePic();
       this.isAdmin = true;

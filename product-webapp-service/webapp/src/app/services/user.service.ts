@@ -34,7 +34,7 @@ export class UserService {
   }
 
   getUpdatePlan(userEmail: string, user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/updatePlan/${userEmail}`, user);
+    return this.http.put<User>(`${this.apiUrl}/users/updatePlan/${userEmail}`, user);
   }
 
   getUserActivityListByUserEmail(userEmail: string): Observable<Activity[]> {

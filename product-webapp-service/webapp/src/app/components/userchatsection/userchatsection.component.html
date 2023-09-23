@@ -5,7 +5,7 @@
        <div class="chat-window" *ngIf="selectedChat">
            <!-- Chat Window Header -->
            <div class="chat-window-header">
-               <img class="chat-avatar" mat-list-avatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU' alt="User Image">
+               <img class="chat-avatar" mat-list-avatar [src]='adminProfilePic' alt="User Image">
            
                <div class="header-info">
                    <h3 mat-line class="user-name">Chat With Admin</h3>

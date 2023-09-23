@@ -92,6 +92,12 @@ public class PaymentModel {
 		this.currency = currency;
 		this.key = key;
 	}
+	@Override
+	public String toString() {
+		return "PaymentModel [userEmail=" + userEmail + ", paymentTitle=" + paymentTitle + ", amount=" + amount
+				+ ", Timestamp=" + Timestamp + "]";
+	}
+
 	
 	
 //	public PaymentModel(String paymentId, String currency, Integer amount) {

@@ -14,47 +14,34 @@
       </a>
     </mat-menu>
 
-    <h2>{{ user.userName }} Info</h2>
+    <h2>My profile</h2>
 
     <form *ngIf="userUpdate" (submit)="updateUserDetails()" class="mat-form">
-      <!-- Input field for user name -->
       <p><mat-form-field class="full-width">
         <mat-label for="userName">User Name:</mat-label>
         <input matInput type="text" id="userName" name="userName" [(ngModel)]="user.userName" required>
       </mat-form-field></p>
 
-      <!-- Input field for user age (as a number) -->
       <p><mat-form-field class="full-width">
         <mat-label for="userAge">Age:</mat-label>
         <input matInput type="number" id="userAge" name="userAge" [(ngModel)]="user.userAge" required>
       </mat-form-field></p>
 
-      <!-- Input field for user height (as a number) -->
       <p><mat-form-field class="full-width">
         <mat-label for="userHeight">Height (in CM):</mat-label>
         <input matInput type="number" id="userHeight" name="userHeight" [(ngModel)]="user.height" required>
       </mat-form-field></p>
 
-      <!-- Input field for user weight (as a number) -->
       <p><mat-form-field class="full-width">
         <mat-label for="userWeight">Weight (in KG):</mat-label>
         <input matInput type="number" id="userWeight" name="userWeight" [(ngModel)]="user.weight" required>
       </mat-form-field></p>
 
-      <!-- Input field for userMobile -->
       <p><mat-form-field class="full-width">
         <mat-label for="userName">User Contact:</mat-label>
         <input matInput type="text" id="userMobile" name="userMobile" [(ngModel)]="user.userMobile" required>
       </mat-form-field></p>
 
-      <!-- Input field for userPassowrd -->
-      <p><mat-form-field class="full-width">
-        <mat-label for="userPasswordHash">Password:</mat-label>
-        <input matInput type="text" id="userPasswordHash" name="userPasswordHash" [(ngModel)]="user.userPasswordHash" required>
-      </mat-form-field></p>
-
-      <!-- Add other input fields for remaining user details as needed -->
-      
       <button mat-raised-button color="primary" type="submit">Save</button>
       <hr>
       <button mat-button type="button" (click)="cancelUpdate()">Cancel</button>
@@ -70,9 +57,9 @@
     </div>
     
   </div>  
-  <div *ngIf="userUpdate" class="display-container">
+  <div *ngIf="userUpdate" class="card">
 
-    <div class="card card-info" *ngIf="user">  
+    <div class="card-info" *ngIf="user">  
       <h2>Your Previous Details</h2>    
       <p>User Name: <strong>{{ user.userName }}</strong></p>
       <p>Age: <strong>{{ user.userAge }}</strong></p>

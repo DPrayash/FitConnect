@@ -33,7 +33,7 @@ public class UserServiceServiceImpl implements UserServiceService {
 	@Override
 	public UserDTO registerUser(UserService user) {
 		// TODO Auto-generated method stub
-		Optional<UserService> exsistingUser = userRepository.findById(user.getUserEmail());
+		Optional<UserDTO> exsistingUser = userRepository.findById(user.getUserEmail());
 		if (exsistingUser.isPresent()) {
 			throw new UserAlreadyExistsException("User with same email already exsists" + user.getUserEmail());
 		}
@@ -41,21 +41,18 @@ public class UserServiceServiceImpl implements UserServiceService {
 		if (user.getUserEmail() == null || user.getUserPasswordHash() == null) {
 			return null;
 		} else {
-			String plainPassowrd = user.getUserPasswordHash();
-			String hashedPassword = passwordEncoder.encode(plainPassowrd);
-			user.setUserPasswordHash(hashedPassword);
 
-			UserService createdUser = userRepository.save(user);
 			UserDTO userDto = new UserDTO();
-			userDto.addUser(createdUser);
-			return userDto;
+			userDto.addUser(user);
+			
+			return userRepository.save(userDto);
 		}
 
 	}
 
 	@Override
 	public UserDTO updateUser(UserService user, String userEmail) {
-		UserService exsistingUser = userRepository.findById(userEmail).orElse(null);
+		UserDTO exsistingUser = userRepository.findById(userEmail).orElse(null);
 
 		if (exsistingUser != null) {
 			exsistingUser.setUserName(user.getUserName());
@@ -63,10 +60,7 @@ public class UserServiceServiceImpl implements UserServiceService {
 			exsistingUser.setUserMobile(user.getUserMobile());
 			exsistingUser.setHeight(user.getHeight());
 			exsistingUser.setWeight(user.getWeight());
-			UserService updatedUser = userRepository.save(exsistingUser);
-			UserDTO userDto = new UserDTO();
-			userDto.addUser(updatedUser);
-			return userDto;
+			return userRepository.save(exsistingUser);
 		} else {
 			return null;
 		}
@@ -75,11 +69,9 @@ public class UserServiceServiceImpl implements UserServiceService {
 
 	@Override
 	public UserDTO getUserByEmail(String email) {
-		Optional<UserService> optional = userRepository.findById(email);
+		Optional<UserDTO> optional = userRepository.findById(email);
 		if(optional.isPresent()) {
-			UserDTO userDto = new UserDTO();
-			userDto.addUser(optional.get());
-			return userDto;
+			return optional.get();
 		}
 		return null;
 	}
@@ -91,16 +83,15 @@ public class UserServiceServiceImpl implements UserServiceService {
 
 			String url = uploadPic.get("url");
 
-			UserService uploadedImage = userRepository.findById(userEmail).orElse(null);
-			UserDTO updatedUser = new UserDTO();
+			UserDTO uploadedImage = userRepository.findById(userEmail).orElse(null);
+			
 			if (uploadedImage != null) {
 				uploadedImage.setUserProfilePicUrl(url);
-				updatedUser.addUser(userRepository.save(uploadedImage));
+				return userRepository.save(uploadedImage);
 			} else {
 				return null;
 			}
 
-			return updatedUser;
 		} catch (IOException e) {
 			throw new RuntimeException("Image updloading failed", e);
 
@@ -111,17 +102,15 @@ public class UserServiceServiceImpl implements UserServiceService {
 	@Override
 	public UserDTO updatePlan(UserService user, String userEmail) {
 		// TODO Auto-generated method stub
-		UserService exsistingUser = userRepository.findById(userEmail).orElse(null);
+		UserDTO exsistingUser = userRepository.findById(userEmail).orElse(null);
 
 		if (exsistingUser != null) {
 			exsistingUser.setPlanName(user.getPlanName());
 			exsistingUser.setPlanPrice(user.getPlanPrice());
 			exsistingUser.setPlanDuration(user.getPlanDuration());
 			exsistingUser.setExpirationDate(user.getExpirationDate());
-			UserService updatedPlan = userRepository.save(exsistingUser);
-			UserDTO updatedDTO = new UserDTO();
-			updatedDTO.addUser(updatedPlan);
-			return updatedDTO;
+			return userRepository.save(exsistingUser);
+
 		} else {
 			return null;
 		}
@@ -130,16 +119,7 @@ public class UserServiceServiceImpl implements UserServiceService {
 
 	@Override
 	public List<UserDTO> getAllUsers() {
-		List<UserService> userList = userRepository.findAll();
-		List<UserDTO> userDTOList = new ArrayList<>();
-
-		for (UserService userService : userList) {
-			UserDTO userDTO = new UserDTO();
-			userDTO.addUser(userService);
-			userDTOList.add(userDTO);
-		}
-
-		return userDTOList;
+		return userRepository.findAll();
 	}
 
 }

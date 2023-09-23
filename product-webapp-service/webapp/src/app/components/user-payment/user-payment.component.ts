@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Payment } from 'src/app/models/payment.model';
 import { PaymentServiceService } from 'src/app/services/payment-service.service';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
   selector: 'app-user-payment',
@@ -9,22 +11,43 @@ import { PaymentServiceService } from 'src/app/services/payment-service.service'
 })
 export class UserPaymentComponent {
 
-  constructor(private ps: PaymentServiceService) {}
+  constructor(
+    private ps: PaymentServiceService,
+    private uas: UserAuthService,
+    private router: Router
+  ) { }
 
   paymentList: Payment[] = [];
+  isLoggedIn: boolean;
+  userId: string;
+
 
   selectedPayment: Payment | null = null;
 
   ngOnInit() {
-    if (this.paymentList.length > 0) {
-      this.selectedPayment = this.paymentList[0];
+
+    this.isLoggedIn = this.uas.isLoggedIn() !== null && this.uas.isLoggedIn() !== '';
+    if (this.isLoggedIn) {
+      this.userId = this.uas.getUID();
+      if (this.userId) {
+        this.getPaymentDetails(this.userId);
+      }
+    } else {
+      this.router.navigate(['/login']);
     }
-    this.ps.getTransactionByUser('abc@gmail.com')
-    .subscribe((response: any)=>{
-      this.paymentList = response;
-      console.log("Payment received");
-      this.selectedPayment = this.paymentList[0];
-    });
+
+
+
+  }
+
+  getPaymentDetails(userId: string) {
+    this.ps.getTransactionByUser(userId).subscribe((data: Payment[]) => {
+      this.paymentList = data;
+      console.log(data); 
+      if (data != null && this.paymentList.length > 0) {
+        this.selectedPayment = this.paymentList[0];
+      }
+    })
   }
 
   selectPayment(payment: Payment) {

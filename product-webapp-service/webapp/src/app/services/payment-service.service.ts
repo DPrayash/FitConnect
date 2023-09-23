@@ -8,8 +8,12 @@ export class PaymentServiceService {
 
   constructor(private httpClient: HttpClient) {}
 
-    public createTransaction(amount: any) {
-      return this.httpClient.post("http://localhost:8012/payment/created?amount="+amount, null);
+    public createTransaction(amount: any, name: string, userId: string) {
+      const formData = new FormData();
+      formData.append('amount', amount);
+      formData.append('name', name);
+      formData.append('userId', userId);
+      return this.httpClient.post("http://localhost:8012/payment/created", formData);
     }
 
     public getAllTransactions() {

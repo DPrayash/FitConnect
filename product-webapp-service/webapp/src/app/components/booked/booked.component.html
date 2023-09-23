@@ -2,7 +2,7 @@
 
 <div *ngIf="!rescheduleMode" class="items-container">
     <div class="items-list" *ngIf="myActivityList.length==0" >
-        <h2 class="items-list-title">Booked Slots</h2>
+        <h2 class="items-list-title">You don't have any slots booked</h2>
     </div>
 
     <div class="items-list" *ngIf="myActivityList.length>0"  >
@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="items-details">
+    <div class="items-details" *ngIf="myActivityList.length>0">
         <div class="items-details-card">
             <span class="item-actions" [matMenuTriggerFor]="slotCardActionsMenu">
                 <mat-icon>more_vert</mat-icon>
@@ -43,5 +43,4 @@
             </div>
         </div>
     </div>
-    <div class="items-details"></div>
 </div>

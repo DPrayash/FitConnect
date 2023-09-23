@@ -37,8 +37,8 @@
                         class="orange-badge">{{
                          selectedUser.planName }}</span></p>
                 <p *ngIf="selectedUser.planName"><strong>Plan Price:</strong> <span
-                        class="orange-badge">{{
-                         selectedUser.planPrice | currency }}</span></p>
+                        class="orange-badge"> ₹ {{
+                         selectedUser.planPrice }}</span></p>
                 <p *ngIf="selectedUser.planName"><strong>Plan Duration:</strong> <span class="orange-badge">{{ selectedUser.planDuration }}</span>
                     </p>
                 <p class="user-expiration"  *ngIf="selectedUser.planName"><strong>Expiration Date:</strong> <span class="red-badge">{{ selectedUser.expirationDate | date: 'MMM dd, yyyy' }}</span></p>

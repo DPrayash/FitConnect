@@ -1,20 +1,24 @@
 <div>
     <h1>Hello! {{user.userName}} </h1>
     <div class="slotdetails">
-        <mat-card class="slotInfo">
+        <mat-card *ngIf="activityList==null||activityList.length==0" class="slotInfo">
+            <mat-card-title>You don't have any slots booked. Please book one.</mat-card-title>
+
+        </mat-card>
+        <mat-card *ngIf="activityList!=null&&activityList.length>0" class="slotInfo">
             <mat-card-title>Your latest slot details</mat-card-title>
             <mat-list>
-                <mat-list-item>Slot Date: <span></span></mat-list-item>
-                <mat-list-item>Trainer Name: </mat-list-item>
-                <mat-list-item>Slot Period: </mat-list-item>
-                <mat-list-item>Slot Status: </mat-list-item>
+                <mat-list-item>Date <span> {{ slotInfo?.slotDate }} </span></mat-list-item>
+                <mat-list-item>Trainer <span> {{ latestActivity?.trainerName }} </span> </mat-list-item>
+                <mat-list-item>Timings <span> {{ slotInfo?.startTime + ' - ' + slotInfo?.endTime }} </span> </mat-list-item>
+                <mat-list-item>Status <span> {{ latestActivity?.slotStatus }} </span> </mat-list-item>
             </mat-list>
         </mat-card>
-        <mat-card class="slotMetric">
+        <mat-card *ngIf="activityList!=null&&activityList.length>0" class="slotMetric">
             <mat-card-title>Slot Metrics</mat-card-title>
             <mat-list>
-                <mat-list-item>Total slots booked: </mat-list-item>
-                <mat-list-item>Canceled slots: </mat-list-item>
+                <mat-list-item *ngFor="let metric of slotMetrics"> {{ metric }} </mat-list-item>
+
             </mat-list>
         </mat-card>
     </div>

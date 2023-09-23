@@ -19,7 +19,7 @@
                         <h4 class="text-white">Login to FitConnect</h4>
                     </div>
                     <div class="card-body">
-                        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" autocomplete="off">
                             <div class="mb-3">
                                 <label for="emailId" class="form-label">Email</label>
                                 <input type="email" ngModel name="emailId" id="emailId" class="form-control" placeholder="Enter your Email" required>

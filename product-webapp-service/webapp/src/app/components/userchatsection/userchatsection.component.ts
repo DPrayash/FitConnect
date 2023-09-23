@@ -1,31 +1,59 @@
-import { Component ,OnInit } from '@angular/core';
-import { Message} from 'src/app/models/message.model';
+import { Component, OnInit } from '@angular/core';
+import { Message } from 'src/app/models/message.model';
 import { Chat } from 'src/app/models/chat.model';
 import { ChatService } from 'src/app/services/chat.service';
 import { Chatting } from 'src/app/models/newChat.model';
+import { UserAuthService } from 'src/app/services/user-auth.service';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { AdminService } from 'src/app/services/admin.service';
 @Component({
   selector: 'app-userchatsection',
   templateUrl: './userchatsection.component.html',
   styleUrls: ['./userchatsection.component.css']
 })
-export class UserchatsectionComponent implements OnInit{
-  constructor(private chatservice:ChatService) {
+export class UserchatsectionComponent implements OnInit {
+  constructor(
+    private chatservice: ChatService,
+    private uas: UserAuthService,
+    private router: Router,
+    private adminService: AdminService
+  ) {
 
   }
-  selectedChat: Chat | null = null; // here get chat of current logged in user chat
+  selectedChat: Chat | null = null;
   newMessage: string = '';
   messages: Message[] = [];
   chatList: Chat[] = [];
-  filename:string =''
-  userEmail:string = 'hello@gmail.com'
+  filename: string = '';
+  isLoggedin: boolean = false;
+  userEmail: string;
+  dummyProfilePic = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU';
+  adminProfilePic: string = '';
+  profilePic: string = '';
+
   ngOnInit(): void {
-      //  get chat by userEmail Id 
-      // push it to the chatList
-      setInterval(()=>{
+    this.isLoggedin = this.uas.isLoggedIn() !== null && this.uas.isLoggedIn() !== '';
+    if (this.isLoggedin) {
+      this.userEmail = this.uas.getUID();
+      this.getAdminProfilePic();
+      setInterval(() => {
         this.getChatByEmail(this.userEmail)
-      },5000)
-   
-    
+      }, 5000)
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  private getAdminProfilePic() {
+    this.adminService.getAdminInfo().subscribe(
+      (data) => {
+        this.adminProfilePic = data.adminProfilePic;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   selectChat(chat: Chat) {
@@ -52,21 +80,21 @@ export class UserchatsectionComponent implements OnInit{
         dateStamp: null
 
       }
-      if (this.messages === null){
+      if (this.messages === null) {
         this.messages = [message]
-       }
-       else{
+      }
+      else {
         this.messages.push(message)
-        
-       }
-       this.newMessage = '';
-      this.chatservice.AddMessage(this.selectedChat.chatUserEmail,message).subscribe(
-        (res)=>{
-             
+
+      }
+      this.newMessage = '';
+      this.chatservice.AddMessage(this.selectedChat.chatUserEmail, message).subscribe(
+        (res) => {
+
         }
       )
     }
-    
+
   }
 
   deleteMessage(message: Message) {
@@ -74,36 +102,34 @@ export class UserchatsectionComponent implements OnInit{
     if (index !== -1) {
       this.messages.splice(index, 1);
     }
-    this.chatservice.DeleteMessage(this.selectedChat?.chatUserEmail,message.dateStamp,message.timeStamp).subscribe(
-      (data)=>{
-        
+    this.chatservice.DeleteMessage(this.selectedChat?.chatUserEmail, message.dateStamp, message.timeStamp).subscribe(
+      (data) => {
+
       }
     )
-   
+
   }
   onAttachmentSelect(event: any) {
     const selectedFile = event.target.files[0];
-    
-    this.filename =  selectedFile.name;
-    this.chatservice.AddFile(this.selectedChat?.chatUserEmail,this.selectedChat?.chatUserEmail,selectedFile ,this.filename).subscribe((data)=>{
-      
-      this.messages.push(data.chatMessage[data.chatMessage.length-1]);
+
+    this.filename = selectedFile.name;
+    this.chatservice.AddFile(this.selectedChat?.chatUserEmail, this.selectedChat?.chatUserEmail, selectedFile, this.filename).subscribe((data) => {
+
+      this.messages.push(data.chatMessage[data.chatMessage.length - 1]);
     })
 
   }
-  getChatByEmail(Email:string)
-  {
-    this.chatservice.GetChatById(Email).subscribe((chat)=>
-    {
-     
-      
-      this.selectedChat =  chat ;
-      this.messages =  this.selectedChat.chatMessage;
-    },(err)=>{
-     this.AddChat(Email);
-    })   
+  getChatByEmail(Email: string) {
+    this.chatservice.GetChatById(Email).subscribe((chat) => {
+
+
+      this.selectedChat = chat;
+      this.messages = this.selectedChat.chatMessage;
+    }, (err) => {
+      this.AddChat(Email);
+    })
   }
-  downloadImageOrPDF(Url:string) {
+  downloadImageOrPDF(Url: string) {
     const url = Url; // Replace with the actual file URL
     this.chatservice.downloadFile(url).subscribe(
       (fileBlob) => {
@@ -128,15 +154,14 @@ export class UserchatsectionComponent implements OnInit{
       }
     );
   }
-  AddChat(email:string)
-  {
-    const createChat:Chatting ={
-      chatUserEmail:email
+  AddChat(email: string) {
+    const createChat: Chatting = {
+      chatUserEmail: email
     }
-    this.chatservice.AddChat(createChat).subscribe((NewChat)=>{
-      
-    this.getChatByEmail(email);
-    },(err)=>{
+    this.chatservice.AddChat(createChat).subscribe((NewChat) => {
+
+      this.getChatByEmail(email);
+    }, (err) => {
       console.log(err)
     })
   }

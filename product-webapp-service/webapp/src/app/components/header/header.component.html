@@ -4,14 +4,21 @@
     </a>
     <a href="/" class="product-title"><span>{{productTitle[0]}}</span>{{productTitle[1]}}</a>
     <span class="spacer"></span>
+
     <ng-container *ngIf="isLoggedIn">
         <span>{{userId}}</span>
 
 
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU" class="avatar" mat-button [matMenuTriggerFor]="beforeMenu" />
+        <img [src]="profilePic!=null&&profilePic!=''?profilePic:dummyProfilePic" class="avatar" mat-button [matMenuTriggerFor]="beforeMenu" />
         <mat-menu #beforeMenu="matMenu" xPosition="before">
             <a mat-menu-item tabindex="0" (click)="logout()">Sign Out</a>
 
         </mat-menu>
+    </ng-container>
+    <ng-container *ngIf="!isLoggedIn">
+
+        <a mat-button routerLink="/">Home</a>
+        <a mat-button routerLink="/registerUser">Register</a>
+        <a mat-button routerLink="/login">Login</a>
     </ng-container>
 </mat-toolbar>

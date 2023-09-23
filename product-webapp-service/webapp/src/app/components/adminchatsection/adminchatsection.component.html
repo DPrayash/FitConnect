@@ -5,7 +5,7 @@
         <!-- Chat Cards -->
         <div class="chat-card" *ngFor="let chat of chatList" (click)="selectChat(chat)"
             [class.selected]="chat === selectedChat">
-           
+
             <h3 mat-line>{{ chat.chatUserEmail }}</h3>
         </div>
     </div>
@@ -16,8 +16,10 @@
         <div class="chat-window" *ngIf="selectedChat">
             <!-- Chat Window Header -->
             <div class="chat-window-header">
-                <img class="chat-avatar" mat-list-avatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU' alt="User Image">
-            
+                <img class="chat-avatar" mat-list-avatar
+                    [src]="profilePic"
+                    alt="User Image">
+
                 <div class="header-info">
                     <h3 mat-line class="user-name">{{ selectedChat.chatUserEmail }}</h3>
                 </div>
@@ -26,8 +28,8 @@
             <!-- Chat Window Body (Messages) -->
             <div class="chat-window-body">
                 <div class="message-item" *ngFor="let message of messages"
-                    [class.admin-message]=" message.senderEmail ==='admin@example.com'">
-                    <div class="message-options" *ngIf="message.senderEmail==='admin@example.com'">
+                    [class.admin-message]=" message.senderEmail ===sendermail">
+                    <div class="message-options" *ngIf="message.senderEmail===sendermail">
                         <button mat-icon-button [matMenuTriggerFor]="messageMenu">
                             <mat-icon>more_vert</mat-icon>
                         </button>
@@ -38,7 +40,7 @@
                     </div>
                     <div *ngIf="message.senderMessage !== null; else elseBlock">
                         <!-- Content to display when condition is true -->
-                        <p class="message" [class.admin-message-text]="message.senderEmail === 'admin@example.com'">
+                        <p class="message" [class.admin-message-text]="message.senderEmail === sendermail">
                             {{ message.senderMessage }}
                         </p>
 
@@ -47,13 +49,14 @@
 
                     <ng-template #elseBlock>
                         <!-- Content to display when condition is false -->
-                        <p class="message" [class.admin-message-text]=" message.senderEmail ==='admin@example.com'">
-                         {{message.senderMediaLinks[1]}}
+                        <p class="message" [class.admin-message-text]=" message.senderEmail ===sendermail">
+                            {{message.senderMediaLinks[1]}}
                         </p>
-                            <button (click)="downloadImageOrPDF(message.senderMediaLinks[0])" mat-fab color="primary" aria-label="Example icon button with a download icon">
-                                <span class="material-icons"> download </span>
-                            </button>
-                          
+                        <button (click)="downloadImageOrPDF(message.senderMediaLinks[0])" mat-fab color="primary"
+                            aria-label="Example icon button with a download icon">
+                            <span class="material-icons"> download </span>
+                        </button>
+
                         <p class="timestamp">{{ message.timeStamp }} </p>
                     </ng-template>
 

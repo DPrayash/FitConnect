@@ -1,4 +1,4 @@
-<div class="side-nav-container">
+<div *ngIf="isLoggedIn" class="side-nav-container">
 
     <div *ngIf="!updateForm" class="profile-picture">
         <img [src]="profilePic!=null&&profilePic!=''?profilePic:dummyProfilePic" class="avatar" alt="Profile Picture"
@@ -76,7 +76,7 @@
             <mat-icon>group</mat-icon>
             <span>Profile</span>
         </a>
-        <a class="side-nav-tab" routerLink="/UserPayment">
+        <a class="side-nav-tab" routerLink="/userPayment">
             <mat-icon>payment</mat-icon>
             <span>Payment History</span>
         </a>

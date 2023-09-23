@@ -1,13 +1,14 @@
 <div class="items-container">
     <div class="items-list">
         <h2 class="items-list-title">Payment List</h2>
-        <div class="items-card" *ngFor="let payment of paymentList" (click)="selectPayment(payment)" [class.selected]="payment === selectedPayment">
+        <div class="items-card" *ngFor="let payment of paymentList" (click)="selectPayment(payment)"
+            [class.selected]="payment === selectedPayment">
             <div class="items-card-title">{{ payment.paymentTitle }}</div>
             <div class="items-card-footer">
-                <p><strong>Amount:</strong> ₹ {{ payment.amount }}</p>
+                <p><strong>Amount:</strong> ₹ {{ payment.amount/100 }}</p>
                 <p
                     [ngClass]="{'red-badge': payment.paymentStatus === 'Fail', 'green-badge': payment.paymentStatus === 'created'}">
-                    Status:<strong>{{ payment.paymentStatus }}</strong>
+                    <strong>{{ selectedPayment.paymentStatus === 'created' ? 'Success' : 'Failed' }}</strong>
                 </p>
             </div>
         </div>

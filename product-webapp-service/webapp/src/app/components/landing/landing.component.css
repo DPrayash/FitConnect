@@ -4,36 +4,41 @@
 /* Update button styles */
 /* Update button styles */
 .btn {
-  border: none;
-  border: solid 1px black;
-  padding: 10px 20px;
-  margin-right: 20px;
-  font-size: medium;
-  border-radius: 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  background-color: transparent;
-  color: black;
+    border: none;
+    border: solid 1px black;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-size: medium;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: transparent;
+    color: black;
 }
 
 .navbar-nav {
-  margin: 0 auto; /* Add this to center-align the items horizontally */
-  text-align: center; /* Add this to center-align the text within the items */
+    margin: 0 auto;
+    /* Add this to center-align the items horizontally */
+    text-align: center;
+    /* Add this to center-align the text within the items */
 }
 
 /* Change the button color on hover */
 .btn:hover {
-  background-color: #555; /* You can change this color */
-  color: white; /* You can change this color */
+    background-color: #555;
+    /* You can change this color */
+    color: white;
+    /* You can change this color */
 }
 
 /* Add a box-shadow on focus for better accessibility */
 .btn:focus {
-  outline: none;
-  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2); /* Customize the shadow as needed */
+    outline: none;
+    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+    /* Customize the shadow as needed */
 }
 
 
@@ -97,7 +102,8 @@ ul {
 /* Update .card styles */
 .card {
     width: 18rem;
-    margin: 0 72px 20px; /* Adjust as needed for spacing between cards */
+    margin: 0 72px 20px;
+    /* Adjust as needed for spacing between cards */
 }
 
 .card-img-top {
@@ -136,4 +142,32 @@ ul {
     height: 300px;
     overflow-y: hidden;
     position: relative;
+}
+
+
+.tabs {
+
+    position: fixed;
+    top: var(--header-height);
+    width: 100%;
+    z-index: 10;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: black;
+    padding: 4px 0;
+}
+
+.nav-item {
+    list-style: none;
+    margin: 0 10px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
 }

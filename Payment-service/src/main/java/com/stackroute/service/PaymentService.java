@@ -1,9 +1,7 @@
 package com.stackroute.service;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +23,19 @@ public class PaymentService {
 	@Autowired
 	private PaymentRepository paymentRepository;
 	
-	public PaymentModel createTransaction(Double amount) {
+	public PaymentModel createTransaction(Double amount, String name, String userId) {
 		
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("amount", (amount*100));
 		jsonObject.put("currency", CURRENCY);
-//		jsonObject.put("userEmail", "abc@gmail.com");
-//		jsonObject.put("paymentModel", "UPI");
-//		jsonObject.put("timestamp", LocalDateTime.now());
-//		jsonObject.put("status", "");
 		
 		try {
 			RazorpayClient razorpayClient = new RazorpayClient(KEY, KEY_SECRET);
 			
 			Order order = razorpayClient.orders.create(jsonObject);
-			System.out.println(order);
 			
-			PaymentModel payment = prepareTransactionDetails(order);
+			PaymentModel payment = prepareTransactionDetails(order, name, userId);
+			System.out.println("PAYMENT is " + payment);
 			return payment;
 			
 		}catch(Exception e) {
@@ -51,34 +45,31 @@ public class PaymentService {
 	}
 	
 	
-	private PaymentModel prepareTransactionDetails(Order order) {
+	
+	private PaymentModel prepareTransactionDetails(Order order, String name, String UserId) {
 		
 			String paymentId = order.get("id");
 			String currency = order.get("currency");
 			Integer amount = order.get("amount");
-			String userEmail = "abc@gmail.com";
+			String userEmail = UserId;
 			String paymentStatus = order.get("status");
-			String paymentTitle = order.get("entity");
+			String paymentTitle = name;
 			String paymentMode = "UPI";
 			Date Timestamp = order.get("created_at");
 			
 			PaymentModel payment = new PaymentModel(paymentId, userEmail, paymentTitle, amount, paymentStatus, paymentMode, Timestamp, currency, KEY);
-			paymentRepository.save(payment);
-			return payment;
+			return paymentRepository.save(payment);
+
 	}
 
 
 	public List<PaymentModel> allTransactionDetails() {
-		// TODO Auto-generated method stub
 		return paymentRepository.findAll();
 	}
 
 
 	public List<PaymentModel> findTransaction(String userEmail) {
-		// TODO Auto-generated method stub
 		List<PaymentModel> optional = paymentRepository.findByUserEmail(userEmail);
-//		List<PaymentModel> paymentList = optional.isPresent() ? (List<PaymentModel>) optional.get() : null;
-		
 		return optional;
 	}
 }

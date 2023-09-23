@@ -12,6 +12,7 @@ import com.stackroute.exception.SlotNotFoundException;
 import com.stackroute.exception.UserNotSubscribed;
 import com.stackroute.model.UserActivity;
 import com.stackroute.model.UserActivity.SlotStatus;
+import com.stackroute.model.UserDTO;
 import com.stackroute.model.UserService;
 import com.stackroute.repository.UserActivityRepository;
 import com.stackroute.repository.UserServiceRepository;
@@ -31,7 +32,7 @@ public class UserActivityServiceImpl implements UserActivityService {
 	@Override
 	public UserActivity bookSlot(UserActivity userActivity) {
 		// TODO Auto-generated method stub
-		Optional<UserService> subscribedUserOp = userRepository.findById(userActivity.getUserEmail());
+		Optional<UserDTO> subscribedUserOp = userRepository.findById(userActivity.getUserEmail());
 		if (subscribedUserOp.isPresent()) {
 			if (subscribedUserOp.get().getPlanName() == null || subscribedUserOp.get().getPlanName() == "") {
 				throw new UserNotSubscribed("Please become a member to access this facility");

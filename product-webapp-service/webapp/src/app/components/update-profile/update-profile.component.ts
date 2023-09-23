@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
+import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,21 +14,35 @@ export class UpdateProfileComponent implements OnInit {
   user: User;
   isLoading: boolean = false;
   userUpdate: boolean = false;
+  isLoggedIn: boolean;
+  userId: string;
   updateForm: any;
   
  
-  constructor(private userService: UserService){
+  constructor(
+    private userService: UserService,
+    private userAuthService: UserAuthService,
+    private router: Router
+    ){
 
   }
   ngOnInit(): void {
-   this.getUserDetails();
+    this.isLoggedIn = this.userAuthService.isLoggedIn() !== null && this.userAuthService.isLoggedIn() !== '';
+    if(this.isLoggedIn){
+      this.userId = this.userAuthService.getUID();
+      if(this.userId){
+        this.getUserDetails(this.userId);
+      }
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
-  getUserDetails() {
+  getUserDetails(userId: string) {
     this.isLoading = true;
-    this.userService.getUserByEmail("jpg@gmail.com").subscribe(
+    this.userService.getUserByEmail(userId).subscribe(
       (data) => {
         console.log(data);
-        this.user = data; // Update the user object with retrieved data
+        this.user = data; 
         this.isLoading = false;
       },
       (error) => {
@@ -55,13 +71,13 @@ export class UpdateProfileComponent implements OnInit {
     };
     console.log(user);
 
-    this.userService.updateUserDetails("jpg@gmail.com",user).subscribe(                 //this.user.userEmail
+    this.userService.updateUserDetails(this.userId, user).subscribe(                 
       (updatedUser) => {
         console.log('User updated:', updatedUser);
         this.isLoading = false;
         this.userUpdate = false; 
         this.user=updatedUser;
-        this.getUserDetails();
+        this.getUserDetails(this.userId);
       },
       (error) => {
         console.error('Error updating user:', error);
