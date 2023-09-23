@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
-  productTitle = ['Fit', 'Connect'];
-  userName = 'User Name';
-  isLoggedIn = true;
+export class HeaderComponent{
 
-  signOut() {
-    console.log('Signing out...');
+  productTitle = ['Fit', 'Connect'];
+  @Input() isLoggedIn:boolean;
+  @Input() userId:string;
+  @Output() signOut: EventEmitter<void> = new EventEmitter<void>();
+
+  logout() {
+    this.signOut.emit();
   }
 }

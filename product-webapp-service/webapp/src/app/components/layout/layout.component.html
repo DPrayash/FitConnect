@@ -1,5 +1,5 @@
 <div class="layout-container">
-  <app-sidebar></app-sidebar>
+  <app-sidebar *ngIf="isLoggedIn" [userRole]="userRole" [userId]="userId"></app-sidebar>
   <div class="main-content">
     <router-outlet></router-outlet>
   </div>

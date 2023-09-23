@@ -23,10 +23,8 @@ import { LandingComponent } from './components/landing/landing.component';
 
 const routes: Routes = [
   
-    // { path: '', component: LoginComponent },
   // DEFAULT
   { path: '', component: LandingComponent},
-  { path: 'userLogin', component: UserHomeComponent },
   { path: 'registerUser', component: UserRegistrationFormComponent },
   { path: 'login', component: LoginComponent},
 

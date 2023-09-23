@@ -1,4 +1,2 @@
-<!-- <app-header></app-header>
-<app-layout></app-layout> -->
-<!-- <app-landing></app-landing> -->
-<router-outlet></router-outlet>
+<app-header [isLoggedIn]="isLoggedIn" [userId]="userId" (signOut)="signOut()" ></app-header>
+<app-layout [isLoggedIn]="isLoggedIn" [userId]="userId" [userRole]="userRole"></app-layout>

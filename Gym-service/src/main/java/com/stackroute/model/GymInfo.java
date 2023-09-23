@@ -6,11 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 
 @Data
-<<<<<<< HEAD
-=======
 //@AllArgsConstructor
 //@NoArgsConstructor
->>>>>>> e9d87e3f3932e5891ee136b1aee0e98247663b4f
 @Document(collection = "GymInfoCollection")
 public class GymInfo {
 

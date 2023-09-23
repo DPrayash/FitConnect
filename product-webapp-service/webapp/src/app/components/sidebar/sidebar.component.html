@@ -15,7 +15,8 @@
 
             <div class="mat-form-field image-input">
                 <mat-label for="mediaImage">Image*</mat-label> <br />
-                <mat-hint class="select-file" (click)="selectImage()"> <mat-icon>upload</mat-icon> Select File</mat-hint>
+                <mat-hint class="select-file" (click)="selectImage()"> <mat-icon>upload</mat-icon> Select
+                    File</mat-hint>
                 <mat-hint class="file-name">{{ selectedImageFile ? getSelectedImageName() : "No image is selected"
                     }}</mat-hint>
                 <input type="file" id="mediaImage" name="mediaImage" hidden accept="image/*"
@@ -26,7 +27,8 @@
         </form>
     </div>
 
-    <div *ngIf="ROLE=='ADMIN'" class="side-nav-links">
+    <div *ngIf="isAdmin" class="side-nav-links">
+
         <a class="side-nav-tab" routerLink="/home">
             <mat-icon>home</mat-icon>
             <span>Home</span>
@@ -63,10 +65,9 @@
             <mat-icon>chat</mat-icon>
             <span>Chat Section</span>
         </a>
-
     </div>
 
-    <div *ngIf="ROLE=='USER'" class="side-nav-links">
+    <div *ngIf="!isAdmin" class="side-nav-links">
         <a class="side-nav-tab" routerLink="/userHome">
             <mat-icon>home</mat-icon>
             <span>Home</span>

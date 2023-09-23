@@ -70,6 +70,7 @@ export class UserRegistrationFormComponent implements OnInit {
         console.log("User Registered!!");
         console.log(data);
         this.registrationForm.reset(); // Reset the form
+        this.router.navigate(['/login']);
       });
     }
   }

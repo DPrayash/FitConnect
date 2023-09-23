@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-layout',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent {
-
+  @Input() isLoggedIn:boolean;
+  @Input() userId:string;
+  @Input() userRole:string;
 }

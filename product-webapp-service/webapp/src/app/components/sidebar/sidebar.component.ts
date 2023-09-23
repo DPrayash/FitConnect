@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,22 +12,24 @@ export class SidebarComponent implements OnInit {
   dummyProfilePic = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU";
   profilePic: String = null;
   updateForm: boolean = false;
-  // ROLE = "ADMIN";
-  ROLE = "USER";
-  // USERID = "vikram.rathod@fitconnect.com";
-  USERID = "username1@email.com";
-  
-
+  @Input() userRole:string;
+  @Input() userId:string;
+  isAdmin:boolean;
   selectedImageFile: File | null = null;
 
   constructor(private userService: UserService, private adminService: AdminService) { }
 
   ngOnInit(): void {
-    if (this.ROLE == "ADMIN") {
+    console.log("UserRole: ", this.userRole);
+    console.log("UserId: ", this.userId);
+
+    if (this.userRole == "Admin") {
       this.getAdminProfilePic();
+      this.isAdmin = true;
     }
     else {
       this.getUserProfilePic();
+      this.isAdmin = false;
     }
   }
 
@@ -43,7 +45,7 @@ export class SidebarComponent implements OnInit {
   }
 
   private getUserProfilePic() {
-    this.userService.getUserByEmail(this.USERID).subscribe(
+    this.userService.getUserByEmail(this.userId).subscribe(
       (data) => {
         this.profilePic = data.userProfilePicUrl;
       },
@@ -66,8 +68,8 @@ export class SidebarComponent implements OnInit {
     if (this.selectedImageFile != null) {
       const formData = new FormData();
       formData.append('file', this.selectedImageFile);
-      if (this.ROLE == "ADMIN") {
-        this.adminService.updateAdminProfilePic(this.USERID, formData).subscribe(
+      if (this.userRole == "Admin") {
+        this.adminService.updateAdminProfilePic(this.userId, formData).subscribe(
           (data) => {
             console.log(data);
             this.getAdminProfilePic();
@@ -79,7 +81,7 @@ export class SidebarComponent implements OnInit {
         )
       }
       else { 
-        this.userService.updateUserProfilePic(this.USERID, formData).subscribe(
+        this.userService.updateUserProfilePic(this.userId, formData).subscribe(
           (data) => {
             console.log(data);
             this.profilePic = data.userProfilePicUrl;
