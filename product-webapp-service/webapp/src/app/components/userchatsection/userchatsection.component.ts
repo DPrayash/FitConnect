@@ -48,7 +48,13 @@ export class UserchatsectionComponent implements OnInit {
   private getAdminProfilePic() {
     this.adminService.getAdminInfo().subscribe(
       (data) => {
-        this.adminProfilePic = data.adminProfilePic;
+        console.log("ADMIN PP: ", data)
+        if(data?.adminProfilePic != null && data?.adminProfilePic != '') {
+          this.adminProfilePic = data.adminProfilePic;
+        } else {
+          this.adminProfilePic = this.dummyProfilePic;
+        }
+        
       },
       (error) => {
         console.log(error);

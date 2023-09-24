@@ -4,10 +4,10 @@
         <div class="items-card" *ngFor="let payment of paymentList" (click)="selectPayment(payment)" [class.selected]="payment === selectedPayment">
             <div class="items-card-title">{{ payment.paymentTitle }}</div>
             <div class="items-card-footer">
-                <p><strong>Amount:</strong> ₹ {{ payment.amount }}</p>
+                <p><strong>₹ {{ payment.amount/100 }}</strong> </p>
                 <p
                     [ngClass]="{'red-badge': payment.paymentStatus === 'Fail', 'green-badge': payment.paymentStatus === 'created'}">
-                    Status:<strong>{{ payment.paymentStatus }}</strong>
+                    <strong>{{ payment.paymentStatus == 'created' ? 'Success' : 'Failed' }}</strong>
                 </p>
             </div>
         </div>
@@ -20,17 +20,35 @@
         <div class="items-details-card" *ngIf="selectedPayment">
             <h2 class="items-title">Payment Details</h2>
             <div class="payment-content">
-                <p><strong>Title:</strong> {{ selectedPayment.paymentTitle }}</p>
-                <p><strong>User Email:</strong> {{ selectedPayment.userEmail }}</p>
-                <p><strong>Amount:</strong> ₹ {{ selectedPayment.amount}}</p>
-                <p [ngClass]="{
+                <p class="user-info" title="Payment Title">
+                    <mat-icon class="user-info-icon">title</mat-icon>
+                    {{ selectedPayment.paymentTitle }}
+                </p>
+                <p class="user-info" title="User Email">
+                    <mat-icon class="user-info-icon">email</mat-icon>
+                    {{ selectedPayment.userEmail }}
+                </p>
+                <p class="user-info" title="Amount">
+                    <mat-icon class="user-info-icon">{{ '\u20B9' }}</mat-icon>
+                    {{ selectedPayment.amount/100 }}
+                </p>
+                <p class="user-info" [ngClass]="{
                     'red-badge': selectedPayment.paymentStatus === 'Fail',
                     'green-badge': selectedPayment.paymentStatus === 'created'
-                }">
-                    <strong>Status:</strong> {{ selectedPayment.paymentStatus === 'created' ? 'Success' : 'Failed' }}
+                }" title="Payment Status">
+                    <mat-icon class="user-info-icon">
+                        {{ selectedPayment.paymentStatus === 'created' ? 'check_circle' : 'cancel' }}
+                    </mat-icon>
+                    {{ selectedPayment.paymentStatus === 'created' ? 'Success' : 'Failed' }}
                 </p>
-                <p><strong>Mode:</strong> {{ selectedPayment.paymentMode }}</p>
-                <p><strong>Timestamp:</strong> {{ selectedPayment.timestamp | date: 'dd MMM, yyyy, hh:mm a' }}</p>
+                <p class="user-info" title="Payment Mode">
+                    <mat-icon class="user-info-icon">payment</mat-icon>
+                    {{ selectedPayment.paymentMode }}
+                </p>
+                <p class="user-info" title="Timestamp">
+                    <mat-icon class="user-info-icon">schedule</mat-icon>
+                    {{ selectedPayment.timestamp | date: 'dd MMM, yyyy, hh:mm a' }}
+                </p>
             </div>
         </div>
 

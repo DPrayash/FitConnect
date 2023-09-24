@@ -18,11 +18,19 @@
 
     --header-height: 80px;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .items-container {
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     margin: 0 2px;
     padding: 0 2px;
@@ -88,7 +96,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size: 24px !important;
     font-weight: bold !important;
     margin-top: 20px !important
-
 }
 
 .items-details p {
@@ -125,7 +132,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: var(--black-icon);
 }
 
-.item-actions:hover, .item-actions:focus, .item-actions:active {
+.item-actions:hover,
+.item-actions:focus,
+.item-actions:active {
     background-color: var(--black-icon);
     color: var(--white-color);
 }
@@ -193,7 +202,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: var(--green-color) !important;
 }
 
-.items-form button:hover, .items-form button:focus, .items-form button:active {
+.items-form button:hover,
+.items-form button:focus,
+.items-form button:active {
     opacity: 0.8;
 }
 
@@ -209,18 +220,32 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     transform: scale(1.2);
     cursor: pointer;
 }
-.slick-prev:before, .slick-next:before{
+
+.slick-prev:before,
+.slick-next:before {
     color: black !important;
-    }
-    /* .img-style{
+}
+
+/* .img-style{
     margin-left: auto;
     margin-right: auto;
     height: 250px;
     width: 250px;
     } */
-    @media (max-width: 992) {
+@media (max-width: 992) {
     .img-style {
-    margin-left: 10px !important;
-    margin-right: 10px important;
+        margin-left: 10px !important;
+        margin-right: 10px important;
     }
-    }
+}
+
+
+.user-info {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.user-info-icon {
+    margin-right: 10px;
+}

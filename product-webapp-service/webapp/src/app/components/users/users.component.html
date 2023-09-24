@@ -5,7 +5,8 @@
             [class.selected]="user === selectedUser">
             <div class="items-card-title">{{ user.userName }}</div>
             <div class="items-card-footer">
-                <p><strong>Email:</strong> {{ user.userEmail }}</p>
+                <p class="user-info user-email" title="Email">
+                    <mat-icon class="user-info-icon">email</mat-icon>  {{ user.userEmail }}</p>
                 <p [class.green-badge]="user.planName" [class.red-badge]="!user.planName">
                     <strong>{{ user.planName ? 'Subscribed' : 'Not Subscribed' }}</strong>
                 </p>
@@ -27,21 +28,42 @@
                 <h2 class="user-name">{{ selectedUser.userName }}</h2>
             </div>
             <div class="user-details-content">
-                <p class="user-email"><strong>Email:</strong> {{ selectedUser.userEmail }}</p>
-                <p class="user-age"><strong>Age:</strong> {{ selectedUser.userAge }}</p>
-                <p class="user-mobile"><strong>Mobile:</strong> {{ selectedUser.userMobile }}</p>
-                <p class="user-height"><strong>Height:</strong> {{ selectedUser.height }} cm</p>
-                <p class="user-weight"><strong>Weight:</strong> {{ selectedUser.weight }} Kg</p>
-                <p *ngIf="!selectedUser.planName"><strong class="red-badge">Not a Member</strong></p>
-                <p *ngIf="selectedUser.planName"><strong>Plan Name:</strong> <span
-                        class="orange-badge">{{
-                         selectedUser.planName }}</span></p>
-                <p *ngIf="selectedUser.planName"><strong>Plan Price:</strong> <span
-                        class="orange-badge"> ₹ {{
-                         selectedUser.planPrice }}</span></p>
-                <p *ngIf="selectedUser.planName"><strong>Plan Duration:</strong> <span class="orange-badge">{{ selectedUser.planDuration }}</span>
-                    </p>
-                <p class="user-expiration"  *ngIf="selectedUser.planName"><strong>Expiration Date:</strong> <span class="red-badge">{{ selectedUser.expirationDate | date: 'MMM dd, yyyy' }}</span></p>
+                <p class="user-info user-email" title="Email">
+                    <mat-icon class="user-info-icon">email</mat-icon> {{ selectedUser.userEmail }}
+                </p>
+                <p class="user-info user-age" title="Age">
+                    <mat-icon class="user-info-icon">person</mat-icon> {{ selectedUser.userAge }}
+                </p>
+                <p class="user-info user-mobile" title="Mobile">
+                    <mat-icon class="user-info-icon">phone</mat-icon> {{ selectedUser.userMobile }}
+                </p>
+                <p class="user-info user-height" title="Height">
+                    <mat-icon class="user-info-icon">height</mat-icon> {{ selectedUser.height }} cm
+                </p>
+                <p class="user-info user-weight" title="Weight">
+                    <mat-icon class="user-info-icon">fitness_center</mat-icon> {{ selectedUser.weight }}
+                    Kg
+                </p>
+                <p class="user-info" title="Membership" *ngIf="!selectedUser.planName">
+                    <mat-icon class="user-info-icon">cancel</mat-icon> <strong class="red-badge">Not
+                        a Member</strong>
+                </p>
+                <p class="user-info" title="Plan Name" *ngIf="selectedUser.planName">
+                    <mat-icon class="user-info-icon">label</mat-icon><span class="orange-badge">{{
+                        selectedUser.planName }}</span>
+                </p>
+                <p class="user-info" title="Plan Price" *ngIf="selectedUser.planName">
+                    <mat-icon class="user-info-icon" >attach_money</mat-icon><span
+                        class="orange-badge">₹ {{ selectedUser.planPrice }}</span>
+                </p>
+                <p class="user-info" title="Plan Duration" *ngIf="selectedUser.planName">
+                    <mat-icon class="user-info-icon" >schedule</mat-icon> <span
+                        class="orange-badge">{{ selectedUser.planDuration }}</span>
+                </p>
+                <p class="user-info user-expiration" title="Expiration Date" *ngIf="selectedUser.planName">
+                    <mat-icon class="user-info-icon" >event_busy</mat-icon> <span
+                        class="red-badge">{{ selectedUser.expirationDate | date: 'MMM dd, yyyy' }}</span>
+                </p>
             </div>
         </div>
 

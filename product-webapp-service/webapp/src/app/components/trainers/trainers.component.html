@@ -6,7 +6,8 @@
             <div class="items-card-title"> {{ trainer.trainerName }}
             </div>
             <div class="items-card-footer">
-                <p><strong>Bio:</strong> {{ trainer.trainerBio | slice:0:50 }}{{ trainer.trainerBio.length > 50 ?
+                <p class="user-info">
+                    <mat-icon class="user-info-icon" title="Bio">description</mat-icon> {{ trainer.trainerBio | slice:0:50 }}{{ trainer.trainerBio.length > 50 ?
                     '...' : '' }}</p>
 
                 <p class="orange-badge">
@@ -42,11 +43,15 @@
             <div class="trainer-image">
                 <img [src]="selectedTrainer.trainerImage" alt="{{ selectedTrainer.trainerName }}">
             </div>
-            <p><strong>Name: </strong>{{ selectedTrainer.trainerName }}</p>
-
-            <p><strong>Category: </strong>{{ selectedTrainer.trainerCategory }}</p>
-            <p><strong>Bio: </strong> {{ selectedTrainer.trainerBio }}</p>
-
+            <p class="user-info">
+                <mat-icon class="user-info-icon" title="Name">person</mat-icon> {{ selectedTrainer.trainerName }}
+              </p>
+              <p class="user-info">
+                <mat-icon class="user-info-icon" title="Category">category</mat-icon> {{ selectedTrainer.trainerCategory }}
+              </p>
+              <p class="user-info">
+                <mat-icon class="user-info-icon" title="Bio">description</mat-icon> {{ selectedTrainer.trainerBio }}
+              </p>
         </div>
 
     </div>

@@ -47,11 +47,26 @@
       <button mat-button type="button" (click)="cancelUpdate()">Cancel</button>
     </form>
     <div *ngIf="!userUpdate">     
-      <p>Name: <strong>{{ user.userName }}</strong></p>
-      <p>Age: <strong>{{ user.userAge }}</strong></p>
-      <p>Height (in Centimeters): <strong>{{ user.height }}</strong></p>
-      <p>Weight (in Kilograms): <strong>{{ user.weight }}</strong></p>
-      <p>Contact: <strong>{{ user.userMobile }}</strong></p>
+      <p class="user-info">
+        <mat-icon class="user-info-icon">person</mat-icon>
+        <strong>{{ user.userName }}</strong>
+      </p>
+      <p class="user-info">
+        <mat-icon class="user-info-icon">cake</mat-icon>
+        <strong>{{ user.userAge }} years</strong>
+      </p>
+      <p class="user-info">
+        <mat-icon class="user-info-icon">height</mat-icon>
+        <strong>{{ user.height }} cm</strong>
+      </p>
+      <p class="user-info">
+        <mat-icon class="user-info-icon">fitness_center</mat-icon>
+        <strong>{{ user.weight }} kg</strong>
+      </p>
+      <p class="user-info">
+        <mat-icon class="user-info-icon">phone</mat-icon>
+        <strong>{{ user.userMobile }}</strong>
+      </p>
       
       
     </div>

@@ -36,10 +36,10 @@
             </mat-menu>
             <h2 class="items-title">Selected Slot</h2>
             <div class="slot-content">
-                <p>Slot Date: <strong>{{ selectedSlotInfo?.slotDate | date: 'MMMM dd, yyyy' }}</strong></p>
-                <p>Timings: <strong>{{ getTimings(selectedSlotInfo) }}</strong></p>
-                <p>Booking status: <strong>{{ selectedActivity.slotStatus }}</strong></p>
-                <p>Booked on:<strong>{{ selectedActivity.bookingDate | date: 'MMMM d, y, hh:mm a' }}</strong> </p>
+                <p class="user-info"  title="Slot Date"><mat-icon class="user-info-icon" >date_range</mat-icon> <strong>{{ selectedSlotInfo?.slotDate | date: 'MMMM dd, yyyy' }}</strong></p>
+                <p class="user-info"  title="Timings"><mat-icon class="user-info-icon" >access_time</mat-icon> <strong>{{ getTimings(selectedSlotInfo) }}</strong></p>
+                <p class="user-info"  title="Booking Status"><mat-icon class="user-info-icon" >{{ selectedActivity.slotStatus == 'BOOKED' ? 'check_circle' : 'cancel' }}</mat-icon> <strong>{{ selectedActivity.slotStatus }}</strong></p>
+                <p class="user-info"  title="Booked On"><mat-icon class="user-info-icon" >event</mat-icon> <strong>{{ selectedActivity.bookingDate | date: 'MMMM d, y, hh:mm a' }}</strong></p>
             </div>
         </div>
     </div>

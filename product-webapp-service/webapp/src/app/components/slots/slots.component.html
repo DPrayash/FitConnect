@@ -31,10 +31,12 @@
         <h2 class="items-list-title">Slot List</h2>
         <div class="items-card" *ngFor="let slot of slotList" (click)="selectSlot(slot)"
             [class.selected]="slot === selectedSlot">
-            <div class="items-card-title">{{ slot.startTime }} - {{ slot.endTime }}
+            <div class="items-card-title user-info" title="Start and End Time">
+                <mat-icon class="user-info-icon" >access_time</mat-icon> {{ slot.startTime }} - {{ slot.endTime }}
             </div>
             <div class="items-card-footer">
-                <p><strong>Date:</strong> {{ slot.slotDate | date: 'dd MMM, yyyy' }}</p>
+                <p class="user-info" title="Slot Date">
+                <mat-icon class="user-info-icon" > calendar_today</mat-icon> {{ slot.slotDate | date: 'dd MMM, yyyy' }}</p>
                 <p [class.green-badge]="isSlotActive(slot)" [class.red-badge]="!isSlotActive(slot)"><strong>{{
                         isSlotActive(slot) ? 'ACTIVE' : 'EXPIRED' }}</strong></p>
             </div>
@@ -75,11 +77,19 @@
             </mat-menu>
             <h2 class="items-title">Slot Details</h2>
             <div class="slot-content">
-                <p><strong>Start Time:</strong> {{ selectedSlot.startTime }}</p>
-                <p><strong>End Time:</strong> {{ selectedSlot.endTime }}</p>
-                <p><strong>Available Slots:</strong> {{ selectedSlot.maximumLimit }}</p>
-                <p><strong>Slot Date:</strong> {{ selectedSlot.slotDate | date: 'yyyy-MM-dd' }}</p>
-                <p><strong>Trainers:</strong></p>
+                <p class="user-info" title="Start and End Time">
+                    <mat-icon class="user-info-icon" >access_time</mat-icon> {{ selectedSlot.startTime + ' - ' + selectedSlot.endTime }}
+                  </p>
+
+                  <p class="user-info" title="Available Slots">
+                    <mat-icon class="user-info-icon" >event_available</mat-icon> {{ selectedSlot.maximumLimit }}
+                  </p>
+                  <p class="user-info" title="Slot Date">
+                    <mat-icon class="user-info-icon" >calendar_today</mat-icon> {{ selectedSlot.slotDate | date: 'yyyy-MM-dd' }}
+                  </p>
+                  <p class="user-info" title="Trainers">
+                    <mat-icon class="user-info-icon" >group</mat-icon>
+                  </p>
                 <div class="trainers-container">
                     <div class="trainer-card" *ngFor="let trainer of selectedSlot.trainerList">
                         <div class="trainer-image">

@@ -29,15 +29,15 @@
     </form>
 
     <div *ngIf="!gymUpdate">
-
-      <p>Name:<strong>{{ gymInfo.gymName }}</strong> </p>
-      <p>Address:<strong> {{ gymInfo.gymAddress }}</strong></p>
-      <p>Mobile No:<strong>{{ gymInfo.mobile }}</strong> </p>
-      <div style="width: 100%;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.896)"><iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2473.6886236833498!2d5.06565567614727!3d51.68384237185394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c693ae441781cb%3A0x18bdea329933e0f2!2sFitconnect!5e0!3m2!1sen!2sus!4v1695127535360!5m2!1sen!2sus"
-        height="300" style="border:0; width: 100%;" allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-    </div>
+      <p class="user-info" title="Gym Name"  ><mat-icon class="user-info-icon" >account_circle</mat-icon> {{ gymInfo.gymName }}</p>
+      <p class="user-info" title="Location"  ><mat-icon class="user-info-icon" >location_on</mat-icon> {{ gymInfo.gymAddress }}</p>
+      <p class="user-info" title="Phone No."  ><mat-icon class="user-info-icon" >phone</mat-icon> {{ gymInfo.mobile }}</p>
+      <div style="width: 100%;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.896)">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2473.6886236833498!2d5.06565567614727!3d51.68384237185394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c693ae441781cb%3A0x18bdea329933e0f2!2sFitconnect!5e0!3m2!1sen!2sus!4v1695127535360!5m2!1sen!2sus"
+              height="300" style="border:0; width: 100%;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+  </div>
   </div>
 
   <div class="card" *ngIf="isLoading">
@@ -69,12 +69,12 @@
     </form>
 
     <div *ngIf="!adminUpdate">
-      <p>Name:<strong> {{ adminInfo.adminName }}</strong></p>
-      <p>Email:<strong>{{ adminInfo.adminMail }}</strong></p>
-      <p>Moilie No:<strong>{{ adminInfo.adminMobile }}</strong></p>
-      <div >
-        <strong *ngIf="adminInfo.adminProfilePic==null">Profile picture not found.</strong>
-        <img *ngIf="adminInfo.adminProfilePic!=null" [src]="adminInfo.adminProfilePic" [alt]="adminInfo.adminName" style="height: 300px;" />
+      <p class="user-info" title="Admin Name"><mat-icon class="user-info-icon">account_circle</mat-icon> <strong>{{ adminInfo.adminName }}</strong></p>
+      <p class="user-info" title="Email"><mat-icon class="user-info-icon">email</mat-icon> <strong>{{ adminInfo.adminMail }}</strong></p>
+      <p class="user-info" title="Mobile No."><mat-icon class="user-info-icon">phone</mat-icon> <strong>{{ adminInfo.adminMobile }}</strong></p>
+      <div>
+          <strong *ngIf="adminInfo.adminProfilePic==null" title="Profile Picture">Profile picture not found.</strong>
+          <img *ngIf="adminInfo.adminProfilePic!=null" [src]="adminInfo.adminProfilePic" [alt]="adminInfo.adminName" style="height: 300px;" />
       </div>
     </div>
   </div>

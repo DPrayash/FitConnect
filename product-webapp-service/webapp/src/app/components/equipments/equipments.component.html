@@ -5,7 +5,8 @@
             [class.selected]="equipment === selectedEquipment">
             <div class="items-card-title">{{ equipment.equipmentName }}</div>
             <div class="items-card-footer">
-                <p><strong>Desc:</strong> {{ equipment.equipmentDescription | slice:0:50 }}{{
+                <p class="user-info">
+                    <mat-icon class="user-info-icon" title="Description">description</mat-icon>{{ equipment.equipmentDescription | slice:0:50 }}{{
                     equipment.equipmentDescription.length > 50 ? '...' : '' }}</p>
                 <p [class.green-badge]="isEquipmentAvailable(equipment)"
                     [class.red-badge]="!isEquipmentAvailable(equipment)">
@@ -41,11 +42,15 @@
             <div class="equipment-image">
                 <img [src]="selectedEquipment.equipmentImage" alt="{{ selectedEquipment.equipmentName }}">
             </div>
-            <p><strong>Name:</strong> {{ selectedEquipment.equipmentName }}</p>
-
-            <p><strong>Description:</strong> {{ selectedEquipment.equipmentDescription }}</p>
-            <p><strong>Quantity:</strong> {{ selectedEquipment.quantity }}</p>
-
+            <p class="user-info">
+                <mat-icon class="user-info-icon" title="Name">title</mat-icon> {{ selectedEquipment.equipmentName }}
+              </p>
+              <p class="user-info">
+                <mat-icon class="user-info-icon" title="Description">description</mat-icon> {{ selectedEquipment.equipmentDescription }}
+              </p>
+              <p class="user-info">
+                <mat-icon class="user-info-icon" title="Quantity">format_list_numbered</mat-icon> {{ selectedEquipment.quantity }}
+              </p>
         </div>
 
     </div>

@@ -5,7 +5,8 @@
             [class.selected]="plan === selectedPlan">
             <div class="items-card-title"> {{ plan.planName }}</div>
             <div class="items-card-footer">
-                <p><strong>Duration:</strong> {{ plan.planDuration }}</p>
+                <p class="user-info" title="Duration">
+                    <mat-icon class="user-info-icon">schedule</mat-icon> {{ plan.planDuration }}</p>
                 <p class="orange-badge"><strong>₹ {{ plan.planPrice }}</strong></p>
             </div>
         </div>
@@ -32,15 +33,26 @@
                     <mat-icon>delete_forever</mat-icon> Delete
                 </a>
             </mat-menu>
-            <h2 class="items-title">Plan Details</h2>
-            <p><strong>Name:</strong> {{ selectedPlan.planName }}</p>
-            <p><strong>Price:</strong> ₹{{ selectedPlan.planPrice }}</p>
-            <p><strong>Duration:</strong> {{ selectedPlan.planDuration }}
-            </p>
-            <p><strong>Description:</strong></p>
-            <div class="plan-desc">
-                <p *ngFor="let desc of selectedPlan.planDescription"><mat-icon>star</mat-icon> {{ desc }} </p>
-            </div>
+            <h2 class="items-title">
+                Plan Details
+              </h2>
+              <p class="user-info" title="Name">
+                <mat-icon class="user-info-icon" >person</mat-icon> {{ selectedPlan.planName }}
+              </p>
+              <p class="user-info" title="Price">
+                <mat-icon class="user-info-icon" >attach_money</mat-icon> ₹{{ selectedPlan.planPrice }}
+              </p>
+              <p class="user-info" title="Duration">
+                <mat-icon class="user-info-icon">schedule</mat-icon> {{ selectedPlan.planDuration }}
+              </p>
+              <p class="user-info" title="Description">
+                <mat-icon class="user-info-icon">description</mat-icon>
+              </p>
+              <div class="plan-desc">
+                <p *ngFor="let desc of selectedPlan.planDescription" class="user-info">
+                  <mat-icon class="user-info-icon">star</mat-icon> {{ desc }}
+                </p>
+              </div>
 
         </div>
 

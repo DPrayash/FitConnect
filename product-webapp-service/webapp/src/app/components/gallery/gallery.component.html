@@ -49,8 +49,12 @@
                 </mat-menu>
                 <img [src]="mediaFile.mediaUrl" alt="{{ mediaFile.mediaName }}" class="media-image" />
                 <div class="media-details">
-                    <p>Name: {{ mediaFile.mediaName }}</p>
-                    <p>Category: {{ mediaFile.mediaCategory }}</p>
+                    <p class="user-info">
+                        <mat-icon class="user-info-icon" title="Name">person</mat-icon> {{ mediaFile.mediaName }}
+                      </p>
+                      <p class="user-info">
+                        <mat-icon class="user-info-icon" title="Category">category</mat-icon> {{ mediaFile.mediaCategory }}
+                      </p>
                     <button mat-raised-button color="primary" (click)="updateMediaFileForm(mediaFile)">Update</button>
                     <button mat-raised-button color="warn" (click)="deleteMediaFile(mediaFile.mediaId)">Delete</button>
                 </div>

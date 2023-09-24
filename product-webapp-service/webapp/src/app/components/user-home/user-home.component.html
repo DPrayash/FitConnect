@@ -8,10 +8,25 @@
         <mat-card *ngIf="activityList!=null&&activityList.length>0" class="slotInfo">
             <mat-card-title>Your latest slot details</mat-card-title>
             <mat-list>
-                <mat-list-item>Date <span> {{ slotInfo?.slotDate }} </span></mat-list-item>
-                <mat-list-item>Trainer <span> {{ latestActivity?.trainerName }} </span> </mat-list-item>
-                <mat-list-item>Timings <span> {{ slotInfo?.startTime + ' - ' + slotInfo?.endTime }} </span> </mat-list-item>
-                <mat-list-item>Status <span> {{ latestActivity?.slotStatus }} </span> </mat-list-item>
+                <p class="user-info">
+                    <mat-icon class="user-info-icon">date_range</mat-icon>
+                    <span>{{ slotInfo?.slotDate }}</span>
+                </p>
+                <p class="user-info">
+                    <mat-icon class="user-info-icon">supervisor_account</mat-icon>
+                    <span>{{ latestActivity?.trainerName }}</span>
+                </p>
+                <p class="user-info">
+                    <mat-icon class="user-info-icon">access_time</mat-icon>
+                    <span>{{ slotInfo?.startTime + ' - ' + slotInfo?.endTime }}</span>
+                </p>
+                <p class="user-info">
+
+                    <mat-icon class="user-info-icon">
+                        {{ latestActivity?.slotStatus == 'BOOKED' ? 'check_circle' : 'cancel' }}
+                    </mat-icon>
+                    <span>    {{ latestActivity?.slotStatus }}</span>
+                </p>
             </mat-list>
         </mat-card>
         <mat-card *ngIf="activityList!=null&&activityList.length>0" class="slotMetric">
