@@ -1,6 +1,15 @@
 /* Import Font Awesome */
 @import "~font-awesome/css/font-awesome.css";
 
+
+* {
+    overflow: hidden;
+}
+
+section {
+    background-color: azure;
+}
+
 /* Update button styles */
 /* Update button styles */
 .btn {
@@ -170,4 +179,30 @@ ul {
     text-decoration: none;
     color: white;
     font-size: 12px;
+}
+
+.carousel {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.trainer-image {
+    height: 200px;
+    object-fit: none;
+    overflow: hidden;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #0d0c0c04;
+}
+
+.contact-form > form {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
 }

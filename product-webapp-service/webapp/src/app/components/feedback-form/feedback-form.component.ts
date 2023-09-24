@@ -4,6 +4,8 @@ import { FeedbackService } from "src/app/services/feedback.service";
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { GymService } from "src/app/services/gym.service";
 
 @Component({
   selector: 'app-feedback-form',
@@ -12,14 +14,14 @@ import { HttpClient } from "@angular/common/http";
 })
 export class FeedbackFormComponent implements OnInit {
   feedbackForm: FormGroup;
-  successMessage: string | null = null;
-  errorMessage: string | null = null;
-
+  planList: String[] = [];
   constructor(
     private router: Router,
     private feedbackService: FeedbackService,
+    private gymService: GymService,
     private http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +33,7 @@ export class FeedbackFormComponent implements OnInit {
       ratings: ['0'],
       feedbackRemarks: ['']
     });
+    this.getPlanList();
    }
 
   submitForm() {
@@ -44,19 +47,47 @@ export class FeedbackFormComponent implements OnInit {
         ratings: this.feedbackForm.get('ratings').value
       };
 
+      console.log("FEEDBACK: ", feedback);
       this.feedbackService.submitFeedback(feedback).subscribe(
         (data) => {
           console.log("Feedback submitted successfully.");
           console.log(data);
-          this.successMessage='Feedback submitted successfully.';
-          this.errorMessage=null;
+          this.openSnackBar("Feedback submitted successfully.", "Okay");
           this.feedbackForm.reset();
+          this.router.navigate(["/bookings"])
         },
         (error) => {
-          this.errorMessage = 'Error submitting feedback. Please try again';
-          this.successMessage = null;
+          this.openSnackBar("Error submitting feedback. Please try again", "Okay");
         }
       );
     }
+  }
+
+  getPlanList() {
+    this.gymService.getPlanList().subscribe(
+      (data)=>{
+        console.log("Plan List: ", data);
+        if(data!=null&&data.length!=0){
+          data.map(
+            (plan)=>{
+              this.planList.push(plan.planName);
+            }
+          )
+          
+        } else {
+          this.planList = [];
+        }
+
+        console.log("Plan Names: ", this.planList);
+      }
+    )
+  }
+
+  openSnackBar(msg: string, action: string) {
+    const snackBarRef = this._snackBar.open(msg, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 2000,
+    });
   }
 }

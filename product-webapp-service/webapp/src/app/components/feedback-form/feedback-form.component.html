@@ -1,61 +1,45 @@
 <div class="data-block">
-    <h1>Customer Feedback Form</h1>
-    <form [formGroup]="feedbackForm" (ngSubmit)="submitForm()">
-      <div class="data-element">
-        <label for="customerName" class="form-label">Name<span style="color: red;">*</span></label>
-        <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Your Name" formControlName="customerName" required>
-      </div>
-  
-      <div class="data-element">
-        <label for="customerMembershipPlan" class="form-label">Plan</label>
-        <select class="form-select" id="customerMembershipPlan" name="customerMembershipPlan" formControlName="customerMembershipPlan" required>
-          <option value="" disabled selected>Select Plan</option>
-          <option value="Starter">Starter</option>
-          <option value="Pro">Pro</option>
-          <option value="Premium">Premium</option>
-        </select>
-      </div>
-  
-      <div class="data-element">
-        <label for="feedbackTitle" class="form-label">Feedback Title<span style="color: red;">*</span></label>
-        <input type="text" class="form-control" id="feedbackTitle" name="feedbackTitle" placeholder="Enter Feedback Title" formControlName="feedbackTitle" required>
-      </div>
-  
-      <div class="data-element">
-        <label for="feedbackDescription" class="form-label">Please provide your feedback on the training</label>
-        <textarea class="form-control" id="feedbackDescription" name="feedbackDescription" placeholder="Type here..." formControlName="feedbackDescription"></textarea>
-      </div>
-  
-      <div class="data-element">
-        <label for="ratings" class="form-label">Rating</label>
-        <div class="rating">
-          <input type="radio" name="rating" id="star5" value="5" formControlName="ratings">
-          <label for="star5"></label>
-          <input type="radio" name="rating" id="star4" value="4" formControlName="ratings">
-          <label for="star4"></label>
-          <input type="radio" name="rating" id="star3" value="3" formControlName="ratings">
-          <label for="star3"></label>
-          <input type="radio" name="rating" id="star2" value="2" formControlName="ratings">
-          <label for="star2"></label>
-          <input type="radio" name="rating" id="star1" value="1" formControlName="ratings">
-          <label for="star1"></label>
-        </div>
-      </div>
-  
-      <div class="data-element">
-        <label for="feedbackRemarks" class="form-label">Any additional comments you wish to share?</label>
-        <textarea class="form-control" id="feedbackRemarks" name="feedbackRemarks" placeholder="Type here..." formControlName="feedbackRemarks"></textarea>
-      </div>
-  
-      <button type="submit" class="btn btn-primary">Submit Feedback</button>
-    </form>
-  </div>
+  <h1>Customer Feedback Form</h1>
+  <form [formGroup]="feedbackForm" (ngSubmit)="submitForm()" autocomplete="off">
+    <div class="data-element">
+      <label for="customerName" class="form-label">Name<span style="color: red;">*</span></label>
+      <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter Your Name" formControlName="customerName" required>
+    </div>
+    <div class="data-element">
+      <label for="customerMembershipPlan" class="form-label">Plan</label>
+      <select class="form-select" id="customerMembershipPlan" name="customerMembershipPlan" formControlName="customerMembershipPlan" required>
+        <option value="" disabled selected>Select Plan</option>
+        <option *ngFor="let plan of planList" [value]="plan" > {{ plan }} </option>
 
-  <div class="alert alert-success" *ngIf="successMessage">
-    {{ successMessage }}
-  </div>
-
-  <div class="alert alert-danger" *ngIf="errorMessage">
-    {{ errorMessage }}
-  </div>
-  
+      </select>
+    </div>
+    <div class="data-element">
+      <label for="feedbackTitle" class="form-label">Feedback Title<span style="color: red;">*</span></label>
+      <input type="text" class="form-control" id="feedbackTitle" name="feedbackTitle" placeholder="Enter Feedback Title" formControlName="feedbackTitle" required>
+    </div>
+    <div class="data-element">
+      <label for="feedbackDescription" class="form-label">Please provide your feedback on the training</label>
+      <textarea class="form-control" id="feedbackDescription" name="feedbackDescription" placeholder="Type here..." formControlName="feedbackDescription"></textarea>
+    </div>
+    <div class="data-element">
+      <label for="ratings" class="form-label">Rating</label>
+      <div class="rating">
+        <input type="radio" name="rating" id="star5" value="5" formControlName="ratings">
+        <label for="star5"></label>
+        <input type="radio" name="rating" id="star4" value="4" formControlName="ratings">
+        <label for="star4"></label>
+        <input type="radio" name="rating" id="star3" value="3" formControlName="ratings">
+        <label for="star3"></label>
+        <input type="radio" name="rating" id="star2" value="2" formControlName="ratings">
+        <label for="star2"></label>
+        <input type="radio" name="rating" id="star1" value="1" formControlName="ratings">
+        <label for="star1"></label>
+      </div>
+    </div>
+    <div class="data-element">
+      <label for="feedbackRemarks" class="form-label">Any additional comments you wish to share?</label>
+      <textarea class="form-control" id="feedbackRemarks" name="feedbackRemarks" placeholder="Type here..." formControlName="feedbackRemarks"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+  </form>
+</div>

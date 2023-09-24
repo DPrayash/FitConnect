@@ -1,10 +1,12 @@
 package com.stackroute.Feedbackservice.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,7 @@ import com.stackroute.Feedbackservice.model.Feedback;
 import com.stackroute.Feedbackservice.service.FeedbackService;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/feedback")
 public class FeedbackController {
 	
@@ -33,6 +36,8 @@ public class FeedbackController {
     public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback) {
 		ResponseEntity<?> entity = null;
 		try {
+			String fbId = generateUniqueId();
+			feedback.setId(fbId);
 			Feedback createdFeedback = feedbackService.createFeedback(feedback);
 			if (createdFeedback != null) {
 				entity = new ResponseEntity<Feedback>(createdFeedback, HttpStatus.CREATED);
@@ -99,5 +104,9 @@ public class FeedbackController {
 		} else {
 			return new ResponseEntity<String>("Updating Feedback failure...", HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	private String generateUniqueId() {
+	    return UUID.randomUUID().toString();
 	}
 }

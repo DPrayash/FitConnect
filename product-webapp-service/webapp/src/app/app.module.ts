@@ -47,7 +47,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { UserPaymentComponent } from './components/user-payment/user-payment.component';
 import { LoginComponent } from './components/login/login.component';
 import { LandingComponent } from './components/landing/landing.component';
-import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AuthInterceptor } from './_auth/auth.interceptor';
 import { AuthGuard } from './_auth/auth.guard';
 import { AdminchatsectionComponent } from './components/adminchatsection/adminchatsection.component';
@@ -108,6 +108,7 @@ import { FeedbackFormComponent } from './components/feedback-form/feedback-form.
     MatProgressSpinnerModule,
     MatDialogModule,
     MatGridListModule,
+    SlickCarouselModule
   ],
   providers: [
     AuthGuard,
