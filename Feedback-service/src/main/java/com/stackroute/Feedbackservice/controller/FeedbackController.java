@@ -23,6 +23,11 @@ public class FeedbackController {
 	
 	@Autowired
 	private FeedbackService feedbackService;
+	
+	@GetMapping("/message")
+	public String welcome() {
+		return "Welcome to feedback service";
+	}
 
 	@PostMapping("/addFeedback")
     public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback) {

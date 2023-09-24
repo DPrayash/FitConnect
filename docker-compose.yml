@@ -1,0 +1,138 @@
+version: "3"
+services:
+  eureka-server:
+    build: eureka-server/
+    container_name: eureka-server
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8761:8761
+      
+  api-gateway:
+    build: api-gateway/
+    container_name: api-gateway
+    depends_on:
+      - eureka-server
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 9090:9090
+      
+  mongodb:
+    image: mongo:latest
+    container_name: mongo-container
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "27017:27017"  
+      
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    container_name: mysql-container
+    network_mode: host
+    hostname: localhost
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root1234
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      
+  authentication-service:
+    container_name: Authentication-service
+    build: Authentication-service/
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8002:8002
+    depends_on:
+      - eureka-server
+      - mysql
+    restart: always 
+
+  chat-service:
+    container_name: Chat-service
+    build: Chat-service/
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8004:8004
+    depends_on:
+      - eureka-server
+      - mongodb
+    restart: always 
+    
+  gym-service:
+    container_name: Gym-service
+    build: Gym-service/
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8008:8008
+    depends_on:
+      - eureka-server
+      - mongodb
+    restart: always 
+    
+  notification-service:
+    container_name: Notification-service
+    build: Notification-service/
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8010:8010
+    depends_on:
+      - eureka-server
+    restart: always
+    
+  payment-service:
+    container_name: Payment-service
+    build: Payment-service/
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8012:8012
+    depends_on:
+      - eureka-server
+      - mysql
+    restart: always
+    
+  user-service:
+    container_name: User-service
+    build: User-service/
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8014:8014
+    depends_on:
+      - eureka-server
+      - mysql
+    restart: always
+    
+  product-webapp:
+    build: product-webapp-service/
+    image: product-webapp-service
+    depends_on:
+      - eureka-server
+      - api-gateway
+    restart: always
+    container_name: product-webapp-service
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - "2016:2016"
+      
+  feedback-service:
+    container_name: Feedback-service
+    build: Feedback-service/
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8006:8006
+    depends_on:
+      - eureka-server
+      - mongodb
+    restart: always

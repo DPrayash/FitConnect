@@ -18,7 +18,7 @@ public class ApiGatewayApplication {
 	public RouteLocator   gatewayRouteLocater(RouteLocatorBuilder builder) {
 	return builder.routes()
 		.route(r->r.path("/auth/**")
-				.uri("lb://Authenticate"))
+				.uri("lb://AUTHENTICATION-SERVICE"))
 		.route(r->r.path("/Chat/**")
 				.uri("lb://CHAT-SERVICE"))
 		.route(r->r.path("/api/v1/gym-service/**")
@@ -33,6 +33,8 @@ public class ApiGatewayApplication {
 				.uri("lb://USER-SERVICE"))
 		.route(r->r.path("/api/v1/user-service/slots/**")
 				.uri("lb://USER-SERVICE"))
+		.route(r->r.path("/product/**")
+				.uri("lb://PRODUCT-WEBAPP-SERVICE"))
 		
 		
 		
