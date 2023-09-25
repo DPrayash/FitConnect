@@ -2,7 +2,7 @@ server:
   port: 8005
 spring:
   main:
-    web-application: reactive
+    web-application-type: reactive
   application:
     name: API-GATEWAY
   cloud:
