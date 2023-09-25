@@ -4,12 +4,15 @@ import { Observable } from 'rxjs';
 import { Chat } from '../models/chat.model';
 import { Message } from '../models/message.model';
 import { Chatting } from '../models/newChat.model';
+import { BaseUrl } from '../baseUrl';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
-  private url = "http://localhost:8004";
+  private url = BaseUrl;
+  ;
   constructor(private http : HttpClient){}
   // getChatByUserEmailId 
   public GetChatById(Email:string):Observable<Chat>{

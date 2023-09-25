@@ -33,7 +33,7 @@ public class ApiGatewayApplication {
 				.uri("lb://USER-SERVICE"))
 		.route(r->r.path("/api/v1/user-service/slots/**")
 				.uri("lb://USER-SERVICE"))
-		.route(r->r.path("/product/**")
+		.route(r->r.path("/**")
 				.uri("lb://PRODUCT-WEBAPP-SERVICE"))
 		
 		

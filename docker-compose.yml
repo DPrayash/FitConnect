@@ -18,7 +18,7 @@ services:
     network_mode: "host"
     hostname: localhost
     ports:
-      - 9090:9090
+      - 8005:8005
       
   mongodb:
     image: mongo:latest
@@ -33,18 +33,18 @@ services:
     ports:
       - "3306:3306"
     container_name: mysql-container
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USERNAME: root
-      MYSQL_PASSWORD: root1234
+      MYSQL_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       
   authentication-service:
     container_name: Authentication-service
     build: Authentication-service/
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     ports:
       - 8002:8002
@@ -56,7 +56,7 @@ services:
   chat-service:
     container_name: Chat-service
     build: Chat-service/
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     ports:
       - 8004:8004
@@ -68,7 +68,7 @@ services:
   gym-service:
     container_name: Gym-service
     build: Gym-service/
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     ports:
       - 8008:8008
@@ -80,7 +80,7 @@ services:
   notification-service:
     container_name: Notification-service
     build: Notification-service/
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     ports:
       - 8010:8010
@@ -91,7 +91,7 @@ services:
   payment-service:
     container_name: Payment-service
     build: Payment-service/
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     ports:
       - 8012:8012
@@ -103,7 +103,7 @@ services:
   user-service:
     container_name: User-service
     build: User-service/
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     ports:
       - 8014:8014
@@ -128,10 +128,10 @@ services:
   feedback-service:
     container_name: Feedback-service
     build: Feedback-service/
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     ports:
-      - 8006:8006
+      - 8022:8022
     depends_on:
       - eureka-server
       - mongodb
