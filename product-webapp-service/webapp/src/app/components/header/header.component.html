@@ -20,5 +20,25 @@
         <a mat-button routerLink="/">Home</a>
         <a mat-button routerLink="/registerUser">Register</a>
         <a mat-button routerLink="/login">Login</a>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <!-- <mat-icon>dialpad</mat-icon> -->
+              <span>About</span>
+            </button>
+            <button mat-menu-item>
+              <!-- <mat-icon>voicemail</mat-icon> -->
+              <span>Trainer</span>
+            </button>
+            <button mat-menu-item>
+              <!-- <mat-icon>notifications_off</mat-icon> -->
+              <span>Contact</span>
+            </button>
+            <button mat-menu-item>
+                <span>Plans</span>
+            </button>
+          </mat-menu>
     </ng-container>
 </mat-toolbar>
