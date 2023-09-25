@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Slot } from 'src/app/models/slot.model';
+import { Router } from '@angular/router';
 import { GymService } from 'src/app/services/gym.service';
 import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,9 +20,15 @@ export class BookComponent implements OnInit {
   @Input() rescheduleMode: boolean;
   @Input() rescheduleId: number;
   @Output() closeReschedule: EventEmitter<void> = new EventEmitter<void>();
+  showFeedBackForm: boolean;
 
 
-  constructor(private gymService: GymService, private dialog: MatDialog) {
+
+  constructor(
+    private gymService: GymService, 
+    private dialog: MatDialog,
+    private router: Router
+  ) {
     this.minDate = new Date();
     this.maxDate = new Date();
     this.maxDate.setDate(this.minDate.getDate() + 7);
@@ -62,6 +69,8 @@ export class BookComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.exitReschedule();
+      this.showFeedBackForm = true;
+      this.router.navigate(['/feedback'])
     });
   }
 

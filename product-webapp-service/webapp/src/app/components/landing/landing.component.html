@@ -71,6 +71,14 @@
         </button>
     </div>
 </section> -->
+    <ngx-slick-carousel class="carousel" [config]="slickCarouselConfig">
+        <div ngxSlickItem *ngFor="let image of images">
+          <img src="{{ image }}" alt="Carousel Image">
+        </div>
+      </ngx-slick-carousel>
+
+ 
+</section>
 
 <!-- About Section  /////////////////////////////////////////////////////////////////////-->
 <section class="section about" id="about" aria-label="about">
@@ -165,23 +173,22 @@
 
 <section id="trainer">
     <div class="container-fluid" style="padding-top: 60px;">
-        <h1
-            style="text-align: center; margin-top: 5px; color: red; font-size: x-large; text-shadow: 5px 0px 10px black;">
-            Meet our Trainers
+        <h1 style="text-align: center; margin-top: 5px; color: red; font-size: x-large; text-shadow: 5px 0px 10px black;">
+          Meet our Trainers
         </h1>
         <div class="trainer1">
-            <div class="card-container">
-                <div class="card" *ngFor="let trainer of trainerList">
-                    <img [src]="trainer.trainerImage" class="card-img-top" [alt]="trainer.trainerName">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ trainer.trainerName }}</h5>
-                        <p class="card-text">Category: {{ trainer.trainerCategory }}</p>
-                        <p class="card-text">Bio: {{ trainer.trainerBio }}</p>
-                    </div>
-                </div>
-            </div>
+          <div class="card-container">
+            <mat-card class="card" *ngFor="let trainer of trainerList">
+              <img mat-card-image class="trainer-image" [src]="trainer.trainerImage" [alt]="trainer.trainerName">
+              <mat-card-content>
+                <h5 class="card-title">{{ trainer.trainerName }}</h5>
+                <p class="card-text">Category: {{ trainer.trainerCategory }}</p>
+                <p class="card-text">Bio: {{ trainer.trainerBio }}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
         </div>
-    </div>
+      </div>
 </section>
 
 
@@ -189,37 +196,52 @@
 <!-- Contact Section ////////////////////////////////////////////////////////////////////////////////-->
 
 <section id="contact" style="padding-top: 60px; ">
-    <h1 style="text-align: center; margin-top: 20px; color: red; font-size: x-large;  text-shadow: 5px 0px 10px black;">
-        Contact Us</h1>
-    <div class="box1" style="padding-bottom: 60px; ">
-        <form class="row g-3 needs-validation" novalidate>
-            <div class="col-md-6">
-                <label for="validationCustom01" class="form-label">First name</label>
-                <input type="text" class="form-control" id="validationCustom01" value="" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6">
-                <label for="validationCustom02" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="validationCustom02" value="" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@gmail.com">
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <div class="col-12">
-                <button class="btn btn-primary" type="submit">Submit</button>
-            </div>
+    <h1 style="text-align: center; margin-top: 20px; color: red; font-size: x-large; text-shadow: 5px 0px 10px black;">
+        Contact Us
+      </h1>
+      <div class="contact-form" style="padding-bottom: 60px;">
+        <form class="row g-3" [formGroup]="contactForm">
+          <div class="mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>First name</mat-label>
+              <input matInput formControlName="firstName" required>
+              <mat-error *ngIf="contactForm.get('firstName').invalid && contactForm.get('firstName').touched">
+                First name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Last name</mat-label>
+              <input matInput formControlName="lastName" required>
+              <mat-error *ngIf="contactForm.get('lastName').invalid && contactForm.get('lastName').touched">
+                Last name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Email address</mat-label>
+              <input matInput formControlName="email" type="email" placeholder="name@gmail.com" required>
+              <mat-error *ngIf="contactForm.get('email').invalid && contactForm.get('email').touched">
+                Please enter a valid email address
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Message</mat-label>
+              <textarea matInput formControlName="message" rows="3" required></textarea>
+              <mat-error *ngIf="contactForm.get('message').invalid && contactForm.get('message').touched">
+                Message is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12">
+            <button mat-raised-button color="primary" type="submit" [disabled]="contactForm.invalid">Submit</button>
+          </div>
         </form>
-    </div>
+      </div>
 </section>
 
 
@@ -228,113 +250,58 @@
 <section id="member" style="padding-top: 60px; ">
     <h1 style="text-align: center; margin-top: 20px; color: red; font-size: x-large;  text-shadow: 5px 0px 10px black;">
         Our Membership Plans</h1>
-    <div class="container-fluid">
-        <div class="row mt-3">
-            <div class="col-4" *ngFor="let plan of planList">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="padding: 0px 0px 0px 80px;">{{plan.planName}}</h5>
-                        <h3>{{plan.planPrice}} for {{plan.planDuration}}</h3>
-                        Validate for {{plan.planDuration}}.<br>
-
-
-                        <a href="#" class="btn btn-primary">Get Started now</a>
-                    </div>
-                </div>
+        <div class="container-fluid">
+            <div class="row mt-3">
+              <div class="col-4" *ngFor="let plan of planList">
+                <mat-card class="card" style="width: 18rem;">
+                  <mat-card-content>
+                    <h5 class="card-title">{{plan.planName}}</h5>
+                    <h3>{{plan.planPrice}} for {{plan.planDuration}}</h3>
+                    Validate for {{plan.planDuration}}.<br>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-raised-button (click)="OnLogin()" color="primary">Get Started now</button>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
 </section>
 
 
-<!-- Feedback Section ////////////////////////////////////////////////////////////////////////////////////////-->
-
-<!-- feedback 2nd///////////////////////// -->
-<!-- <section id="review">
- <h1 style="text-align: center; margin-top: 20px; color: red; font-size: x-large;  text-shadow: 5px 0px 10px black;">
-    Review</h1><div style="margin-left: 10%; margin-right: 10%; margin-top: 50px;">
-  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-    <div ngxSlickItem *ngFor="let slide of FeedbackList" class="slide">
-        <div class="card" style="width: 18rem;">
-        <!-- <img src="{{ slide.img }}" alt="" class="img-style"> -->
-<!-- <div class="card-body">
-   <h2 class="card-title" style="padding: 0px 0px 0px 80px;" >{{ slide.customerName }}</h2>
-       
-          <p class="card-text">Remark: {{ slide.feedbackRemarks }}</p>
-          <p class="card-text">Description: {{ slide.feedbackDescription }}</p>
-          <p class="card-text">Rating: {{ slide.ratings }}/5</p>
-      
+<!-- footer/////////////////////////////////////////////////////////// -->
+<footer class="text-center" style="background-color: #0d0c0c; width: 100%;">
+    <div class="container-fluid">
+      <div class="row text-center d-flex justify-content-center pt-5">
+        <div class="col-md-2">
+          <h6 class="text-uppercase font-weight-bold">
+            <button mat-button color="primary" routerLink="/home">Home</button>
+          </h6>
+        </div>
+        <div class="col-md-2">
+          <h6 class="text-uppercase font-weight-bold">
+            <button mat-button color="primary" routerLink="/about">About</button>
+          </h6>
+        </div>
+        <div class="col-md-2">
+          <h6 class="text-uppercase font-weight-bold">
+            <button mat-button color="primary" routerLink="/trainer">Trainer</button>
+          </h6>
+        </div>
+        <div class="col-md-2">
+          <h6 class="text-uppercase font-weight-bold">
+            <button mat-button color="primary" routerLink="/contact">Contact</button>
+          </h6>
+        </div>
+      </div>
+      <hr class="my-5" />
+      <div class="row d-flex justify-content-center">
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-twitter"></a>
+        <a href="#" class="fa fa-instagram"></a>
       </div>
     </div>
-</div>
-  </ngx-slick-carousel>
-</div>
-</section> -->
-
-<!-- footer/////////////////////////////////////////////////////////// -->
-<div class="container-fluid my-5 " style="width: 100%;" style="padding-top: 60px; ">
-    <!-- Footer -->
-    <footer class="text-center text-white" style="background-color: #0d0c0c; width: 100%;">
-        <!-- Grid container -->
-        <div class="container-fluid">
-            <!-- Section: Links -->
-            <section class="mt-5">
-                <!-- Grid row-->
-                <div class="row text-center d-flex justify-content-center pt-5">
-                    <!-- Grid column -->
-                    <div class="col-md-2">
-                        <h6 class="text-uppercase font-weight-bold">
-                            <button class="text-white" onclick="window.location.href='#home'">Home</button>
-                        </h6>
-                    </div>
-                    <div class="col-md-2">
-                        <h6 class="text-uppercase font-weight-bold">
-                            <button class="text-white" onclick="window.location.href='#about'">About</button>
-
-                        </h6>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-2">
-                        <h6 class="text-uppercase font-weight-bold">
-                            <button class="text-white" onclick="window.location.href='#trainer'">Trainer</button>
-                        </h6>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-2">
-                        <h6 class="text-uppercase font-weight-bold">
-                            <button class="text-white" onclick="window.location.href='#contact'">Contact</button>
-                        </h6>
-                    </div>
-
-                    <!-- Grid column -->
-                </div>
-                <!-- Grid row-->
-            </section>
-            <!-- Section: Links -->
-
-            <hr class="my-5" />
-
-            <!-- Section: Text -->
-            <section class="mb-5">
-                <div class="row d-flex justify-content-center">
-                    <a href="#" class="fa fa-facebook"></a>
-                    <a href="#" class="fa fa-twitter"></a>
-                    <a href="#" class="fa fa-instagram"></a>
-
-
-                </div>
-            </section>
-
-        </div>
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2020 Copyright:
-            <a class="text-white" href="https://Ftconnect.com/">FITConnect.com</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
-</div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      <span class="text-white">© 2020 FITConnect.com</span>
+    </div>
+  </footer>

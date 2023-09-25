@@ -19,6 +19,7 @@ import { BookedComponent } from './components/booked/booked.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserPaymentComponent } from './components/user-payment/user-payment.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 
 
 const routes: Routes = [
@@ -48,7 +49,8 @@ const routes: Routes = [
   { path: 'updateUser', component: UpdateProfileComponent },
   { path: 'book', component: BookComponent },
   { path: 'bookings', component: BookedComponent },
-  { path: 'userPayment', component: UserPaymentComponent}
+  { path: 'userPayment', component: UserPaymentComponent},
+  { path: 'feedback', component: FeedbackFormComponent}
 ];
 
 @NgModule({

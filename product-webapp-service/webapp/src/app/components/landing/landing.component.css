@@ -1,6 +1,15 @@
 /* Import Font Awesome */
 @import "~font-awesome/css/font-awesome.css";
 
+
+* {
+    overflow: hidden;
+}
+
+section {
+    background-color: azure;
+}
+
 /* Update button styles */
 /* Update button styles */
 .btn {
@@ -174,8 +183,29 @@ ul {
 
 .carousel {
     margin: 30px;
-    width:640px;
-    height:230px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.trainer-image {
+    height: 200px;
+    object-fit: none;
+    overflow: hidden;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #0d0c0c04;
+}
+
+.contact-form > form {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
 *,
@@ -1477,5 +1507,4 @@ body {
    */
 
   .footer-top .container { grid-template-columns: 1fr 0.6fr 0.9fr 1fr; }
-
 }
