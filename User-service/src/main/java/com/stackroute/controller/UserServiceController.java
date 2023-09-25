@@ -29,7 +29,7 @@ import com.stackroute.model.UserService;
 import com.stackroute.service.UserServiceService;
 
 @RestController
-@CrossOrigin("*")	
+//@CrossOrigin("*")
 @RequestMapping("/api/v1/user-service/users")
 public class UserServiceController {
 
