@@ -2,7 +2,7 @@ version: "3"
 services:
   eureka-server:
     build: eureka-server/
-    container_name: eureka-server
+    container_name: fit-eureka-server
     restart: always
     network_mode: "host"
     hostname: localhost
@@ -11,7 +11,7 @@ services:
       
   api-gateway:
     build: api-gateway/
-    container_name: api-gateway
+    container_name: fit-api-gateway
     depends_on:
       - eureka-server
     restart: always
@@ -20,19 +20,7 @@ services:
     ports:
       - 8005:8005
 
-  zookeeper:
-    image: wurstmeister/zookeeper
-    container_name: zookeeper
-    ports:
-      - "2181:2181"
-  kafka:
-    image: wurstmeister/kafka
-    container_name: kafka
-    ports:
-      - "9092:9092"
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
       
   mongodb:
     image: mongo:latest
@@ -43,7 +31,7 @@ services:
       - "27017:27017"  
       
   mysql:
-    image: mysql:5.7
+    image: mysql:latest
     ports:
       - "3306:3306"
     container_name: mysql-container
@@ -56,71 +44,71 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       
   authentication-service:
-    container_name: Authentication-service
+    container_name: fit-Authentication-service
     build: Authentication-service/
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8002:8002
+      - 8020:8020
     depends_on:
       - eureka-server
       - mysql
     restart: always 
 
   chat-service:
-    container_name: Chat-service
+    container_name: fit-Chat-service
     build: Chat-service/
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8004:8004
+      - 8021:8021
     depends_on:
       - eureka-server
       - mongodb
     restart: always 
     
   gym-service:
-    container_name: Gym-service
+    container_name: fit-Gym-service
     build: Gym-service/
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8008:8008
+      - 8023:8023
     depends_on:
       - eureka-server
       - mongodb
     restart: always 
     
   notification-service:
-    container_name: Notification-service
+    container_name: fit-Notification-service
     build: Notification-service/
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8010:8010
+      - 8024:8024
     depends_on:
       - eureka-server
     restart: always
     
   payment-service:
-    container_name: Payment-service
+    container_name: fit-Payment-service
     build: Payment-service/
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8012:8012
+      - 8025:8025
     depends_on:
       - eureka-server
       - mysql
     restart: always
     
   user-service:
-    container_name: User-service
+    container_name: fit-User-service
     build: User-service/
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8014:8014
+      - 8027:8027
     depends_on:
       - eureka-server
       - mysql
@@ -128,7 +116,7 @@ services:
     
   product-webapp:
     build: product-webapp-service/
-    image: product-webapp-service
+    image: fit-product-webapp-service
     depends_on:
       - eureka-server
       - api-gateway
@@ -137,10 +125,10 @@ services:
     network_mode: "host"
     hostname: localhost
     ports:
-      - "2016:2016"
+      - "8026:8026"
       
   feedback-service:
-    container_name: Feedback-service
+    container_name: fit-Feedback-service
     build: Feedback-service/
     network_mode: "host"
     hostname: localhost
