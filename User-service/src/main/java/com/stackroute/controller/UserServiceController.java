@@ -4,7 +4,9 @@ import java.util.List;
 
 //import java.net.http.HttpHeaders;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +31,7 @@ import com.stackroute.model.UserService;
 import com.stackroute.service.UserServiceService;
 
 @RestController
+@Slf4j
 //@CrossOrigin("*")
 @RequestMapping("/api/v1/user-service/users")
 public class UserServiceController {
@@ -43,6 +46,8 @@ public class UserServiceController {
 
 	@Autowired
 	private RestTemplate restTemplate;
+	@Value("authenticationUrl")
+	private String url;
 	
 	
 	
@@ -61,9 +66,9 @@ public class UserServiceController {
 				login.setUserEmail(user.getUserEmail());
 				login.setUserPasswordHash(user.getUserPasswordHash());
 				
-				String otherServiceUrl="http://localhost:8002/auth/registerNewUser";
-				AuthDTO authData = new AuthDTO(user.getUserEmail(), user.getUserPasswordHash());
-				restTemplate.postForEntity(otherServiceUrl, authData, null);
+//				String otherServiceUrl=url+"/auth/registerNewUser";
+//				AuthDTO authData = new AuthDTO(user.getUserEmail(), user.getUserPasswordHash());
+//				restTemplate.postForEntity(otherServiceUrl, authData, null);
 				entity=new ResponseEntity<UserDTO>(createdUser, HttpStatus.OK);
 			}else {
 				entity=new ResponseEntity<String>("Cant be added", HttpStatus.CONFLICT);
