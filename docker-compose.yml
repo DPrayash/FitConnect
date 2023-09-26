@@ -19,37 +19,35 @@ services:
     hostname: localhost
     ports:
       - 8005:8005
-
-
       
   mongodb:
     image: mongo:latest
     container_name: mongo-container
-    network_mode: host
+    network_mode: "host"
     hostname: localhost
     ports:
-      - "27017:27017"  
+      - 27017:27017
       
   mysql:
     image: mysql:latest
-    ports:
-      - "3306:3306"
-    container_name: mysql-container
-    network_mode: "host"
+    container_name: mysql
+    restart: always
     hostname: localhost
+    network_mode: "host"
+    ports:
+      - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: 'root'
       MYSQL_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      
+
   authentication-service:
     container_name: fit-Authentication-service
     build: Authentication-service/
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8020:8020
+      - 8028:8028
     depends_on:
       - eureka-server
       - mysql

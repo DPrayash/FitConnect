@@ -19,6 +19,9 @@ export class AuthenticationService {
       headers: this.requestHeader,
     });
   }
+  public register(User:any){
+    return this.httpClient.post(this.PATH_OF_API+"/auth/registerNewUser",User);
+  }
 
   public roleMatch(allowedRoles:  any) : boolean{
     let isMatch = false;

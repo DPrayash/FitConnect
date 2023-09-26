@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 function nameValidator(control: AbstractControl): { [key: string]: boolean } | null {
   const name = control.value;
@@ -32,7 +33,8 @@ export class UserRegistrationFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private userService: UserService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private authService:AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -67,11 +69,18 @@ export class UserRegistrationFormComponent implements OnInit {
         planDuration: '',
         expirationDate: undefined
       };
+      const authData:any={
+        emailId: this.registrationForm.get('userEmail').value,
+        userPassword: this.registrationForm.get('userPasswordHash').value
+      }
       console.log(user);
       this.userService.registerUser(user).subscribe(
         (data) => {
           console.log("User Registered!!");
           console.log(data);
+          this.authService.register(authData).subscribe((res:any)=>{
+            console.log(res);
+          })
           this.registrationForm.reset();
           this.openSnackBar("User Registered Successfully!", "Close");
           this.router.navigate(['/login']);
