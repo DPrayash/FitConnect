@@ -22,7 +22,7 @@ import com.stackroute.service.ChatService;
 
 @RestController
 @RequestMapping("/Chat")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class ChatController {
 	@Autowired
 	ChatService chatService;

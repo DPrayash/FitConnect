@@ -20,7 +20,7 @@ import com.stackroute.Feedbackservice.model.Feedback;
 import com.stackroute.Feedbackservice.service.FeedbackService;
 
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RequestMapping("/feedback")
 public class FeedbackController {
 	

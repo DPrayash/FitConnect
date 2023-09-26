@@ -18,7 +18,7 @@ import com.stackroute.service.PaymentService;
 
 
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RequestMapping("/payment")
 public class PaymentController {
 

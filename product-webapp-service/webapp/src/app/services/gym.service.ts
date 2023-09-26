@@ -7,13 +7,14 @@ import { Trainer } from '../models/trainer.model';
 import { Plan } from '../models/plan.model';
 import { MediaFile } from '../models/mediafile.model';
 import { Equipment } from '../models/equipment.model';
+import { BaseUrl } from '../baseUrl';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class GymService {
-  private apiUrl = 'http://localhost:8008/api/v1/gym-service';
+  private apiUrl = BaseUrl+'/api/v1/gym-service';
 
   constructor(private http: HttpClient) {}
 

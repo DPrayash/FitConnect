@@ -20,7 +20,7 @@ import com.stackroute.model.AdminDTO;
 import com.stackroute.service.AdminService;
 
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RequestMapping("/api/v1/user-service/admin")
 public class AdminController {
 	

@@ -22,7 +22,7 @@ import com.stackroute.model.UserActivity;
 import com.stackroute.service.UserActivityService;
 
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RequestMapping("/api/v1/user-service/slots")
 public class UserActivityController {
 

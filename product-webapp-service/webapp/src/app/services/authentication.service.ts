@@ -1,13 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserAuthService } from './user-auth.service';
+import { BaseUrl } from '../baseUrl';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  PATH_OF_API = "http://localhost:8002"
+  PATH_OF_API = BaseUrl;
+
 
   constructor(private httpClient:HttpClient, private userAuthService : UserAuthService) { }
 

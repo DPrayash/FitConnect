@@ -13,7 +13,7 @@ import com.stackroute.entity.JwtResponse;
 import com.stackroute.service.JwtService;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/auth")
 public class JwtController {
 

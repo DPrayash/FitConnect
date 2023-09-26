@@ -22,7 +22,7 @@ import com.stackroute.exception.DuplicateEntityException;
 import com.stackroute.exception.NotFoundException;
 
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RequestMapping("/api/v1/gym-service")
 @Api(value = "Gym Service API", description = "Operations related to the Gym Service")
 public class GymServiceController {

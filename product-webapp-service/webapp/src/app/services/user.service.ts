@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Activity } from '../models/activity.model';
 import { User } from '../models/user.model';
+import { BaseUrl } from '../baseUrl';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8014/api/v1/user-service';
+  private apiUrl = BaseUrl+'/api/v1/user-service';
   constructor(private http: HttpClient) { }
 
   registerUser(user: User): Observable<User> {
