@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -19,13 +20,15 @@ export class HeaderComponent implements OnInit{
 
   constructor(
     private userService: UserService, 
-    private adminService: AdminService
+    private adminService: AdminService,
+    private router: Router
   ) {
     
   }
 
   logout() {
     this.signOut.emit();
+    this.router.navigate(['']);
   }
 
   ngOnInit(): void {

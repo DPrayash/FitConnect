@@ -1,4 +1,7 @@
-<div class="chat-container">
+<div class="card" *ngIf="isLoading">
+    <app-loading [skeletonLoading]="false"></app-loading>
+</div>
+<div class="chat-container" *ngIf="!isLoading">
     <!-- Chat Messages -->
    <div class="chat-messages">
        <!-- Chat Window -->
@@ -8,7 +11,7 @@
                <img class="chat-avatar" mat-list-avatar [src]='adminProfilePic' alt="User Image">
            
                <div class="header-info">
-                   <h3 mat-line class="user-name">Chat With Admin</h3>
+                   <h3 mat-line class="user-name">Admin Chat</h3>
                </div>
            </div>
 
@@ -17,14 +20,14 @@
                <div class="message-item" *ngFor="let message of messages"
                    [class.admin-message]="message.senderEmail === selectedChat.chatUserEmail">
                    <div class="message-options" *ngIf="message.senderEmail===selectedChat.chatUserEmail">
-                       <button mat-icon-button [matMenuTriggerFor]="messageMenu">
-                           <mat-icon>more_vert</mat-icon>
-                       </button>
-                       <mat-menu #messageMenu="matMenu">
-                           <button mat-menu-item class="delete-button" (click)="deleteMessage(message)">Delete</button>
+                    <button mat-icon-button [matMenuTriggerFor]="messageMenu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #messageMenu="matMenu">
+                        <button mat-menu-item class="delete-button" (click)="deleteMessage(message)">Delete</button>
 
-                       </mat-menu>
-                   </div>
+                    </mat-menu>
+                    </div>
                    <div *ngIf="message.senderMessage !== null; else elseBlock">
                        <!-- Content to display when condition is true -->
                        <p class="message" [class.admin-message-text]="message.senderEmail === selectedChat.chatUserEmail">
@@ -33,6 +36,7 @@
 
                        <p class="timestamp">{{ message.timeStamp }} </p>
                    </div>
+                   
 
                    <ng-template #elseBlock>
                        <!-- Content to display when condition is false -->

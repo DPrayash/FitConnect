@@ -97,7 +97,7 @@ export class PlansComponent implements OnInit{
           this.newPlanDescription = [];
         }, (error) => {
           console.log(error);
-          this.openSnackBar(error.error.message, 'Close');
+          // this.openSnackBar(error.error.message, 'Close');
         }
       );
     }

@@ -1,4 +1,7 @@
-<div class="chat-container">
+<div class="card" *ngIf="isLoading">
+    <app-loading [skeletonLoading]="false"></app-loading>
+</div>
+<div class="chat-container" *ngIf="!isLoading">
     <!-- Chat List -->
     <div class="chat-list">
         <h2 class="chat-list-title">Chat Section</h2>

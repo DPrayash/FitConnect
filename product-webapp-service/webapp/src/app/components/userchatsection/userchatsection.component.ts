@@ -31,15 +31,20 @@ export class UserchatsectionComponent implements OnInit {
   dummyProfilePic = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCpY5LtQ47cqncKMYWucFP41NtJvXU06-tnQ&usqp=CAU';
   adminProfilePic: string = '';
   profilePic: string = '';
+  isLoading: boolean = false;
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.isLoggedin = this.uas.isLoggedIn() !== null && this.uas.isLoggedIn() !== '';
     if (this.isLoggedin) {
       this.userEmail = this.uas.getUID();
       this.getAdminProfilePic();
+      this.isLoading= false;
       setInterval(() => {
-        this.getChatByEmail(this.userEmail)
+        this.getChatByEmail(this.userEmail);
+        this.isLoading = false;
       }, 5000)
+      
     } else {
       this.router.navigate(['/login']);
     }
@@ -126,11 +131,13 @@ export class UserchatsectionComponent implements OnInit {
 
   }
   getChatByEmail(Email: string) {
+    this.isLoading = true;
     this.chatservice.GetChatById(Email).subscribe((chat) => {
 
 
       this.selectedChat = chat;
       this.messages = this.selectedChat.chatMessage;
+      this.isLoading = false;
     }, (err) => {
       this.AddChat(Email);
     })

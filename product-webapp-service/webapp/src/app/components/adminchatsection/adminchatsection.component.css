@@ -12,7 +12,7 @@
     flex: 1;
     max-width:350px;
     padding: 20px;
-    background-color: #99DBF5;
+    background-color: #f1f1f1;
     overflow-y: auto; /* Add scroll bar when content exceeds container height */
     border-right: 1px solid #ccc;
     text-align: center;
@@ -40,7 +40,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: #007bff;
+    background-color: rgb(253, 224, 216);
     color: #fff;
   }
   
@@ -54,14 +54,18 @@
   
   /* User name in header */
   .user-name {
-    font-size: 18px;
+    text-decoration: none;
+    color: var(--black-light-color);
+    font-size: 1rem;
+    font-weight: bolder;
+    margin: 0;
   }
   
   /* Chat window body */
   .chat-window-body {
     flex: 1;
     padding: 20px;
-    background-color: #445069;
+    background-color: #f1f1f1;
     overflow-y: auto; /* Add scroll bar when content exceeds container height */
   }
   
@@ -149,7 +153,7 @@
     padding: 10px;
     display: flex;
     align-items: center;
-    background-color: #748DA6;
+    background-color: #fff;
     border-top: 1px solid #ccc;
   }
   .chat-window-footer>form {
@@ -162,7 +166,7 @@
   .attachment-icon {
     font-size: 20px;
     margin-right: 10px;
-    color: #C51605;
+    color: black;
     cursor: pointer;
   }
   
@@ -185,8 +189,8 @@
   
   /* Message submit button */
   .message-submit {
-    background-color: #C51605;
-    color: #fff;
+    background-color: #f1f1f1;
+    color: black;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
