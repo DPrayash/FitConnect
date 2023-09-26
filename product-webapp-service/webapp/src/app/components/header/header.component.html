@@ -26,18 +26,18 @@
           <mat-menu #menu="matMenu">
             <button mat-menu-item>
               <!-- <mat-icon>dialpad</mat-icon> -->
-              <span>About</span>
+              <a href="/#about" mat-menu-item tabindex="0"><span>About</span></a>
             </button>
             <button mat-menu-item>
               <!-- <mat-icon>voicemail</mat-icon> -->
-              <span>Trainer</span>
+              <a mat-menu-item tabindex="0" href="/#trainer"><span>Trainer</span></a>
             </button>
             <button mat-menu-item>
-              <!-- <mat-icon>notifications_off</mat-icon> -->
-              <span>Contact</span>
+              <a mat-menu-item tabindex="0" href="/#member"><span>Plans</span></a>
             </button>
             <button mat-menu-item>
-                <span>Plans</span>
+              <!-- <mat-icon>notifications_off</mat-icon> src=/#-->
+              <a mat-menu-item tabindex="0" href="/#contact"><span>Contact</span></a>
             </button>
           </mat-menu>
     </ng-container>

@@ -5,10 +5,164 @@
 * {
     overflow: hidden;
 }
+/*Plans*/
+.container {
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.center {
+  display: block;
+margin-left: auto;
+margin-right: auto;
+width: 70%;
+margin-top: 30%;
+margin-bottom: 30%;
+}
+
+h1 {
+  color: #111; 
+  font-family: "Teko",sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 46px;
+  line-height: 64px; 
+  margin: 0 0 0; 
+  padding: 20px 30px; 
+  text-align: center;
+}
+
+h2 {
+  color: #333333; 
+  font-family: 'Bitter', serif; 
+  font-size: 44px; 
+  font-weight: normal; 
+  line-height: 54px; 
+  margin: 0 0 54px;
+}
+
+.planName {
+  text-align: center;
+  font-size: 44px;
+  width: 100%;
+}
+
+.horizontal {
+  display: flex;
+  justify-content: space-around;
+}
+
+.plans {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  align-content: space-between;
+  margin-top: 30px;
+  height: 100%;
+  width: 24%;
+  padding: 5px;
+  /* margin-right: 20px; */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  background-color: #f1f1f1;
+}
+
+.starterPack {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.plan1, .plan2, .plan3 {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: block;
+  height: 100%;
+  width: 27%;
+  padding: 5px;
+  margin-right: 20px;
+}
+
+.body1, .body2, .body3 {
+  margin-top: 10px;
+  font-size: 16px;
+  width: 100%;
+}
+
+p {
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.price {
+  font-size: 30px;
+  font-weight: bolder;
+  line-height: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.plandetails {
+  margin: 2% auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  width: 50%;
+  background-color: #f1f1f1;
+  margin-left: 40px;
+  display: block;
+}
+
+.myPlan {
+  margin: 5% auto;
+}
+
+.mat-card-title {
+  text-align: center;
+  font-size: 32px;
+}
+
+.user-info-icon {
+  margin-right: 10px;
+}
 
 section {
-    background-color: azure;
+    background-color: white
 }
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
+
+.contact {
+  margin: 10% auto;
+  box-sizing: border-box; 
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.matForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.matForm > * {
+  width: 100%;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+}
+
 
 /* Update button styles */
 /* Update button styles */
@@ -182,9 +336,8 @@ ul {
 }
 
 .carousel {
-    margin: 30px;
     width: 100vw;
-    height: 100vh;
+    height: 50vh;
     overflow: hidden;
 }
 
@@ -305,30 +458,11 @@ body {
   position: absolute;
 }
 
-.h1,
-.h2,
-.h3 {
-  font-family: var(--ff-catamaran);
-  line-height: 1.25;
-}
 
-.h1 {
-  color: var(--white);
-  font-size: var(--fs-1);
-  font-weight: var(--fw-900);
-}
-
-.h2,
-.h3 {
-  color: var(--rich-black-fogra-29-1);
-  font-weight: var(--fw-800);
-}
-
-.h2 { font-size: var(--fs-2); }
-
-.h3 { font-size: var(--fs-4); }
-
-.section-text { font-size: var(--fs-6); }
+.section-text { 
+  font-size: var(--fs-6);
+  font-family:'Libre Baskerville', serif;
+ }
 
 .btn {
   max-width: max-content;

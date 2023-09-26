@@ -75,9 +75,9 @@ export class LandingComponent implements OnInit {
   }
 
   images: string[] = [
-    'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80',
-    'https://images.unsplash.com/photo-1544033527-b192daee1f5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTB8fGd5bXxlbnwwfDB8MHx8fDA%3D&auto=format&fit=crop&w=2000&q=60',
-    'https://images.unsplash.com/photo-1554284126-aa88f22d8b74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80'
+    '../../../assets/images/Fitness_Header.jpg',
+    // '../../../assets/images/Fitness_Header2.jpeg',
+    '../../../assets/images/Fitness_Header3.jpeg'
 
   ];
 
