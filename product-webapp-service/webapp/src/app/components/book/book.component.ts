@@ -19,6 +19,7 @@ export class BookComponent implements OnInit {
   maxDate: Date;
   @Input() rescheduleMode: boolean;
   @Input() rescheduleId: number;
+  @Input() prevSlotId: string;
   @Output() closeReschedule: EventEmitter<void> = new EventEmitter<void>();
   showFeedBackForm: boolean;
 
@@ -64,7 +65,7 @@ export class BookComponent implements OnInit {
 
   openDialog(slot: Slot) {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '400px', data: { slot: slot, rescheduleMode: this.rescheduleMode, rescheduleId: this.rescheduleId }
+      width: '400px', data: { slot: slot, rescheduleMode: this.rescheduleMode, rescheduleId: this.rescheduleId, prevSlotId: this.prevSlotId }
     });
 
     dialogRef.afterClosed().subscribe(result => {

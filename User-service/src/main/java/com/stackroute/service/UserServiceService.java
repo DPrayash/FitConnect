@@ -16,6 +16,7 @@ public interface UserServiceService {
 	UserDTO updateUser(UserService user, String userEmail);
 	UserDTO uploadProfilepic(String userEmail, MultipartFile file);
 	UserDTO updatePlan(UserService user, String userEmail);
+	boolean deleteUserById(String userEmail);
 	
 	
 }

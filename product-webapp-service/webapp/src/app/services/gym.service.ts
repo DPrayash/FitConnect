@@ -44,6 +44,18 @@ export class GymService {
     return this.http.post<Slot[]>(`${this.apiUrl}/slots/byIdList`, slotIds);
   }
 
+  getMaxLimitOfASlot(slotId: string): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/slots/available/${slotId}`);
+  }
+
+  setBookedSlot(slotId: string): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/slots/booked/${slotId}`);
+  }
+
+  setCancelSlot(slotId: string): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/slots/cancel/${slotId}`);
+  }
+
   addASlot(slot: Slot): Observable<Slot> {
     return this.http.post<Slot>(`${this.apiUrl}/slots`, slot);
   }

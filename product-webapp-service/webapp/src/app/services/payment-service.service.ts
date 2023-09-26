@@ -22,6 +22,6 @@ export class PaymentServiceService {
     }
 
     public getTransactionByUser(userEmail: any) {
-      return this.httpClient.get(BaseUrl+"2/payment/transactions/"+userEmail);
+      return this.httpClient.get(BaseUrl+"/payment/transactions/"+userEmail);
     }
 }

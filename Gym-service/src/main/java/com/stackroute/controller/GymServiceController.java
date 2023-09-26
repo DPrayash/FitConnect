@@ -190,7 +190,7 @@ public class GymServiceController {
 		}
 	}
 	
-	@PutMapping("slots/booked/{slotId}")
+	@GetMapping("slots/booked/{slotId}")
 	@ApiOperation(value = "Update maximumLimit by slotId when booked", notes = "Update the maximumLimit of slot by slotId when ever the respective slot is booked")
 	public ResponseEntity<?> updateMaximumLimitBySlotId(@PathVariable("slotId") String slotId) {
 		try {
@@ -206,7 +206,7 @@ public class GymServiceController {
 		}
 	}
 	
-	@PutMapping("slots/cancel/{slotId}")
+	@GetMapping("slots/cancel/{slotId}")
 	@ApiOperation(value = "Update maximumLimit by slotId when canceled", notes = "Update the maximumLimit of slot by slotId when the respective slot is canceled")
 	public ResponseEntity<?> updateMaximumLimitBySlotIdWhenCanceled(@PathVariable("slotId") String slotId) {
 	    try {

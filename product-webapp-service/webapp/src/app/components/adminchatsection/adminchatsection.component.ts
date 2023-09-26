@@ -46,6 +46,7 @@ export class AdminchatsectionComponent implements OnInit {
       }
       setInterval(() => {
         this.getChats();
+        this.profilePic = this.getUserProfilePic(this.sendermail);
         this.isLoading= false;
       }, 5000)
     } else {
@@ -55,7 +56,6 @@ export class AdminchatsectionComponent implements OnInit {
 
   selectChat(chat: Chat) {
     this.selectedChat = chat;
-    this.profilePic = this.getUserProfilePic(chat.chatUserEmail);
     this.messages = chat.chatMessage;
   }
 
@@ -156,6 +156,7 @@ export class AdminchatsectionComponent implements OnInit {
       (res) => {
         this.chatList = res
         this.isLoading = false;
+        this.messages  = this.chatList[0].chatMessage;
       },
       (err) => {
         console.log(err)

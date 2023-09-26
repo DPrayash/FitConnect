@@ -121,5 +121,17 @@ public class UserServiceServiceImpl implements UserServiceService {
 	public List<UserDTO> getAllUsers() {
 		return userRepository.findAll();
 	}
+	
+	@Override
+	public boolean deleteUserById(String userEmail) {
+		UserDTO exsistingUser = userRepository.findById(userEmail).orElse(null);
+
+		if(exsistingUser != null) {
+			userRepository.deleteById(userEmail);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

@@ -14,30 +14,32 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css']
 })
-export class DialogComponent implements OnInit{
+export class DialogComponent implements OnInit {
   @Input() data: any;
   selectedSlot: Slot;
   trainerList: Trainer[] = [];
   selectedTrainer!: string;
   userEmail: string;
   rescheduleMode = false;
+  prevSlotId: string;
   isLoggedin: boolean;
   rescheduleId: number | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private dialogRef: MatDialogRef<DialogComponent>,
-    private gymService: GymService, 
-    private userService: UserService, 
+    private gymService: GymService,
+    private userService: UserService,
     private _snackBar: MatSnackBar,
     private userAuthService: UserAuthService,
     private router: Router
 
-    ) {
+  ) {
     this.data = dialogData;
     this.selectedSlot = this.data.slot;
     this.rescheduleMode = this.data.rescheduleMode;
     this.rescheduleId = this.data.rescheduleId;
+    this.prevSlotId = this.data.prevSlotId;
     this.getTrainerDetailsById(this.selectedSlot.slotId);
   }
 
@@ -45,7 +47,7 @@ export class DialogComponent implements OnInit{
     this.isLoggedin = this.userAuthService.isLoggedIn() !== null && this.userAuthService.isLoggedIn() !== '';
     if (this.isLoggedin) {
       this.userEmail = this.userAuthService.getUID();
-      if(this.userEmail){
+      if (this.userEmail) {
         console.log(this.userEmail);
       }
     } else {
@@ -86,33 +88,67 @@ export class DialogComponent implements OnInit{
       console.log(activity);
 
       if (this.rescheduleMode) {
-        this.userService.rescheduleASlot(this.rescheduleId, activity).subscribe((response: any) => {
-          console.log(response);
-          this.openSnackBar("Slot rescheduled successfully!", "OK", () => {
-            this.closeForm();
-          });
-        },
-          (error: any) => {
-            console.log(error);
+
+        this.gymService.getMaxLimitOfASlot(activity.slotNumber).subscribe((data) => {
+          if (data > 0) {
+            this.userService.rescheduleASlot(this.rescheduleId, activity).subscribe((response: any) => {
+              console.log(response);
+              this.gymService.setBookedSlot(activity.slotNumber).subscribe((ndata)=>{
+                console.log("New slots' available seats: ", ndata);
+              });
+              this.gymService.setCancelSlot(this.prevSlotId).subscribe((pdata)=>{
+                console.log("Old slots' available seats: ", pdata);
+              })
+              this.openSnackBar("Slot rescheduled successfully!", "OK", () => {
+                this.closeForm();
+              });
+            },
+              (error: any) => {
+                console.log(error);
+                this.openSnackBar("Error while rescheduling slot. Please try again later.", "OK", () => {
+                  this.closeForm();
+                });
+              });
+          } else {
             this.openSnackBar("Error while rescheduling slot. Please try again later.", "OK", () => {
               this.closeForm();
             });
-          });
+          }
+        })
+
+
 
       } else {
-        this.userService.bookASlot(activity).subscribe((response: any) => {
-          console.log(response);
-          this.openSnackBar("Slot booked successfully!", "OK", () => {
-            this.closeForm();
-          });
 
-        },
-          (error: any) => {
-            console.log(error);
-            this.openSnackBar("Error while booking slot. Please try again later.", "OK", () => {
-              this.closeForm();
-            });
-          });
+        this.gymService.getMaxLimitOfASlot(activity.slotNumber).subscribe(
+          (data) => {
+            if (data > 0) {
+              this.userService.bookASlot(activity).subscribe((response: any) => {
+                console.log(response);
+                this.gymService.setBookedSlot(activity.slotNumber).subscribe(
+                  (ndata) => {
+                    console.log("Available slots after booking:", ndata);
+                  }
+                )
+                this.openSnackBar("Slot booked successfully!", "OK", () => {
+                  this.closeForm();
+                });
+
+              },
+                (error: any) => {
+                  console.log(error);
+                  this.openSnackBar("Error while booking slot. Please try again later.", "OK", () => {
+                    this.closeForm();
+                  });
+                });
+            } else {
+              this.openSnackBar("Error while booking slot. Please try again later.", "OK", () => {
+                this.closeForm();
+              });
+            }
+          }
+        )
+
       }
 
     });

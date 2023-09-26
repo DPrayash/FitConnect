@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -168,6 +169,20 @@ public class UserServiceController {
 		}
 		
 		
+	}
+	
+	@DeleteMapping("/deleteUser/{userEmail}")
+	public ResponseEntity<?> deleteUserById(@PathVariable("userEmail") String userEmail) {
+		try {
+			boolean isDeleted = userService.deleteUserById(userEmail);
+			if(isDeleted) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Error while deleting the user", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	

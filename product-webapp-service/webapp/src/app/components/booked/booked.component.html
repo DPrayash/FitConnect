@@ -1,4 +1,4 @@
-<app-book *ngIf="rescheduleMode" [rescheduleMode]="true" [rescheduleId]="rescheduleId" (closeReschedule)="closeReschedule()"></app-book>
+<app-book *ngIf="rescheduleMode" [rescheduleMode]="true" [prevSlotId]="prevSlotId" [rescheduleId]="rescheduleId" (closeReschedule)="closeReschedule()"></app-book>
 
 <div *ngIf="!rescheduleMode" class="items-container">
     <div class="items-list" *ngIf="myActivityList.length==0" >
@@ -27,10 +27,10 @@
             </span>
 
             <mat-menu #slotCardActionsMenu="matMenu" xPosition="before">
-                <a mat-menu-item tabindex="0" (click)="cancelSlot(selectedActivity.activityId)">
+                <a mat-menu-item tabindex="0" (click)="cancelSlot(selectedActivity.activityId, selectedActivity.slotNumber)">
                     <mat-icon>event_busy</mat-icon> Cancel slot
                 </a>
-                <a mat-menu-item tabindex="0" (click)="rescheduleSlot(selectedActivity.activityId)">
+                <a mat-menu-item tabindex="0" (click)="rescheduleSlot(selectedActivity.activityId, selectedActivity.slotNumber)">
                     <mat-icon>event_note</mat-icon> Reschedule slot
                 </a>
             </mat-menu>

@@ -44,23 +44,23 @@ public class UserActivityController {
 	public ResponseEntity<?> bookSlot(@RequestBody UserActivity userActivity){
 		
 		 try {
-	            String getUrl = "http://localhost:8008/api/v1/gym-service/slots/available/" + userActivity.getSlotNumber();
-	            int availableSlots = restTemplate.getForObject(getUrl, Integer.class);
-
-	            if (availableSlots > 0) {
+//	            String getUrl = "http://localhost:8008/api/v1/gym-service/slots/available/" + userActivity.getSlotNumber();
+//	            int availableSlots = restTemplate.getForObject(getUrl, Integer.class);
+//
+//	            if (availableSlots > 0) {
 	                UserActivity bookedSlot = activityService.bookSlot(userActivity);
 	                if (bookedSlot != null) {
-	                    String putUrl = "http://localhost:8008/api/v1/gym-service/slots/booked/" + bookedSlot.getSlotNumber();
-
-	                    restTemplate.put(putUrl, bookedSlot);
+//	                    String putUrl = "http://localhost:8008/api/v1/gym-service/slots/booked/" + bookedSlot.getSlotNumber();
+//
+//	                    restTemplate.put(putUrl, bookedSlot);
 
 	                    return new ResponseEntity<>(bookedSlot, HttpStatus.OK);
 	                } else {
 	                    return new ResponseEntity<>("Not added", HttpStatus.CONFLICT);
 	                }
-	            } else {
-	                throw new SlotOccupiedException("Slot is occupied. Cannot proceed.");
-	            }
+//	            } else {
+//	                throw new SlotOccupiedException("Slot is occupied. Cannot proceed.");
+//	            }
 	        } catch (SlotOccupiedException ex) {
 	            return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
 	        } catch (Exception ex) {
@@ -75,9 +75,9 @@ public class UserActivityController {
 
 		        if (userActivity != null) {
 
-		            String putUrl = "http://localhost:8008/api/v1/gym-service/slots/cancel/" + userActivity.getSlotNumber();
-
-		            restTemplate.put(putUrl, null);
+//		            String putUrl = "http://localhost:8008/api/v1/gym-service/slots/cancel/" + userActivity.getSlotNumber();
+//
+//		            restTemplate.put(putUrl, null);
 
 		            return new ResponseEntity<String>("Slot cancelled Successfully", HttpStatus.OK);
 		        } else {

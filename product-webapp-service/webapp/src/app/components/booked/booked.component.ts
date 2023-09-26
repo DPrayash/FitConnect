@@ -29,6 +29,7 @@ export class BookedComponent implements OnInit {
   userEmail: string;
   rescheduleMode = false;
   rescheduleId: number | null = null;
+  prevSlotId: string;
 
   ngOnInit(): void {
     this.isLoggedin = this.userAuthService.isLoggedIn() !== null && this.userAuthService.isLoggedIn() !== '';
@@ -70,7 +71,7 @@ export class BookedComponent implements OnInit {
     )
   }
 
-  cancelSlot(activityId: number) {
+  cancelSlot(activityId: number, slotNumber: string) {
     const snackBarRef = this._snackBar.open('Are you sure you want to cancel this slot?', 'Yes', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
@@ -80,6 +81,9 @@ export class BookedComponent implements OnInit {
     snackBarRef.onAction().subscribe(() => {
       this.userService.cancelASlot(activityId).subscribe(
         (data) => {
+          this.gymService.setCancelSlot(slotNumber).subscribe((data)=>{
+            console.log("After canceling, the availabe slots are: ", data);
+          })
           console.log('Updated activity: ', data);
         }
       )
@@ -97,14 +101,16 @@ export class BookedComponent implements OnInit {
     });
   }
 
-  rescheduleSlot(activityId: number) {
+  rescheduleSlot(activityId: number, slotNumber: string) {
     this.rescheduleId = activityId;
     this.rescheduleMode = true;
+    this.prevSlotId = slotNumber;
   }
 
   closeReschedule() {
     this.rescheduleMode = false;
     this.rescheduleId = null;
+    this.prevSlotId = "";
     this.getMyBookedSlots();
   }
 

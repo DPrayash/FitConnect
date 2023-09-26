@@ -72,30 +72,30 @@ public class UserActivityServiceImpl implements UserActivityService {
 
 		if (reschedule.getSlotStatus() == SlotStatus.BOOKED) {
 
-			String newSlotCheckUrl = "http://localhost:8008/api/v1/gym-service/slots/available/"
-					+ userActivity.getSlotNumber();
-
-			int availableSlots = restTemplate.getForObject(newSlotCheckUrl, Integer.class);
-
-			if (availableSlots > 0) {
-				String oldSlotCancelUrl = "http://localhost:8008/api/v1/gym-service/slots/cancel/"
-						+ reschedule.getSlotNumber();
-
-				restTemplate.put(oldSlotCancelUrl, null);
-
-				String newSlotBookUrl = "http://localhost:8008/api/v1/gym-service/slots/booked/"
-						+ userActivity.getSlotNumber();
-
-				restTemplate.put(newSlotBookUrl, userActivity);
+//			String newSlotCheckUrl = "http://localhost:8008/api/v1/gym-service/slots/available/"
+//					+ userActivity.getSlotNumber();
+//
+//			int availableSlots = restTemplate.getForObject(newSlotCheckUrl, Integer.class);
+//
+//			if (availableSlots > 0) {
+//				String oldSlotCancelUrl = "http://localhost:8008/api/v1/gym-service/slots/cancel/"
+//						+ reschedule.getSlotNumber();
+//
+//				restTemplate.put(oldSlotCancelUrl, null);
+//
+//				String newSlotBookUrl = "http://localhost:8008/api/v1/gym-service/slots/booked/"
+//						+ userActivity.getSlotNumber();
+//
+//				restTemplate.put(newSlotBookUrl, userActivity);
 
 				reschedule.setSlotNumber(userActivity.getSlotNumber());
 				reschedule.setTrainerName(userActivity.getTrainerName());
 				reschedule.setBookingDate(userActivity.getBookingDate());
 
 				return activityRepository.save(reschedule);
-			} else {
-				throw new IllegalArgumentException("New slot is occupied. Slot cannot be rescheduled.");
-			}
+//			} else {
+//				throw new IllegalArgumentException("New slot is occupied. Slot cannot be rescheduled.");
+//			}
 		} else {
 			throw new IllegalArgumentException("Slot cannot be rescheduled");
 		}
