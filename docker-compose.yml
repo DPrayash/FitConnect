@@ -47,7 +47,7 @@ services:
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8020:8020
+      - 8028:8028
     depends_on:
       - eureka-server
       - mysql
